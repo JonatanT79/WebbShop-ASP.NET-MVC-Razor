@@ -1,6 +1,15 @@
-﻿
+﻿@model Products
 @{
 
 }
 
-<p class="display-4" >Hej</p>
+<h1>Products</h1>
+<br />
+<b>Name:    Description:    Price:</b>
+@foreach (var item in Model.Productlist)
+{
+    <p>@item.Name</p>
+    <p>@item.Description</p>
+    <p>@item.Price Kr</p>
+    <p style="border:1px; border-style:solid; border-color:#0094ff;"> </p>
+}
