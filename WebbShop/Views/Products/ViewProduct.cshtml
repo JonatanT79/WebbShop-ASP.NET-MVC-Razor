@@ -1,0 +1,39 @@
+﻿@model ProductDetails
+@{
+}
+
+<h1>@Model.Name</h1>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="card h-auto" style="padding:15px">
+            <img src="~/Images/Dator.jpg" style="width:100%; height:100%;" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <center>
+            <br />
+            <br />
+            <br />
+            <h1 class="display-3">@Model.Price kr</h1>
+            <a class="btn btn-outline-primary" asp-controller="Checkout" asp-action="ShoppingCart">Lägg i varukorg</a>
+        </center>
+    </div>
+</div>
+<p style="border:1px; border-style:solid; border-color:#000000;"> </p>
+
+<center>
+    <b>Product Description</b>
+    <li class="list-group-item">
+        <p>@Model.Description</p>
+    </li>
+    <p style="border:1px; border-style:solid; border-color:#000000;"> </p>
+
+    <b>Specific productinformation</b>
+    <li class="list-group-item">
+        <p><b>Release: </b>@Model.Release</p>
+        <p><b>Maker: </b>@Model.Maker</p>
+    </li>
+</center>
