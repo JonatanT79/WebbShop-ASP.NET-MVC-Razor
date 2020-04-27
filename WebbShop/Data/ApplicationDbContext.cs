@@ -18,7 +18,7 @@ namespace WebbShop.Data
             base.OnConfiguring(optionsBuilder);
 
             //ändra databasnamnet
-            optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = TranbarDB; Trusted_Connection = True;");
+            optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = WebShop; Trusted_Connection = True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelbBuilder)
