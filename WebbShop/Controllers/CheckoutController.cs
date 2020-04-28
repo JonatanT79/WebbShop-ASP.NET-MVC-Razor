@@ -12,7 +12,7 @@ namespace WebbShop.Controllers
         [HttpGet]
         public IActionResult ShoppingCart(int? ID, bool CartSign)
         {
-            //Test data, OBS!s, Koden ska skrivas senare när databasen finns ********************************************
+            //Test data, OBS!, Koden ska skrivas om senare när databasen finns ********************************************
             //CartSign = true if user pressed the cartsign
             ProductDetails _productdetails = new ProductDetails();
 

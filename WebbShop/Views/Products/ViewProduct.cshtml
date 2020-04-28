@@ -2,13 +2,13 @@
 @{
 }
 
-<h1>@Model.Name</h1>
+<h1>@Model.Productlist[Model.ID - 1].Name</h1>
 
 <div class="row">
 
     <div class="col-md-6">
         <div class="card h-auto" style="padding:15px">
-            @{ string img = Model.Name + ".jpg";}
+            @{ string img = @Model.Productlist[Model.ID - 1].Name + ".jpg";}
             <img src="~/Images/@img" style="width:100%; height:100%;" />
         </div>
     </div>
@@ -18,7 +18,7 @@
             <br />
             <br />
             <br />
-            <h1 class="display-3">@Model.Price kr</h1>
+            <h1 class="display-3">@Model.Productlist[Model.ID - 1].Price  kr</h1>
             <a class="btn btn-outline-primary" asp-controller="Checkout" asp-action="ShoppingCart"
                asp-route-ID="@Model.ID" asp-route-CartSign="false">
                 Add to cart
@@ -31,13 +31,13 @@
 <center>
     <b>Product Description</b>
     <li class="list-group-item">
-        <p>@Model.Description</p>
+        <p>@Model.Productlist[Model.ID - 1].Description</p>
     </li>
     <p style="border:1px; border-style:solid; border-color:#000000;"> </p>
 
     <b>Specific productinformation</b>
     <li class="list-group-item">
         <p><b>Release: </b>@Model.Release</p>
-        <p><b>Maker: </b>@Model.Maker</p>
+        <p><b>Maker: </b>@Model.Productlist[Model.ID - 1].Maker</p>
     </li>
 </center>
