@@ -5,21 +5,21 @@
 <h1>Products</h1>
 <br />
 
-    <b>Name:    Description:    Price:</b>
     <div class="row row-cols-1 row-cols-md-3">
         @foreach (var item in Model.Productlist)
         {
             <div class="col mb-4" id="card">
-                <div class="card h- h-auto">
-                    <img src="~/Images/Dator.jpg" class="p-1" style="width: 100%; height: 65%;" />
-                    <p style="border:1px; border-style:solid; border-color:#bcbcbc;"> </p>
+                <div class="card h-100">
+                    @{ string Img = item.Name + ".jpg";}
+                    <img src="~/Images/@Img" class="p-1" style="width: 100%; height: 65%;" />
+                    <p style="border:1px; border-style:solid; border-color:#0094ff;"> </p>
                     <center>
                         <b style="float:left">@item.Name</b>
                         <b style="float:right">@item.Price Kr</b>
                         <br />
                         <br />
                         <a class="btn btn-outline-primary" asp-controller="Products" asp-action="ViewProduct" asp-route-ID="@item.ID">
-                            Gå till Produkt
+                            Go to product
                         </a>
                     </center>
                 </div>
