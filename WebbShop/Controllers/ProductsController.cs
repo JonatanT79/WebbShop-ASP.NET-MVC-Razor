@@ -33,7 +33,7 @@ namespace WebbShop.Controllers
                 _productdetails.Price = 14999M;
                 var DateAndTime = DateTime.Now;
                 _productdetails.Release = DateAndTime.Date;
-                _productdetails.Maker = "MSI";
+                _productdetails.Maker = "Acer";
             }
             else if(ID == 2)
             {
@@ -60,8 +60,10 @@ namespace WebbShop.Controllers
         }
     }
 }
-
+//Modifiering varukorg
+//Försök kom på ett sätt att snygga tillviewproduct
 //Lagerstatus
 //översätt bilder till engelska
 //TODO (senare) lägg till admin sida för att skapa/editera/ta bort produkter
 //TODO responsivitet
+//Lägg till Get/post för mer tydlighet

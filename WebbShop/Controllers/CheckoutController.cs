@@ -12,7 +12,10 @@ namespace WebbShop.Controllers
         [HttpGet]
         public IActionResult ShoppingCart(int? ID, bool CartSign)
         {
+            //Test data, OBS!s, Koden ska skrivas senare när databasen finns ********************************************
             //CartSign = true if user pressed the cartsign
+            ProductDetails _productdetails = new ProductDetails();
+
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
             string cookiestring = Cart.Value + "";
 
@@ -20,48 +23,39 @@ namespace WebbShop.Controllers
             {
                 cookiestring = Cart.Value + "," + ID;
             }
-            else if(CartSign == false)
+            else if (CartSign == false)
             {
                 cookiestring = ID.ToString();
             }
 
             Response.Cookies.Append("Cart", cookiestring);
-            ProductDetails _productdetails = new ProductDetails();
-            //Test data, OBS, ifsatsen ska bytas ut mot LINQ senare när databasen finns ********************************************
-            if (ID == 1)
+            _productdetails.Productlist = new List<Products>()
             {
-                _productdetails.Name = "Dator";
-                _productdetails.Description = "Stationär";
-                _productdetails.Price = 14999M;
-                var DateAndTime = DateTime.Now;
-                _productdetails.Release = DateAndTime.Date;
-                _productdetails.Maker = "MSI";
-            }
-            else if (ID == 2)
+                new Products() { ID = 1, Name = "Dator", Description = "Stationär", Price = 14999M },
+                new Products() { ID = 2, Name = "TV", Description = "55 Tum", Price = 8999M },
+                new Products() { ID = 3, Name = "Hörlurar", Description = "Iphone", Price = 799M },
+            };
+
+            if (cookiestring != "")
             {
-                _productdetails.Name = "TV";
-                _productdetails.Description = "55 Tum";
-                _productdetails.Price = 8999M;
-                var DateAndTime = DateTime.Now;
-                _productdetails.Release = DateAndTime.Date;
-                _productdetails.Maker = "Philips";
+                var productIds = cookiestring.Split(",").Select(c => int.Parse(c));
+
+                foreach (var item in productIds)
+                {
+                    _productdetails.CartList.Add(_productdetails.Productlist[item - 1]);
+                    _productdetails.Totalsum += _productdetails.Productlist[item - 1].Price;
+                }
             }
-            else if (ID == 3)
-            {
-                _productdetails.Name = "Hörlurar";
-                _productdetails.Description = "Iphone";
-                _productdetails.Price = 799M;
-                var DateAndTime = DateTime.Now;
-                _productdetails.Release = DateAndTime.Date;
-                _productdetails.Maker = "Apple";
-            }
-            return View();
+
+            return View(_productdetails);
         }
         [HttpPost]
         public IActionResult ShoppingCart()
         {
+            ProductDetails _productDetails = new ProductDetails();
             Response.Cookies.Delete("Cart");
-            return View();
+
+            return View(_productDetails);
         }
         public IActionResult ConfirmOrder()
         {
