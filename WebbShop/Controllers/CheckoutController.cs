@@ -27,7 +27,7 @@ namespace WebbShop.Controllers
 
             Response.Cookies.Append("Cart", cookiestring);
             ProductDetails _productdetails = new ProductDetails();
-            //Test data, OBS, ifsatsen ska bytas ut mot LINQ senare när databasen finns
+            //Test data, OBS, ifsatsen ska bytas ut mot LINQ senare när databasen finns ********************************************
             if (ID == 1)
             {
                 _productdetails.Name = "Dator";

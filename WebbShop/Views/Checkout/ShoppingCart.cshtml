@@ -1,10 +1,19 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @{
 }
-<h1>Cart</h1>
+<h1 style="color:darkblue">Cart</h1>
 
 <div class="row">
-    <a class="btn btn-success" asp-controller="Checkout" asp-action="ConfirmOrder">Confirm order</a>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a class="btn btn-success" asp-controller="Checkout" asp-action="ConfirmOrder">Confirm order</a>
+    }
+    else
+    {
+        <a class="btn btn-success" asp-area="Identity" asp-page="/Account/Login" asp-route-LoggedIn="false">Confirm order</a>
+    }
 
     <form class="form-group" method="post" asp-controller="Checkout" asp-action="ShoppingCart">
         <button type="submit" class="btn btn-danger">Empty Cart</button>

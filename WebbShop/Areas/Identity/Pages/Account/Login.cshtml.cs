@@ -39,6 +39,8 @@ namespace WebbShop.Areas.Identity.Pages.Account
 
         [TempData]
         public string ErrorMessage { get; set; }
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public class InputModel
         {
@@ -54,11 +56,16 @@ namespace WebbShop.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string returnUrl = null, bool LoggedIn = true)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
+            }
+
+            if(LoggedIn == false)
+            {
+                StatusMessage = "You be logged in to make an order";
             }
 
             returnUrl = returnUrl ?? Url.Content("~/");
