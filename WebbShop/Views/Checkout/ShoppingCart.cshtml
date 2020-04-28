@@ -3,4 +3,10 @@
 }
 <h1>Cart</h1>
 
-<a class="btn btn-outline-success" asp-controller="Checkout" asp-action="ConfirmOrder">Confirm order</a>
+<div class="row">
+    <a class="btn btn-success" asp-controller="Checkout" asp-action="ConfirmOrder">Confirm order</a>
+
+    <form class="form-group" method="post" asp-controller="Checkout" asp-action="ShoppingCart">
+        <button type="submit" class="btn btn-danger">Empty Cart</button>
+    </form>
+</div>

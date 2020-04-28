@@ -61,8 +61,7 @@ namespace WebbShop.Controllers
     }
 }
 
-//TODO lägg till orderbekräftelsesida och tillhörande knappar
-//TODO (senare) lägg till admin sida för att skapa/editera/ta bort produkter
 //Lagerstatus
 //översätt bilder till engelska
-//På confirm orderssidan: försök återskapa hela sidan så att du lär dig mer(repetera)
+//TODO (senare) lägg till admin sida för att skapa/editera/ta bort produkter
+//TODO responsivitet

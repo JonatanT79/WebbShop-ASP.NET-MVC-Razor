@@ -9,12 +9,13 @@ namespace WebbShop.Controllers
 {
     public class CheckoutController : Controller
     {
-        public int test { get; set; }
+        [HttpGet]
         public IActionResult ShoppingCart(int? ID, bool CartSign)
         {
             //CartSign = true if user pressed the cartsign
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
-            string cookiestring = Cart.Value;
+            string cookiestring = Cart.Value + "";
+
             if (CartSign == false && Cart.Value != "" && Cart.Value != null)
             {
                 cookiestring = Cart.Value + "," + ID;
@@ -23,6 +24,7 @@ namespace WebbShop.Controllers
             {
                 cookiestring = ID.ToString();
             }
+
             Response.Cookies.Append("Cart", cookiestring);
             ProductDetails _productdetails = new ProductDetails();
             //Test data, OBS, ifsatsen ska bytas ut mot LINQ senare när databasen finns
@@ -53,6 +55,12 @@ namespace WebbShop.Controllers
                 _productdetails.Release = DateAndTime.Date;
                 _productdetails.Maker = "Apple";
             }
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ShoppingCart()
+        {
+            Response.Cookies.Delete("Cart");
             return View();
         }
         public IActionResult ConfirmOrder()
