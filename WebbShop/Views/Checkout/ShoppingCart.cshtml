@@ -25,6 +25,11 @@ else
 
 <p> <b style="color:darkblue">Totalsum: </b>@Model.Totalsum kr</p>
 <div class="row">
+
+    <form class="form-group" method="post" asp-controller="Checkout" asp-action="ShoppingCart">
+        <button type="submit" class="btn btn-danger">Empty Cart</button>
+    </form>
+
     @if (SignInManager.IsSignedIn(User))
     {
         <a class="btn btn-success" asp-controller="Checkout" asp-action="ConfirmOrder">Confirm order</a>
@@ -33,8 +38,4 @@ else
     {
         <a class="btn btn-success" asp-area="Identity" asp-page="/Account/Login" asp-route-LoggedIn="false">Confirm order</a>
     }
-
-    <form class="form-group" method="post" asp-controller="Checkout" asp-action="ShoppingCart">
-        <button type="submit" class="btn btn-danger">Empty Cart</button>
-    </form>
 </div>

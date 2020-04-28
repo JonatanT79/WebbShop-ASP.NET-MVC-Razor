@@ -44,3 +44,4 @@ namespace WebbShop.Controllers
 //TODO (senare) lägg till admin sida för att skapa/editera/ta bort produkter
 //TODO responsivitet (senare)
 //Lägg till Get/post för mer tydlighet
+//fixa så cookiestringen går ut efter 60 min

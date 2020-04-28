@@ -65,7 +65,7 @@ namespace WebbShop.Areas.Identity.Pages.Account
 
             if(LoggedIn == false)
             {
-                StatusMessage = "You be logged in to make an order";
+                StatusMessage = "You must be logged in to make an order";
             }
 
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -78,7 +78,7 @@ namespace WebbShop.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(bool ShownMessage, string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
 
@@ -87,11 +87,17 @@ namespace WebbShop.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+
+                if (result.Succeeded && ShownMessage == false)
                 {
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
+                else if(result.Succeeded && ShownMessage == true)
+                {
+                    return RedirectToAction("ShoppingCart","Checkout", new {CartSign = true });
+                }
+
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
