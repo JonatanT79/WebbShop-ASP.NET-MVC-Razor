@@ -10,16 +10,16 @@ namespace WebbShop.Controllers
     public class CheckoutController : Controller
     {
         public int test { get; set; }
-        public IActionResult ShoppingCart(int ID)
+        public IActionResult ShoppingCart(int? ID, bool CartSign)
         {
-            //TODO fixa logik för cookiestring
+            //CartSign = true if user pressed the cartsign
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
-            string cookiestring = "";
-            if (ID != 0 && Cart.Value != "" && Cart.Value != null)
+            string cookiestring = Cart.Value;
+            if (CartSign == false && Cart.Value != "" && Cart.Value != null)
             {
                 cookiestring = Cart.Value + "," + ID;
             }
-            else if(ID != 0)
+            else if(CartSign == false)
             {
                 cookiestring = ID.ToString();
             }
@@ -56,6 +56,10 @@ namespace WebbShop.Controllers
             return View();
         }
         public IActionResult ConfirmOrder()
+        {
+            return View();
+        }
+        public IActionResult CompleteOrder()
         {
             return View();
         }

@@ -19,7 +19,10 @@
             <br />
             <br />
             <h1 class="display-3">@Model.Price kr</h1>
-            <a class="btn btn-outline-primary" asp-controller="Checkout" asp-action="ShoppingCart" asp-route-ID="@Model.ID">Add to cart</a>
+            <a class="btn btn-outline-primary" asp-controller="Checkout" asp-action="ShoppingCart"
+               asp-route-ID="@Model.ID" asp-route-CartSign="false">
+                Add to cart
+            </a>
         </center>
     </div>
 </div>
