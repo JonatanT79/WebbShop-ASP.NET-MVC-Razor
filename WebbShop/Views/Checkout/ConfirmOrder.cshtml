@@ -1,12 +1,44 @@
-﻿
+﻿@model ProductDetails
 @{
 }
-
-<h1>Confirm your order</h1>
+<center>
+    <h1>Confirm your order</h1>
+</center>
+<br />
 
 <div class="row">
     <div class="col-md-6">
-        <p>lista produkter här</p>
+        <center>
+            <h2>Your Products:</h2>
+        </center>
+
+        <center>
+        <b style="color:darkblue; float:left">Product</b>
+            <b style="color:darkblue"> Unit Price * Amount</b>
+        </center>
+
+        @foreach (var item in Model.CartList)
+        {
+            <li class="list-group-item">
+
+                <div class="row">
+                    <div class="col-md-6">
+                    <b>@item.Name - @item.Maker</b>
+                        <p>@item.Description</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <b style="float:left">@item.Price kr</b>
+                        @{ string img = item.Name + ".jpg";}
+                        <img src="~/Images/@img" style="height:100%; width:65%; float:right"/>
+                        <br />
+                        <p>Amount: #</p>
+
+                    </div>
+                </div>
+
+            </li>
+        }
     </div>
 
     <div class="col-md-6">

@@ -12,22 +12,28 @@ namespace WebbShop.Controllers
         ProductDetails _productdetails = new ProductDetails();
         public IActionResult IndexProducts()
         {
-            _productdetails.Productlist = GetList();
+            _productdetails.Productlist = Data.GetList();
 
             return View(_productdetails);
         }
         public IActionResult ViewProduct(int ID)
         {
             //Test data, OBS!, Koden ska skrivas om senare när databasen finns ********************************************
-         
+
             _productdetails.ID = ID;
             _productdetails.Release = DateTime.Now;
-            _productdetails.Productlist = GetList();
+            _productdetails.Productlist = Data.GetList();
 
             return View(_productdetails);
         }
-        public List<Products> GetList()
+
+    }
+    class Data
+    {
+        public static List<Products> GetList()
         {
+            ProductDetails _productdetails = new ProductDetails();
+
             _productdetails.Productlist = new List<Products>()
             {
                 new Products() { ID = 1, Name = "Dator", Description = "Stationär", Price = 14999M, Maker = "Acer" },
@@ -44,4 +50,3 @@ namespace WebbShop.Controllers
 //TODO (senare) lägg till admin sida för att skapa/editera/ta bort produkter
 //TODO responsivitet (senare)
 //Lägg till Get/post för mer tydlighet
-//fixa så cookiestringen går ut efter 60 min

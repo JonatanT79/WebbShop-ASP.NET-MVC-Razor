@@ -11,6 +11,8 @@ namespace WebbShop.Models
         public int ID { get; set; }
         public DateTime Release { get; set; }
         public decimal Totalsum { get; set; }
+        public string UserID { get; set; }
+        public string Email { get; set; }
 
         public List<Products> Productlist = new List<Products>();
 

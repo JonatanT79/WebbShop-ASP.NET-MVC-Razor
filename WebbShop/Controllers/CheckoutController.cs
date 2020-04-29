@@ -27,14 +27,9 @@ namespace WebbShop.Controllers
             {
                 cookiestring = ID.ToString();
             }
-
+           // klistra in denna nedan senare , new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddMinutes(60.0) }
             Response.Cookies.Append("Cart", cookiestring);
-            _productdetails.Productlist = new List<Products>()
-            {
-                new Products() { ID = 1, Name = "Dator", Description = "Stationär", Price = 14999M },
-                new Products() { ID = 2, Name = "TV", Description = "55 Tum", Price = 8999M },
-                new Products() { ID = 3, Name = "Hörlurar", Description = "Iphone", Price = 799M },
-            };
+            _productdetails.Productlist = Data.GetList();
 
             if (cookiestring != "")
             {
@@ -59,7 +54,18 @@ namespace WebbShop.Controllers
         }
         public IActionResult ConfirmOrder()
         {
-            return View();
+            ProductDetails _prodcuctDetails = new ProductDetails();
+            var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
+            string CookieValue = Cart.Value;
+            var ProductIDs = CookieValue.Split(",").Select(s => int.Parse(s));
+
+            // Get the list of values
+           _prodcuctDetails.Productlist = Data.GetList();
+            foreach (var item in ProductIDs)
+            {
+                _prodcuctDetails.CartList.Add(_prodcuctDetails.Productlist[item - 1]);
+            }
+            return View(_prodcuctDetails);
         }
         public IActionResult CompleteOrder()
         {
