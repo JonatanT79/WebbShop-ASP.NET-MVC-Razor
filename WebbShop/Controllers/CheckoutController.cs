@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebbShop.Models;
@@ -59,12 +60,14 @@ namespace WebbShop.Controllers
             string CookieValue = Cart.Value;
             var ProductIDs = CookieValue.Split(",").Select(s => int.Parse(s));
 
-            // Get the list of values
            _prodcuctDetails.Productlist = Data.GetList();
             foreach (var item in ProductIDs)
             {
                 _prodcuctDetails.CartList.Add(_prodcuctDetails.Productlist[item - 1]);
             }
+
+            _prodcuctDetails.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _prodcuctDetails.Email = User.FindFirstValue(ClaimTypes.Name);
             return View(_prodcuctDetails);
         }
         public IActionResult CompleteOrder()

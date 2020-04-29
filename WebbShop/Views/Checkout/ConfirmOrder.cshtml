@@ -20,7 +20,6 @@
         @foreach (var item in Model.CartList)
         {
             <li class="list-group-item">
-
                 <div class="row">
                     <div class="col-md-6">
                     <b>@item.Name - @item.Maker</b>
@@ -30,13 +29,12 @@
                     <div class="col-md-6">
                         <b style="float:left">@item.Price kr</b>
                         @{ string img = item.Name + ".jpg";}
-                        <img src="~/Images/@img" style="height:100%; width:65%; float:right"/>
+                        <img src="~/Images/@img" style="height:100%; width:48%; float:right"/>
                         <br />
                         <p>Amount: #</p>
 
                     </div>
                 </div>
-
             </li>
         }
     </div>
@@ -66,8 +64,8 @@
         <b>INFORMATION</b>
         <p style="border:1px; border-style:solid; border-color:#000000"></p>
         <li class="list-group">
-            <p>UserID: </p>
-            <p>Email:</p>
+            <p><b>UserID:</b> @Model.UserID</p>
+            <p><b>Email:</b> @Model.Email</p>
         </li>
         <p style="border:1px; border-style:solid; border-color:#000000"></p>
         <center>

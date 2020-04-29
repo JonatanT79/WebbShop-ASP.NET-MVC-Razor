@@ -16,26 +16,48 @@ else
 {
     @foreach (var item in Model.CartList)
     {
-        <p><b>Name:</b> @item.Name</p>
-        <p style="float:right">@item.Price kr</p>
-        <p><b>Description:</b> @item.Description</p>
+        <div class="row">
+            <div class="col-md-6">
+                @{string img = item.Name + ".jpg";}
+                <img src="~/Images/@img" style="height:90%; width:30%; float:left" />
+                <p><b>Name:</b> @item.Name</p>
+                <p><b>Description:</b> @item.Description</p>
+            </div>
+
+            <div class="col-md-6">
+                <b style="color:darkblue; float:left">@item.Price kr</b>
+                <br />
+
+                <a class="btn btn-outline-primary" style="float:left;">-</a>
+                <input type="text" style="float:left; text-align:center; width:6%;" value="#" />
+                <a class="btn btn-outline-primary" style="float:left;">+</a>
+
+                <form class="form-group" asp-controller="" asp-action="" method="post">
+                    <button class="btn btn-outline-danger" type="submit" style="float:right" href="###">Remove</button>
+                </form>
+            </div>
+        </div>
         <p style="border:1px; border-style:solid; border-color:#808080 "></p>
     }
 }
 
-<p> <b style="color:darkblue">Totalsum: </b>@Model.Totalsum kr</p>
-<div class="row">
+<b> <b style="color:darkblue">Totalsum: </b>@Model.Totalsum kr</b>
+<br />
+<br />
 
-    <form class="form-group" method="post" asp-controller="Checkout" asp-action="ShoppingCart">
-        <button type="submit" class="btn btn-danger">Empty Cart</button>
-    </form>
+<form class="form-group" method="post" asp-controller="Checkout" asp-action="ShoppingCart">
+    <button type="submit" class="btn btn-danger">Empty Cart</button>
+</form>
 
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <a class="btn btn-success" asp-controller="Checkout" asp-action="ConfirmOrder">Confirm order</a>
-    }
-    else
-    {
-        <a class="btn btn-success" asp-area="Identity" asp-page="/Account/Login" asp-route-LoggedIn="false">Confirm order</a>
-    }
-</div>
+<center>
+    <a class="btn btn-outline-primary" asp-controller="Products" asp-action="IndexProducts">Continue shopping</a>
+</center>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a style="float:right" class="btn btn-success" asp-controller="Checkout" asp-action="ConfirmOrder">Confirm order</a>
+}
+else
+{
+    <a style="float:right" class="btn btn-success" asp-area="Identity" asp-page="/Account/Login" asp-route-LoggedIn="false">Confirm order</a>
+}

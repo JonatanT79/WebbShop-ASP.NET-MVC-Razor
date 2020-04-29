@@ -12,6 +12,7 @@ namespace WebbShop.Controllers
         ProductDetails _productdetails = new ProductDetails();
         public IActionResult IndexProducts()
         {
+            // Get the list of values
             _productdetails.Productlist = Data.GetList();
 
             return View(_productdetails);
@@ -36,9 +37,9 @@ namespace WebbShop.Controllers
 
             _productdetails.Productlist = new List<Products>()
             {
-                new Products() { ID = 1, Name = "Dator", Description = "Stationär", Price = 14999M, Maker = "Acer" },
+                new Products() { ID = 1, Name = "PC", Description = "Stationär", Price = 14999M, Maker = "Acer" },
                 new Products() { ID = 2, Name = "TV", Description = "55 Tum", Price = 8999M, Maker = "Philips" },
-                new Products() { ID = 3, Name = "Hörlurar", Description = "Iphone", Price = 799M, Maker = "Apple"},
+                new Products() { ID = 3, Name = "Headphones", Description = "Iphone", Price = 799M, Maker = "Apple"},
             };
             return _productdetails.Productlist;
         }
@@ -46,7 +47,7 @@ namespace WebbShop.Controllers
 }
 //Modifiering varukorg
 //Lagerstatus
-//översätt bilder till engelska
 //TODO (senare) lägg till admin sida för att skapa/editera/ta bort produkter
 //TODO responsivitet (senare)
-//Lägg till Get/post för mer tydlighet
+//Lägg till Get/post för mer tydlighet (slutet av labb1)
+//Uppgradera (passive)
