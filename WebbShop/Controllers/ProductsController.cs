@@ -19,15 +19,12 @@ namespace WebbShop.Controllers
         }
         public IActionResult ViewProduct(int ID)
         {
-            //Test data, OBS!, Koden ska skrivas om senare när databasen finns ********************************************
-
             _productdetails.ID = ID;
             _productdetails.Release = DateTime.Now;
             _productdetails.Productlist = Data.GetList();
 
             return View(_productdetails);
         }
-
     }
     class Data
     {
@@ -45,8 +42,13 @@ namespace WebbShop.Controllers
         }
     }
 }
-//Modifiering varukorg
+//radio buttons
+//statusmessage (lägg till)
+//CSS
+//lägga till en fjärde produkt
+//Remove
 //Lagerstatus
+//Modifiering varukorg (+-)
 //TODO (senare) lägg till admin sida för att skapa/editera/ta bort produkter
 //TODO responsivitet (senare)
 //Lägg till Get/post för mer tydlighet (slutet av labb1)

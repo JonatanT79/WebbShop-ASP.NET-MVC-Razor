@@ -13,8 +13,6 @@ namespace WebbShop.Controllers
         [HttpGet]
         public IActionResult ShoppingCart(int? ID, bool CartSign)
         {
-            //Test data, OBS!, Koden ska skrivas om senare när databasen finns ********************************************
-            //CartSign = true if user pressed the cartsign
             ProductDetails _productdetails = new ProductDetails();
 
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
@@ -28,6 +26,7 @@ namespace WebbShop.Controllers
             {
                 cookiestring = ID.ToString();
             }
+
            // klistra in denna nedan senare , new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddMinutes(60.0) }
             Response.Cookies.Append("Cart", cookiestring);
             _productdetails.Productlist = Data.GetList();
@@ -38,8 +37,11 @@ namespace WebbShop.Controllers
 
                 foreach (var item in productIds)
                 {
-                    _productdetails.CartList.Add(_productdetails.Productlist[item - 1]);
-                    _productdetails.Totalsum += _productdetails.Productlist[item - 1].Price;
+                    var ListElement = _productdetails.Productlist[item - 1];
+                    var ListElementPrice = _productdetails.Productlist[item - 1].Price;
+
+                    _productdetails.CartList.Add(ListElement);
+                    _productdetails.Totalsum += ListElementPrice;
                 }
             }
 
@@ -59,15 +61,17 @@ namespace WebbShop.Controllers
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
             string CookieValue = Cart.Value;
             var ProductIDs = CookieValue.Split(",").Select(s => int.Parse(s));
-
            _prodcuctDetails.Productlist = Data.GetList();
+
             foreach (var item in ProductIDs)
             {
-                _prodcuctDetails.CartList.Add(_prodcuctDetails.Productlist[item - 1]);
+                var ListElement = _prodcuctDetails.Productlist[item - 1];
+                _prodcuctDetails.CartList.Add(ListElement);
             }
 
             _prodcuctDetails.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             _prodcuctDetails.Email = User.FindFirstValue(ClaimTypes.Name);
+
             return View(_prodcuctDetails);
         }
         public IActionResult CompleteOrder()

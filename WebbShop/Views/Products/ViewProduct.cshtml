@@ -1,8 +1,10 @@
 ﻿@model ProductDetails
 @{
 }
-
-<h1>@Model.Productlist[Model.ID - 1].Name</h1>
+<center>
+    <h1>@Model.Productlist[Model.ID - 1].Name</h1>
+</center>
+<br />
 
 <div class="row">
 
@@ -14,30 +16,36 @@
     </div>
 
     <div class="col-md-6">
+        <br />
         <center>
-            <br />
-            <br />
-            <br />
             <h1 class="display-3">@Model.Productlist[Model.ID - 1].Price  kr</h1>
             <a class="btn btn-outline-primary" asp-controller="Checkout" asp-action="ShoppingCart"
                asp-route-ID="@Model.ID" asp-route-CartSign="false">
                 Add to cart
             </a>
+            <br />
+            <br />
+            <b>Stockstatus</b>
+            <p style="border:1px; border-style:solid; border-color:#000000"></p>
+            <li class="list-group-item">
+                <b style="float:left">In stock:</b>
+                <p>3 st</p>
+            </li>
         </center>
     </div>
 </div>
-<p style="border:1px; border-style:solid; border-color:#000000;"> </p>
+<p style="border:1px; border-style:solid; border-color:#000000;"></p>
 
 <center>
     <b>Product Description</b>
     <li class="list-group-item">
         <p>@Model.Productlist[Model.ID - 1].Description</p>
     </li>
-    <p style="border:1px; border-style:solid; border-color:#000000;"> </p>
+    <p style="border:1px; border-style:solid; border-color:#000000;"></p>
 
     <b>Specific productinformation</b>
     <li class="list-group-item">
-        <p><b>Release: </b>@Model.Release</p>
+        <p><b>Release: </b>@Model.Release.ToString("yyyy-MM-dd")</p>
         <p><b>Maker: </b>@Model.Productlist[Model.ID - 1].Maker</p>
     </li>
 </center>

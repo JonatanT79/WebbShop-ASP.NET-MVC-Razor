@@ -19,7 +19,6 @@
 
         @foreach (var item in Model.CartList)
         {
-            <li class="list-group-item">
                 <div class="row">
                     <div class="col-md-6">
                     <b>@item.Name - @item.Maker</b>
@@ -35,7 +34,6 @@
 
                     </div>
                 </div>
-            </li>
         }
     </div>
 
@@ -47,26 +45,26 @@
 
         <b>SHIPMENT</b>
         <p style="border:1px; border-style:solid; border-color:#000000"></p>
-        <li class="list-group">
+        <div class="form-group">
             <p><input type="checkbox" /> BRING IN STORE</p>
             <p><input type="checkbox" /> SEND TO ME</p>
             <p style="border:1px; border-style:solid; border-color:#000000"></p>
-        </li>
+        </div>
 
         <b>WAY TO PAY</b>
         <p style="border:1px; border-style:solid; border-color:#000000"></p>
-        <li class="list-group">
-            <p><input type="checkbox" /> PAY IN STORE</p>
-            <p><input type="checkbox" /> SWISH</p>
+        <div class="form-group">
+            <p><input type="radio"checked name="rnd" value="Pay"/> PAY IN STORE</p>
+            <p><input type="radio" name="rnd" value="swish"/> SWISH</p>
             <p style="border:1px; border-style:solid; border-color:#000000"></p>
-        </li>
+        </div>
 
         <b>INFORMATION</b>
         <p style="border:1px; border-style:solid; border-color:#000000"></p>
-        <li class="list-group">
+        <div class="form-group">
             <p><b>UserID:</b> @Model.UserID</p>
             <p><b>Email:</b> @Model.Email</p>
-        </li>
+        </div>
         <p style="border:1px; border-style:solid; border-color:#000000"></p>
         <center>
             <a class="btn btn-success" asp-controller="Checkout" asp-action="CompleteOrder">Checkout</a>
