@@ -11,7 +11,7 @@ namespace WebbShop.Controllers
     public class CheckoutController : Controller
     {
         [HttpGet]
-        public IActionResult ShoppingCart(int? ID, bool CartSign)
+        public IActionResult ShoppingCart(int? ID, bool CartSign = true)
         {
             ProductDetails _productdetails = new ProductDetails();
 

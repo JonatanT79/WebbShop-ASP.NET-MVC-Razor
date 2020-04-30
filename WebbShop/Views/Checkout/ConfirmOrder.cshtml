@@ -11,30 +11,36 @@
         <center>
             <h2>Your Products:</h2>
         </center>
+        <p style="border:1px; border-style:solid; border-color:#000000"></p>
 
         <center>
-        <b style="color:darkblue; float:left">Product</b>
+            <b style="color:darkblue; float:left">Product</b>
             <b style="color:darkblue"> Unit Price * Amount</b>
         </center>
+        <p style="border:1px; border-style:solid; border-color:#000000"></p>
 
         @foreach (var item in Model.CartList)
         {
-                <div class="row">
-                    <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
                     <b>@item.Name - @item.Maker</b>
-                        <p>@item.Description</p>
-                    </div>
-
-                    <div class="col-md-6">
-                        <b style="float:left">@item.Price kr</b>
-                        @{ string img = item.Name + ".jpg";}
-                        <img src="~/Images/@img" style="height:100%; width:48%; float:right"/>
-                        <br />
-                        <p>Amount: #</p>
-
-                    </div>
+                    <p>@item.Description</p>
                 </div>
+
+                <div class="col-md-6">
+                    <b style="float:left">@item.Price kr</b>
+                    @{ string img = item.Name + ".jpg";}
+                    <img src="~/Images/@img" style="height:100%; width:48%; float:right" />
+                    <br />
+                    <p>Amount: #</p>
+                </div>
+            </div>
+            <p style="border:1px; border-style:solid; border-color:#808080"></p>
         }
+
+        <center>
+            <a class="btn btn-primary" asp-controller="Checkout" asp-action="ShoppingCart">Change Content</a>
+        </center>
     </div>
 
     <div class="col-md-6">
@@ -46,16 +52,16 @@
         <b>SHIPMENT</b>
         <p style="border:1px; border-style:solid; border-color:#000000"></p>
         <div class="form-group">
-            <p><input type="checkbox" /> BRING IN STORE</p>
-            <p><input type="checkbox" /> SEND TO ME</p>
+            <p><input type="radio"checked name="Shipment" /> BRING IN STORE</p>
+            <p><input type="radio" name="Shipment"/> SEND TO ME</p>
             <p style="border:1px; border-style:solid; border-color:#000000"></p>
         </div>
 
         <b>WAY TO PAY</b>
         <p style="border:1px; border-style:solid; border-color:#000000"></p>
         <div class="form-group">
-            <p><input type="radio"checked name="rnd" value="Pay"/> PAY IN STORE</p>
-            <p><input type="radio" name="rnd" value="swish"/> SWISH</p>
+            <p><input type="radio"checked name="Way" value="Pay"/> PAY IN STORE</p>
+            <p><input type="radio" name="Way" value="swish"/> SWISH</p>
             <p style="border:1px; border-style:solid; border-color:#000000"></p>
         </div>
 

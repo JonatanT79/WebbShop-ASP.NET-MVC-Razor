@@ -34,20 +34,18 @@ namespace WebbShop.Controllers
 
             _productdetails.Productlist = new List<Products>()
             {
-                new Products() { ID = 1, Name = "PC", Description = "Stationär", Price = 14999M, Maker = "Acer" },
+                new Products() { ID = 1, Name = "PC", Description = "Deskop", Price = 14999M, Maker = "Acer" },
                 new Products() { ID = 2, Name = "TV", Description = "55 Tum", Price = 8999M, Maker = "Philips" },
                 new Products() { ID = 3, Name = "Headphones", Description = "Iphone", Price = 799M, Maker = "Apple"},
+                new Products() { ID = 4, Name = "Keyboard", Description = "Gaming", Price = 1050M, Maker = "Razor"}
             };
             return _productdetails.Productlist;
         }
     }
 }
-//radio buttons
-//statusmessage (lägg till)
-//CSS
-//lägga till en fjärde produkt
 //Remove
-//Lagerstatus
+//Vid refresh läggs en ny produkt till -fixa det
+//CSS
 //Modifiering varukorg (+-)
 //TODO (senare) lägg till admin sida för att skapa/editera/ta bort produkter
 //TODO responsivitet (senare)
