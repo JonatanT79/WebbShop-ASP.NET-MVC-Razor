@@ -27,11 +27,11 @@ namespace WebbShop.Controllers
                 cookiestring = ID.ToString();
             }
 
-           // klistra in denna nedan senare , new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddMinutes(60.0) }
+            // klistra in denna nedan senare , new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddMinutes(60.0) }
             Response.Cookies.Append("Cart", cookiestring);
             _productdetails.Productlist = Data.GetList();
 
-            if (cookiestring != "")
+            if (!string.IsNullOrEmpty(cookiestring))
             {
                 var productIds = cookiestring.Split(",").Select(c => int.Parse(c));
 
@@ -48,11 +48,18 @@ namespace WebbShop.Controllers
             return View(_productdetails);
         }
         [HttpPost]
-        public IActionResult ShoppingCart()
+        public IActionResult ShoppingCart(bool Isempty)
         {
             ProductDetails _productDetails = new ProductDetails();
-            Response.Cookies.Delete("Cart");
 
+            if (Isempty == true)
+            {
+                _productDetails.StatusMessage = "Cannot continue, your cart is empty!";
+            }
+            else
+            {
+                Response.Cookies.Delete("Cart");
+            }
             return View(_productDetails);
         }
         public IActionResult ConfirmOrder()
@@ -60,17 +67,18 @@ namespace WebbShop.Controllers
             ProductDetails _prodcuctDetails = new ProductDetails();
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
             string CookieValue = Cart.Value;
-            var ProductIDs = CookieValue.Split(",").Select(s => int.Parse(s));
-           _prodcuctDetails.Productlist = Data.GetList();
 
-            foreach (var item in ProductIDs)
-            {
-                var ListElement = _prodcuctDetails.Productlist[item - 1];
-                _prodcuctDetails.CartList.Add(ListElement);
-            }
+                var ProductIDs = CookieValue.Split(",").Select(s => int.Parse(s));
+                _prodcuctDetails.Productlist = Data.GetList();
 
-            _prodcuctDetails.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            _prodcuctDetails.Email = User.FindFirstValue(ClaimTypes.Name);
+                foreach (var item in ProductIDs)
+                {
+                    var ListElement = _prodcuctDetails.Productlist[item - 1];
+                    _prodcuctDetails.CartList.Add(ListElement);
+                }
+
+                _prodcuctDetails.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                _prodcuctDetails.Email = User.FindFirstValue(ClaimTypes.Name);
 
             return View(_prodcuctDetails);
         }

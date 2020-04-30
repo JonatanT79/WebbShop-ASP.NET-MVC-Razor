@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace WebbShop.Models
         public decimal Totalsum { get; set; }
         public string UserID { get; set; }
         public string Email { get; set; }
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public List<Products> Productlist = new List<Products>();
 
