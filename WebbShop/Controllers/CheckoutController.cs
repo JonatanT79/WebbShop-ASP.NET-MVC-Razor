@@ -74,7 +74,9 @@ namespace WebbShop.Controllers
             foreach (var item in ProductIDs)
             {
                 var ListElement = _prodcuctDetails.Productlist[item - 1];
+                var ListElementPrice = _prodcuctDetails.Productlist[item - 1].Price;
                 _prodcuctDetails.CartList.Add(ListElement);
+                _prodcuctDetails.Totalsum += ListElementPrice;
             }
 
             _prodcuctDetails.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -90,14 +92,10 @@ namespace WebbShop.Controllers
         public IActionResult RemoveCartItem(int ItemID)
         {
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
-            // 5,21,41,3,1,4
-            //1,2,3
             string cookiestring = Cart.Value;
 
             int Itemindex = cookiestring.IndexOf("," + ItemID.ToString() + ",");
 
-            //check if id is first or last which makes index = -1
-            //check if number is in first or last position
             if (Itemindex == -1)
             {
                 if (cookiestring.StartsWith(ItemID.ToString()))

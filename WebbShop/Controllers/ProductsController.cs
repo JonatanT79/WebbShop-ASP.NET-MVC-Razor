@@ -43,11 +43,8 @@ namespace WebbShop.Controllers
         }
     }
 }
-//Remove
 //Vid refresh läggs en ny produkt till -fixa det
 //CSS
-//Modifiering varukorg (+-)
 //TODO (senare) lägg till admin sida för att skapa/editera/ta bort produkter
-//TODO responsivitet (senare)
 //Lägg till Get/post för mer tydlighet (slutet av labb1)
-//Uppgradera (passive)
+//Modifiering varukorg (+-)

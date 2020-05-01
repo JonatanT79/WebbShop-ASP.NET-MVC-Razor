@@ -47,23 +47,21 @@ else
 <br />
 <br />
 
-@if (Model.CartList.Count <= 0 && SignInManager.IsSignedIn(User))
-{
-    <form class="form-group" asp-controller="Checkout" asp-action="ShoppingCart" asp-route-Isempty="true" method="post">
-        <button style="float:right" type="submit" class="btn btn-danger">Confirm order</button>
-    </form>
-}
-
 <form class="form-group row" method="post" asp-controller="Checkout" asp-action="ShoppingCart">
+
     <button type="submit" class="btn btn-danger">Empty Cart</button>
 
-    <a class="btn btn-outline-primary mx-auto" asp-controller="Products" asp-action="IndexProducts">Continue shopping</a>
+    <a class="btn btn-outline-primary mx-auto" asp-controller="Products" asp-action="IndexProducts">Shop more</a>
 
     @if (SignInManager.IsSignedIn(User))
     {
         @if (Model.CartList.Count > 0)
         {
             <a style="float:right" class="btn btn-success" asp-controller="Checkout" asp-action="ConfirmOrder">Confirm order</a>
+        }
+        else
+        {
+            <button style="float:right" class="btn btn-danger" type="submit" asp-route-Isempty="true">Confirm order</button>
         }
     }
     else
