@@ -18,7 +18,7 @@ namespace WebbShop.Controllers
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
             string cookiestring = Cart.Value + "";
 
-            if (CartSign == false && Cart.Value != "" && Cart.Value != null)
+            if (CartSign == false && (!string.IsNullOrEmpty(Cart.Value)))
             {
                 cookiestring = Cart.Value + "," + ID;
             }
@@ -85,6 +85,14 @@ namespace WebbShop.Controllers
         public IActionResult CompleteOrder()
         {
             return View();
+        }
+
+        public IActionResult RemoveCartItem()
+        {
+            var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
+
+
+            return RedirectToAction("ShoppingCart", "Checkout");
         }
     }
 }
