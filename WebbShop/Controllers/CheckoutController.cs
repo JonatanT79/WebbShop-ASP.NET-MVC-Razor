@@ -68,17 +68,17 @@ namespace WebbShop.Controllers
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
             string CookieValue = Cart.Value;
 
-                var ProductIDs = CookieValue.Split(",").Select(s => int.Parse(s));
-                _prodcuctDetails.Productlist = Data.GetList();
+            var ProductIDs = CookieValue.Split(",").Select(s => int.Parse(s));
+            _prodcuctDetails.Productlist = Data.GetList();
 
-                foreach (var item in ProductIDs)
-                {
-                    var ListElement = _prodcuctDetails.Productlist[item - 1];
-                    _prodcuctDetails.CartList.Add(ListElement);
-                }
+            foreach (var item in ProductIDs)
+            {
+                var ListElement = _prodcuctDetails.Productlist[item - 1];
+                _prodcuctDetails.CartList.Add(ListElement);
+            }
 
-                _prodcuctDetails.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                _prodcuctDetails.Email = User.FindFirstValue(ClaimTypes.Name);
+            _prodcuctDetails.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _prodcuctDetails.Email = User.FindFirstValue(ClaimTypes.Name);
 
             return View(_prodcuctDetails);
         }
@@ -87,11 +87,42 @@ namespace WebbShop.Controllers
             return View();
         }
 
-        public IActionResult RemoveCartItem()
+        public IActionResult RemoveCartItem(int ItemID)
         {
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
+            // 5,21,41,3,1,4
+            //1,2,3
+            string cookiestring = Cart.Value;
 
+            int Itemindex = cookiestring.IndexOf("," + ItemID.ToString() + ",");
 
+            //check if id is first or last which makes index = -1
+            //check if number is in first or last position
+            if (Itemindex == -1)
+            {
+                if (cookiestring.StartsWith(ItemID.ToString()))
+                {
+                    if (cookiestring.Length > 1)
+                    {
+                        cookiestring = cookiestring.Remove(0, 2);
+                    }
+                    else
+                    {
+                        cookiestring = cookiestring.Remove(0, 1);
+                    }
+                }
+                else
+                {
+                    int SearchPosition = cookiestring.Length - 2;
+                    cookiestring = cookiestring.Remove(SearchPosition, 2);
+                }
+            }
+            else
+            {
+                cookiestring = cookiestring.Remove(Itemindex, 2);
+            }
+
+            Response.Cookies.Append("Cart", cookiestring);
             return RedirectToAction("ShoppingCart", "Checkout");
         }
     }

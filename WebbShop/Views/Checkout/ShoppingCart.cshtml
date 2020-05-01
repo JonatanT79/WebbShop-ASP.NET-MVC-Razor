@@ -34,7 +34,9 @@ else
                 <input type="text" style="float:left; text-align:center; width:3rem;" value="#" />
                 <a class="btn btn-outline-primary" style="float:left;">+</a>
 
-                <a class="btn btn-danger" style="float:right" asp-controller="Checkout" asp-action="RemoveCartItem">X</a>
+                <a class="btn btn-danger" style="float:right" 
+                   asp-controller="Checkout" asp-action="RemoveCartItem" asp-route-ItemID="@item.ID">X
+                </a>
             </div>
         </div>
         <p style="border:1px; border-style:solid; border-color:#808080 "></p>
