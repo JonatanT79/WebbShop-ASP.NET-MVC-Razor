@@ -21,7 +21,6 @@ namespace WebbShop.Controllers
         [HttpGet]
         public IActionResult ViewProduct(int ID)
         {
-            ViewModel.ID = ID;
             ViewModel.Release = DateTime.Now;
             ViewModel.Productlist = Data.GetList();
 

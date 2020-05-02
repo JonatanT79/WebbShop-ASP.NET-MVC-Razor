@@ -20,7 +20,7 @@
         <center>
             <h1 class="display-3">@Model.CartList[0].Price  kr</h1>
             <a class="btn btn-outline-primary" asp-controller="Checkout" asp-action="ShoppingCart"
-               asp-route-ID="@Model.ID" asp-route-CartSign="false">
+               asp-route-ID="@Model.CartList[0].ID" asp-route-CartSign="false">
                 Add to cart
             </a>
             <br />
