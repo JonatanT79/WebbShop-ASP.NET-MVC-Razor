@@ -10,6 +10,7 @@ namespace WebbShop.Controllers
     public class ProductsController : Controller
     {
         ProductDetails _productdetails = new ProductDetails();
+        [HttpGet]
         public IActionResult IndexProducts()
         {
             // Get the list of values
@@ -17,6 +18,7 @@ namespace WebbShop.Controllers
 
             return View(_productdetails);
         }
+        [HttpGet]
         public IActionResult ViewProduct(int ID)
         {
             _productdetails.ID = ID;
@@ -54,7 +56,7 @@ namespace WebbShop.Controllers
     }
 }
 //Vid refresh läggs en ny produkt till -fixa det
-//CSS (modi-knapp)
+//CSS
 // Efter du kollat på microservices (kolla vad det är)
 //TODO (senare) lägg till admin sida för att skapa/editera/ta bort produkter
 // - skapa en tabell med admin

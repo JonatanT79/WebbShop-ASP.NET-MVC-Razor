@@ -59,9 +59,11 @@ namespace WebbShop.Controllers
             else
             {
                 Response.Cookies.Delete("Cart");
+
             }
             return View(_productDetails);
         }
+        [HttpGet]
         public IActionResult ConfirmOrder()
         {
             ProductDetails _prodcuctDetails = new ProductDetails();
@@ -84,11 +86,12 @@ namespace WebbShop.Controllers
 
             return View(_prodcuctDetails);
         }
+        [HttpGet]
         public IActionResult CompleteOrder()
         {
             return View();
         }
-
+        [HttpGet]
         public IActionResult RemoveCartItem(int ItemID)
         {
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
