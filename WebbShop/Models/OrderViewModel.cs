@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace WebbShop.Models
 {
-    public class ProductDetails
+    public class OrderViewModel
     {
         public int ID { get; set; }
         public DateTime Release { get; set; }
         public decimal Totalsum { get; set; }
+        public int Amount { get; set; } = 1;
         public string UserID { get; set; }
         public string Email { get; set; }
         [TempData]

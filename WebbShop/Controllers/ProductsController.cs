@@ -9,41 +9,41 @@ namespace WebbShop.Controllers
 {
     public class ProductsController : Controller
     {
-        ProductDetails _productdetails = new ProductDetails();
+        OrderViewModel ViewModel = new OrderViewModel();
         [HttpGet]
         public IActionResult IndexProducts()
         {
             // Get the list of values
-            _productdetails.Productlist = Data.GetList();
+            ViewModel.Productlist = Data.GetList();
 
-            return View(_productdetails);
+            return View(ViewModel);
         }
         [HttpGet]
         public IActionResult ViewProduct(int ID)
         {
-            _productdetails.ID = ID;
-            _productdetails.Release = DateTime.Now;
-            _productdetails.Productlist = Data.GetList();
+            ViewModel.ID = ID;
+            ViewModel.Release = DateTime.Now;
+            ViewModel.Productlist = Data.GetList();
 
-            var Filterproduct = from e in _productdetails.Productlist
+            var Filterproduct = from e in ViewModel.Productlist
                                 where e.ID == ID
                                 select e;
 
             foreach (var item in Filterproduct)
             {
-                _productdetails.CartList.Add(item);
+                ViewModel.CartList.Add(item);
             }
 
-            return View(_productdetails);
+            return View(ViewModel);
         }
     }
     class Data
     {
         public static List<Products> GetList()
         {
-            ProductDetails _productdetails = new ProductDetails();
+            OrderViewModel ViewModel = new OrderViewModel();
 
-            _productdetails.Productlist = new List<Products>()
+            ViewModel.Productlist = new List<Products>()
             {
                 new Products() { ID = 1, Name = "PC", Description = "Deskop", Price = 14999M, Maker = "Acer" },
                 new Products() { ID = 2, Name = "TV", Description = "55 Tum", Price = 8999M, Maker = "Philips" },
@@ -51,7 +51,7 @@ namespace WebbShop.Controllers
                 new Products() { ID = 4, Name = "Keyboard", Description = "Gaming", Price = 1050M, Maker = "Razor"}
             };
 
-            return _productdetails.Productlist;
+            return ViewModel.Productlist;
         }
     }
 }

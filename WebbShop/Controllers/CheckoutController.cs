@@ -13,7 +13,7 @@ namespace WebbShop.Controllers
         [HttpGet]
         public IActionResult ShoppingCart(int? ID, bool CartSign = true)
         {
-            ProductDetails _productdetails = new ProductDetails();
+            OrderViewModel ViewModel = new OrderViewModel();
 
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
             string cookiestring = Cart.Value + "";
@@ -29,65 +29,65 @@ namespace WebbShop.Controllers
 
             // klistra in denna nedan senare , new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddMinutes(60.0) }
             Response.Cookies.Append("Cart", cookiestring);
-            _productdetails.Productlist = Data.GetList();
+            ViewModel.Productlist = Data.GetList();
 
             if (!string.IsNullOrEmpty(cookiestring))
             {
                 var productIds = cookiestring.Split(",").Select(c => int.Parse(c));
 
-                var Getproducts = from e in _productdetails.Productlist
+                var Getproducts = from e in ViewModel.Productlist
                                   where productIds.Contains(e.ID)
                                   select e;
 
                 foreach (var item in Getproducts)
                 {
-                    _productdetails.CartList.Add(item);
-                    _productdetails.Totalsum += item.Price;
+                    ViewModel.CartList.Add(item);
+                    ViewModel.Totalsum += (item.Price * ViewModel.Amount);
                 }
             }
 
-            return View(_productdetails);
+            return View(ViewModel);
         }
         [HttpPost]
         public IActionResult ShoppingCart(bool Isempty)
         {
-            ProductDetails _productDetails = new ProductDetails();
+            OrderViewModel ViewModel = new OrderViewModel();
 
             if (Isempty == true)
             {
-                _productDetails.StatusMessage = "Cannot continue, your cart is empty!";
+                ViewModel.StatusMessage = "Cannot continue, your cart is empty!";
             }
             else
             {
                 Response.Cookies.Delete("Cart");
 
             }
-            return View(_productDetails);
+            return View(ViewModel);
         }
         [HttpGet]
         public IActionResult ConfirmOrder()
         {
-            ProductDetails _prodcuctDetails = new ProductDetails();
+            OrderViewModel ViewModel = new OrderViewModel();
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
             string CookieValue = Cart.Value;
 
             var ProductIDs = CookieValue.Split(",").Select(s => int.Parse(s));
-            _prodcuctDetails.Productlist = Data.GetList();
+            ViewModel.Productlist = Data.GetList();
 
-            var Getproducts = from g in _prodcuctDetails.Productlist
+            var Getproducts = from g in ViewModel.Productlist
                               where ProductIDs.Contains(g.ID)
                               select g;
 
             foreach (var item in Getproducts)
             {
-                _prodcuctDetails.CartList.Add(item);
-                _prodcuctDetails.Totalsum += item.Price;
+                ViewModel.CartList.Add(item);
+                ViewModel.Totalsum += (item.Price * ViewModel.Amount);
             }
 
-            _prodcuctDetails.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            _prodcuctDetails.Email = User.FindFirstValue(ClaimTypes.Name);
+            ViewModel.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewModel.Email = User.FindFirstValue(ClaimTypes.Name);
 
-            return View(_prodcuctDetails);
+            return View(ViewModel);
         }
         [HttpGet]
         public IActionResult CompleteOrder()
