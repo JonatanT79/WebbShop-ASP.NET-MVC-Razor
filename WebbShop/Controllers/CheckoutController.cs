@@ -95,6 +95,7 @@ namespace WebbShop.Controllers
             string cookiestring = Cart.Value;
 
             int Itemindex = cookiestring.IndexOf("," + ItemID.ToString() + ",");
+            int ItemIDLenght = ItemID.ToString().Length;
 
             if (Itemindex == -1)
             {
@@ -102,22 +103,22 @@ namespace WebbShop.Controllers
                 {
                     if (cookiestring.Length > 1)
                     {
-                        cookiestring = cookiestring.Remove(0, 2);
+                        cookiestring = cookiestring.Remove(0, ItemIDLenght + 1);
                     }
                     else
                     {
-                        cookiestring = cookiestring.Remove(0, 1);
+                        cookiestring = cookiestring.Remove(0, ItemIDLenght);
                     }
                 }
                 else
                 {
-                    int SearchPosition = cookiestring.Length - 2;
-                    cookiestring = cookiestring.Remove(SearchPosition, 2);
+                    int DeletePosition = cookiestring.Length - (ItemIDLenght + 1);
+                    cookiestring = cookiestring.Remove(DeletePosition);
                 }
             }
             else
             {
-                cookiestring = cookiestring.Remove(Itemindex, 2);
+                cookiestring = cookiestring.Remove(Itemindex, ItemIDLenght + 1);
             }
 
             Response.Cookies.Append("Cart", cookiestring);

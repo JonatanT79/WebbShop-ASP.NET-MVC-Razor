@@ -2,7 +2,7 @@
 @{
 }
 <center>
-    <h1>@Model.Productlist[Model.ID - 1].Name</h1>
+    <h1>@Model.CartList[0].Name</h1>
 </center>
 <br />
 
@@ -10,7 +10,7 @@
 
     <div class="col-md-6">
         <div class="card h-auto" style="padding:15px">
-            @{ string img = Model.Productlist[Model.ID - 1].Name + ".jpg";}
+            @{ string img = Model.CartList[0].Name + ".jpg";}
             <img src="~/Images/@img" style="width:100%; height:100%;" />
         </div>
     </div>
@@ -18,7 +18,7 @@
     <div class="col-md-6">
         <br />
         <center>
-            <h1 class="display-3">@Model.Productlist[Model.ID - 1].Price  kr</h1>
+            <h1 class="display-3">@Model.CartList[0].Price  kr</h1>
             <a class="btn btn-outline-primary" asp-controller="Checkout" asp-action="ShoppingCart"
                asp-route-ID="@Model.ID" asp-route-CartSign="false">
                 Add to cart
@@ -40,7 +40,7 @@
     <b>Product Description</b>
     <p style="border:1px; border-style:solid; border-color:#000000"></p>
     <div class="form-group-item">
-        <p>@Model.Productlist[Model.ID - 1].Description</p>
+        <p>@Model.CartList[0].Description</p>
     </div>
     <p style="border:1px; border-style:solid; border-color:#000000;"></p>
 
@@ -48,6 +48,6 @@
     <p style="border:1px; border-style:solid; border-color:#000000"></p>
     <div class="form-group">
         <p><b>Release: </b>@Model.Release.ToString("yyyy-MM-dd")</p>
-        <p><b>Maker: </b>@Model.Productlist[Model.ID - 1].Maker</p>
+        <p><b>Maker: </b>@Model.CartList[0].Maker</p>
     </div>
 </center>

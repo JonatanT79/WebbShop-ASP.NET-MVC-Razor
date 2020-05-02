@@ -23,6 +23,15 @@ namespace WebbShop.Controllers
             _productdetails.Release = DateTime.Now;
             _productdetails.Productlist = Data.GetList();
 
+            var Filterproduct = from e in _productdetails.Productlist
+                                where e.ID == ID
+                                select e;
+
+            foreach (var item in Filterproduct)
+            {
+                _productdetails.CartList.Add(item);
+            }
+
             return View(_productdetails);
         }
     }
@@ -39,12 +48,17 @@ namespace WebbShop.Controllers
                 new Products() { ID = 3, Name = "Headphones", Description = "Iphone", Price = 799M, Maker = "Apple"},
                 new Products() { ID = 4, Name = "Keyboard", Description = "Gaming", Price = 1050M, Maker = "Razor"}
             };
+
             return _productdetails.Productlist;
         }
     }
 }
 //Vid refresh läggs en ny produkt till -fixa det
-//CSS
+//CSS (modi-knapp)
+// Efter du kollat på microservices (kolla vad det är)
 //TODO (senare) lägg till admin sida för att skapa/editera/ta bort produkter
+// - skapa en tabell med admin
+// - controllera om inputsen från fältet matchar med adminen i databasen
+// - när man är inloggad som admin ska man kunna lägga till nya admins
 //Lägg till Get/post för mer tydlighet (slutet av labb1)
 //Modifiering varukorg (+-)
