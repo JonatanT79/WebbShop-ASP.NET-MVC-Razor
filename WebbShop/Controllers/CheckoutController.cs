@@ -35,13 +35,14 @@ namespace WebbShop.Controllers
             {
                 var productIds = cookiestring.Split(",").Select(c => int.Parse(c));
 
-                foreach (var item in productIds)
-                {
-                    var ListElement = _productdetails.Productlist[item - 1];
-                    var ListElementPrice = _productdetails.Productlist[item - 1].Price;
+                var Getproducts = from e in _productdetails.Productlist
+                                  where productIds.Contains(e.ID)
+                                  select e;
 
-                    _productdetails.CartList.Add(ListElement);
-                    _productdetails.Totalsum += ListElementPrice;
+                foreach (var item in Getproducts)
+                {
+                    _productdetails.CartList.Add(item);
+                    _productdetails.Totalsum += item.Price;
                 }
             }
 
@@ -73,12 +74,14 @@ namespace WebbShop.Controllers
             var ProductIDs = CookieValue.Split(",").Select(s => int.Parse(s));
             _prodcuctDetails.Productlist = Data.GetList();
 
-            foreach (var item in ProductIDs)
+            var Getproducts = from g in _prodcuctDetails.Productlist
+                              where ProductIDs.Contains(g.ID)
+                              select g;
+
+            foreach (var item in Getproducts)
             {
-                var ListElement = _prodcuctDetails.Productlist[item - 1];
-                var ListElementPrice = _prodcuctDetails.Productlist[item - 1].Price;
-                _prodcuctDetails.CartList.Add(ListElement);
-                _prodcuctDetails.Totalsum += ListElementPrice;
+                _prodcuctDetails.CartList.Add(item);
+                _prodcuctDetails.Totalsum += item.Price;
             }
 
             _prodcuctDetails.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -104,7 +107,7 @@ namespace WebbShop.Controllers
             {
                 if (cookiestring.StartsWith(ItemID.ToString()))
                 {
-                    if (cookiestring.Length > 1)
+                    if (cookiestring.Contains(","))
                     {
                         cookiestring = cookiestring.Remove(0, ItemIDLenght + 1);
                     }
