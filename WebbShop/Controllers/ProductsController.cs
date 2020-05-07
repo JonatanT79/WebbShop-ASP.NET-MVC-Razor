@@ -28,10 +28,8 @@ namespace WebbShop.Controllers
                                 where e.ID == ID
                                 select e;
 
-            foreach (var item in Filterproduct)
-            {
-                ViewModel.CartList.Add(item);
-            }
+            var Product = Filterproduct.ToList()[0];
+            ViewModel.CartList.Add(Product);
 
             return View(ViewModel);
         }
@@ -40,9 +38,7 @@ namespace WebbShop.Controllers
     {
         public static List<Products> GetList()
         {
-            OrderViewModel ViewModel = new OrderViewModel();
-
-            ViewModel.Productlist = new List<Products>()
+            List<Products> ListOfProducts = new List<Products>()
             {
                 new Products() { ID = 1, Name = "PC", Description = "Deskop", Price = 14999M, Maker = "Acer" },
                 new Products() { ID = 2, Name = "TV", Description = "55 Tum", Price = 8999M, Maker = "Philips" },
@@ -50,7 +46,7 @@ namespace WebbShop.Controllers
                 new Products() { ID = 4, Name = "Keyboard", Description = "Gaming", Price = 1050M, Maker = "Razor"}
             };
 
-            return ViewModel.Productlist;
+            return ListOfProducts;
         }
     }
 }
