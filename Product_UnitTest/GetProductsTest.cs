@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Product_UnitTest
 {
-    public class UnitTest1
+    public class GetProductsTest
     {
         [Fact]
         public void Test1()
