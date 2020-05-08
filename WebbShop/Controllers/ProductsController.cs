@@ -34,7 +34,7 @@ namespace WebbShop.Controllers
             return View(ViewModel);
         }
     }
-    class Data
+    public class Data
     {
         public static List<Products> GetList()
         {
