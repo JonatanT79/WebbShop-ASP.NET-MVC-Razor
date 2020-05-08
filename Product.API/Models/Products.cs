@@ -16,5 +16,7 @@ namespace Product.API.Models
         public decimal Price { get; set; }
         [Required]
         public string Maker { get; set; }
+
+        public List<Products> ProductsList = new List<Products>();
     }
 }

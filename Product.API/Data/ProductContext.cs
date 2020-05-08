@@ -9,7 +9,7 @@ namespace Product.API.Data
 {
     public class ProductContext : DbContext
     {
-        DbSet<Products> Products { get; set; }
+        public DbSet<Products> Products { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
