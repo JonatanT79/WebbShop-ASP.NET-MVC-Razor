@@ -27,7 +27,6 @@ namespace WebbShop.Controllers
                 cookiestring = ID.ToString();
             }
 
-            // klistra in denna nedan senare , new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddMinutes(60.0) }
             Response.Cookies.Append("Cart", cookiestring);
             ViewModel.Productlist = Data.GetList();
 

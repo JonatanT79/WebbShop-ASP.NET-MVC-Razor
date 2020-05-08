@@ -50,11 +50,3 @@ namespace WebbShop.Controllers
         }
     }
 }
-//Vid refresh läggs en ny produkt till i cookiestringen - försök fixa det
-//CSS (klar just nu 2020-05-02)
-// Efter du kollat på microservices (kolla vad det är)
-//TODO (senare) lägg till admin sida för att skapa/editera/ta bort produkter
-// - skapa en tabell med admin
-// - controllera om inputsen från fältet matchar med adminen i databasen
-// - när man är inloggad som admin ska man kunna lägga till nya admins
-//Modifiering varukorg (+-)

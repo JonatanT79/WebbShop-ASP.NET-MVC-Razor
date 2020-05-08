@@ -21,7 +21,7 @@
                 <div class="carousel-item @(first ? Html.Raw("active") : Html.Raw(""))">
                     @{string img = item.Name + ".jpg";}
                     <a asp-controller="Products" asp-action="ViewProduct" asp-route-ID="@item.ID">
-                    <img src="~/Images/@img" style="height:20rem; width:60%" />
+                    <img src="~/Images/@img" style="height:18rem; width:60%" />
                     </a>
                 </div>
                 first = false;
