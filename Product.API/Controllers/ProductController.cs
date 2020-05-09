@@ -17,8 +17,8 @@ namespace Product.API.Controllers
         public ActionResult GetProducts()
         {
             _Products.ProductsList = Repository.GetAllProducts();
-
             return Ok(new { _Products.ProductsList});
         }
     }
 }
+//TODO: skriv test för GetProducts

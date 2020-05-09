@@ -1,8 +1,8 @@
+using Product.API.Data;
+using Product.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebbShop.Controllers;
-using WebbShop.Models;
 using Xunit;
 
 namespace Product_UnitTest
@@ -10,23 +10,19 @@ namespace Product_UnitTest
     public class GetProductsTest
     {
         [Fact]
-        public void Test1()
+        public void ShouldGetAllProducts()
         {
             //Arrange
-            List<Products> list = Data.GetList();
-            var FilterList = from e in list
-                         //  where e.ID != 3
-                           select e;
-
-            var expectedList = FilterList.ToList();
+            List<Products> Expected;
+            using (ProductContext ctx = new ProductContext())
+            {
+                Expected = Repository.GetAllProducts();
+            }
 
             //act
-            var actual = list;
+            List<Products> Actual = Repository.GetAllProducts();
             //Assert
-            Products p = new Products();
-            OrderViewModel vm = new OrderViewModel();
-            Assert.IsType<List<Products>>(list);
-           // Assert.Equal(expectedList, actual);
+            Assert.Equal(Expected, Actual);
         }
     }
 }
