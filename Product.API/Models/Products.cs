@@ -13,9 +13,10 @@ namespace Product.API.Models
         [MaxLength(255)]
         public string Name { get; set; }
         public string Description { get; set; }
-        public decimal Price { get; set; }
         [Required]
-        public string Maker { get; set; }
+        public float Price { get; set; }
+        public int InStock { get; set; }
+        public ProductBrand ProductBrand { get; set; }
 
         public List<Products> ProductsList = new List<Products>();
     }

@@ -9,29 +9,29 @@ namespace WebbShop.Controllers
 {
     public class ProductsController : Controller
     {
-        OrderViewModel ViewModel = new OrderViewModel();
+        OrderViewModel _ViewModel = new OrderViewModel();
         [HttpGet]
         public IActionResult IndexProducts()
         {
             // Get the list of values
-            ViewModel.Productlist = Data.GetList();
+            _ViewModel.Productlist = Data.GetList();
 
-            return View(ViewModel);
+            return View(_ViewModel);
         }
         [HttpGet]
         public IActionResult ViewProduct(int ID)
         {
-            ViewModel.Release = DateTime.Now;
-            ViewModel.Productlist = Data.GetList();
+            _ViewModel.Release = DateTime.Now;
+            _ViewModel.Productlist = Data.GetList();
 
-            var Filterproduct = from e in ViewModel.Productlist
+            var Filterproduct = from e in _ViewModel.Productlist
                                 where e.ID == ID
                                 select e;
 
             var Product = Filterproduct.ToList()[0];
-            ViewModel.CartList.Add(Product);
+            _ViewModel.CartList.Add(Product);
 
-            return View(ViewModel);
+            return View(_ViewModel);
         }
     }
     public class Data

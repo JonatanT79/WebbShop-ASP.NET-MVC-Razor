@@ -13,7 +13,7 @@ namespace WebbShop.Controllers
         [HttpGet]
         public IActionResult ShoppingCart(int? ID, bool CartSign = true)
         {
-            OrderViewModel ViewModel = new OrderViewModel();
+            OrderViewModel _ViewModel = new OrderViewModel();
 
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
             string cookiestring = Cart.Value + "";
@@ -28,24 +28,24 @@ namespace WebbShop.Controllers
             }
 
             Response.Cookies.Append("Cart", cookiestring);
-            ViewModel.Productlist = Data.GetList();
+            _ViewModel.Productlist = Data.GetList();
 
             if (!string.IsNullOrEmpty(cookiestring))
             {
                 var productIds = cookiestring.Split(",").Select(c => int.Parse(c));
 
-                var Getproducts = from e in ViewModel.Productlist
+                var Getproducts = from e in _ViewModel.Productlist
                                   where productIds.Contains(e.ID)
                                   select e;
 
                 foreach (var item in Getproducts)
                 {
-                    ViewModel.CartList.Add(item);
-                    ViewModel.Totalsum += (item.Price * ViewModel.Amount);
+                    _ViewModel.CartList.Add(item);
+                    _ViewModel.Totalsum += (item.Price * _ViewModel.Amount);
                 }
             }
 
-            return View(ViewModel);
+            return View(_ViewModel);
         }
         [HttpPost]
         public IActionResult ShoppingCart(bool Isempty)

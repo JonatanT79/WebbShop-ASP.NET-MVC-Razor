@@ -9,14 +9,14 @@ namespace Product.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductAPIController : ControllerBase
     {
         Products _Products = new Products();
 
         [HttpGet]
         public ActionResult GetProducts()
         {
-            _Products.ProductsList = Repository.GetAllProducts();
+            _Products.ProductsList = ProductRepository.GetAllProducts();
             return Ok(new { _Products.ProductsList});
         }
     }

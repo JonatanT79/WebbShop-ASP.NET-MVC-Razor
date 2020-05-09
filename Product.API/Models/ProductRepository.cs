@@ -6,7 +6,7 @@ using Product.API.Data;
 
 namespace Product.API.Models
 {
-    public class Repository
+    public class ProductRepository
     {
         public static List<Products> GetAllProducts()
         {

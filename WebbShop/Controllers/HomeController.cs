@@ -20,9 +20,9 @@ namespace WebbShop.Controllers
 
         public IActionResult Index()
         {
-            OrderViewModel ViewModel = new OrderViewModel();
-            ViewModel.Productlist = Data.GetList();
-            return View(ViewModel);
+            OrderViewModel _ViewModel = new OrderViewModel();
+            _ViewModel.Productlist = Data.GetList();
+            return View(_ViewModel);
         }
 
         public IActionResult Privacy()
