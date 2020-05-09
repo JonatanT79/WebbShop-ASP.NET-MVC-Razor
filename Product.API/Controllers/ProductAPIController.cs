@@ -7,16 +7,17 @@ using Product.API.Models;
 
 namespace Product.API.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProductAPIController : ControllerBase
     {
         Products _Products = new Products();
+        ProductRepository _ProductRepository = new ProductRepository();
 
         [HttpGet]
         public ActionResult GetProducts()
         {
-            _Products.ProductsList = ProductRepository.GetAllProducts();
+            _Products.ProductsList = _ProductRepository.GetAllProducts();
             return Ok(new { _Products.ProductsList});
         }
     }

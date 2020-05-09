@@ -10,7 +10,7 @@ using Product.API.Data;
 namespace Product.API.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20200509113118_CreateProductDatabase")]
+    [Migration("20200509183119_CreateProductDatabase")]
     partial class CreateProductDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

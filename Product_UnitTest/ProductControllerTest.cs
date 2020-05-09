@@ -9,6 +9,7 @@ namespace Product_UnitTest
 {
     public class ProductControllerTest
     {
+        ProductRepository _ProductRepository = new ProductRepository();
         [Fact]
         public void ShouldGetAllProducts()
         {
@@ -16,11 +17,11 @@ namespace Product_UnitTest
             List<Products> Expected;
             using (ProductContext ctx = new ProductContext())
             {
-                Expected = ProductRepository.GetAllProducts();
+                Expected = _ProductRepository.GetAllProducts();
             }
 
             //act
-            List<Products> Actual = ProductRepository.GetAllProducts();
+            List<Products> Actual = _ProductRepository.GetAllProducts();
             //Assert
             Assert.Equal(Expected, Actual);
         }

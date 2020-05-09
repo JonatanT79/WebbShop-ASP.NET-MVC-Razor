@@ -8,7 +8,7 @@ namespace Product.API.Models
 {
     public class ProductRepository
     {
-        public static List<Products> GetAllProducts()
+        public List<Products> GetAllProducts()
         {
             Products _Products = new Products();
             using (ProductContext ctx = new ProductContext())
@@ -24,5 +24,10 @@ namespace Product.API.Models
                 return _Products.ProductsList;
             }
         }
+        public Products GetProductByID() { Products p = new Products(); return p; }
+        public void CreateProduct() { }
+        public void UpdateProduct() { }
+        public void DeleteProduct() { }
+
     }
 }
