@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Product.API.Models;
 using Product.API.Repository;
 
 namespace Product.API.Controllers
@@ -17,6 +18,12 @@ namespace Product.API.Controllers
         public ActionResult GetProducts()
         {
             return Ok(new { ProductsList = _productRepository.GetAllProducts() });
+        }
+
+        [HttpGet("{ID}")]
+        public Products GetProductByID(int ID)
+        {
+            return _productRepository.GetProductByID(ID);
         }
     }
 }

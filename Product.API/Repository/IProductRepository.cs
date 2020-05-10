@@ -9,7 +9,7 @@ namespace Product.API.Repository
     interface IProductRepository
     {
         List<Products> GetAllProducts();
-        Products GetProductByID();
+        Products GetProductByID(int ID);
         void CreateProduct();
         void UpdateProduct();
         void DeleteProduct();

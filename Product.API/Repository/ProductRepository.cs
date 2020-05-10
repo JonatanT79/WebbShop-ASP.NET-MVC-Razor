@@ -12,13 +12,21 @@ namespace Product.API.Repository
         readonly ProductContext _context = new ProductContext();
         public List<Products> GetAllProducts()
         {
-            var query = from e in _context.Products
-                        select e;
+            var FullProductsList = from e in _context.Products
+                                   select e;
 
-            return query.ToList();
+            return FullProductsList.ToList();
         }
-        public Products GetProductByID() { Products p = new Products(); return p; }
+        public Products GetProductByID(int ID)
+        {
+            var ProductByID = from e in _context.Products
+                              where e.ID == ID
+                              select e;
+
+            return ProductByID.FirstOrDefault();
+        }
         public void CreateProduct() { }
+        //-----------
         public void UpdateProduct() { }
         public void DeleteProduct() { }
 
