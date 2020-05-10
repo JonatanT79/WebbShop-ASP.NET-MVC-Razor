@@ -13,13 +13,8 @@ namespace Product.API.Models
             Products _Products = new Products();
             using (ProductContext ctx = new ProductContext())
             {
-                var GetProducts = from e in ctx.Products
-                                  select e;
-
-                foreach (var item in GetProducts)
-                {
-                    _Products.ProductsList.Add(item);
-                }
+                //join productbrand
+                _Products.ProductsList = ctx.Products.ToList();
 
                 return _Products.ProductsList;
             }

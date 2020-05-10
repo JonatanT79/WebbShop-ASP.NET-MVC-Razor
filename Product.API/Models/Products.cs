@@ -10,12 +10,13 @@ namespace Product.API.Models
     {
         public int ID { get; set; }
         [Required]
-        [MaxLength(255)]
+        [MaxLength(50)]
         public string Name { get; set; }
         public string Description { get; set; }
         [Required]
         public float Price { get; set; }
         public int InStock { get; set; }
+        public int ProductBrandID { get; set; }
         public ProductBrand ProductBrand { get; set; }
 
         public List<Products> ProductsList = new List<Products>();

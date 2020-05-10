@@ -10,20 +10,28 @@ namespace Product_UnitTest
     public class ProductControllerTest
     {
         ProductRepository _ProductRepository = new ProductRepository();
+
         [Fact]
         public void ShouldGetAllProducts()
         {
             //Arrange
-            List<Products> Expected;
+            List<Products> Expected = new List<Products>();
+
             using (ProductContext ctx = new ProductContext())
             {
-                Expected = _ProductRepository.GetAllProducts();
+                Expected = ctx.Products.ToList();
             }
 
+            int ExpectedTotalItems = Expected.Count();
+
             //act
-            List<Products> Actual = _ProductRepository.GetAllProducts();
+            List<Products> Actual = new List<Products>();
+            Actual = _ProductRepository.GetAllProducts();
+
             //Assert
-            Assert.Equal(Expected, Actual);
+
+              Assert.Equal(ExpectedTotalItems, Actual.Count());
+             // Assert.Equal(Expected, Actual);
         }
     }
 }

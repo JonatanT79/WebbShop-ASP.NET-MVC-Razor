@@ -25,11 +25,11 @@ namespace Product.API.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 255, nullable: false),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Price = table.Column<float>(nullable: false),
                     InStock = table.Column<int>(nullable: false),
-                    ProductBrandID = table.Column<int>(nullable: true)
+                    ProductBrandID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,7 +39,7 @@ namespace Product.API.Migrations
                         column: x => x.ProductBrandID,
                         principalTable: "ProductBrand",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
