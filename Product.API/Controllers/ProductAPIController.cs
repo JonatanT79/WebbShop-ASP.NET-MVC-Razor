@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Product.API.Models;
+using Product.API.Repository;
 
 namespace Product.API.Controllers
 {
@@ -11,15 +11,12 @@ namespace Product.API.Controllers
     [ApiController]
     public class ProductAPIController : ControllerBase
     {
-        Products _Products = new Products();
-        ProductRepository _ProductRepository = new ProductRepository();
+        ProductRepository _productRepository = new ProductRepository();
 
         [HttpGet]
         public ActionResult GetProducts()
         {
-            _Products.ProductsList = _ProductRepository.GetAllProducts();
-            return Ok(new { _Products.ProductsList});
+            return Ok(new { ProductsList = _productRepository.GetAllProducts() });
         }
     }
 }
-//TODO: skriv test för GetProducts

@@ -18,7 +18,5 @@ namespace Product.API.Models
         public int InStock { get; set; }
         public int ProductBrandID { get; set; }
         public ProductBrand ProductBrand { get; set; }
-
-        public List<Products> ProductsList = new List<Products>();
     }
 }
