@@ -60,7 +60,7 @@ namespace Product.API.Controllers
                 return NotFound("No product have that ID");
             }
         }
-        //fixa
+
         [HttpPut("Update")]
         public IActionResult Update([FromBody] Products product)
         {
@@ -73,4 +73,3 @@ namespace Product.API.Controllers
         }
     }
 }
-//skriv tester

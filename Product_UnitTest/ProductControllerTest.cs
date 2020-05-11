@@ -19,7 +19,6 @@ namespace Product_UnitTest
             //Arrange
             List<Products> Expected = new List<Products>();
             Expected = _context.Products.ToList();
-
             int ExpectedTotalItems = Expected.Count();
 
             //act
@@ -27,9 +26,14 @@ namespace Product_UnitTest
             Actual = _productRepository.GetAllProducts();
 
             //Assert
-
             Assert.Equal(ExpectedTotalItems, Actual.Count());
             // Assert.Equal(Expected, Actual);
+        }
+
+        [Fact]
+        public void ShouldGetProductByID()
+        {
+            Assert.IsType<Products>(_productRepository.GetProductByID(2));
         }
     }
 }
