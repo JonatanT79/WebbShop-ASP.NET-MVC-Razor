@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.AspNetCore.Mvc;
+using Product.API.Data;
 using Product.API.Models;
 using Product.API.Repository;
 
@@ -13,6 +15,7 @@ namespace Product.API.Controllers
     public class ProductAPIController : ControllerBase
     {
         ProductRepository _productRepository = new ProductRepository();
+        readonly ProductContext _context = new ProductContext();
 
         [HttpGet]
         public ActionResult GetProducts()
@@ -21,9 +24,41 @@ namespace Product.API.Controllers
         }
 
         [HttpGet("{ID}")]
-        public Products GetProductByID(int ID)
+        public IActionResult GetProductByID(int ID)
         {
-            return _productRepository.GetProductByID(ID);
+            if (_context.Products.Any(a => a.ID == ID))
+            {
+                return Ok(_productRepository.GetProductByID(ID));
+            }
+            else
+            {
+                return NotFound("No product have that ID");
+            }
+        }
+
+        [HttpPost("Insert")]
+        public IActionResult InsertNewProduct([FromBody] Products productParam)
+        {
+            using (var scope = new TransactionScope())
+            {
+                _productRepository.CreateProduct(productParam);
+                scope.Complete();
+                return CreatedAtAction(nameof(GetProducts), new { ID = productParam.ID }, productParam);
+            }
+        }
+
+        [HttpDelete("Delete/{ID}")]
+        public IActionResult DeleteProduct(int ID)
+        {
+            if (_context.Products.Any(a => a.ID == ID))
+            {
+                _productRepository.DeleteProduct(ID);
+                return Ok(new { ProductList = _productRepository.GetAllProducts() });
+            }
+            else
+            {
+                return NotFound("No product have that ID");
+            }
         }
     }
 }

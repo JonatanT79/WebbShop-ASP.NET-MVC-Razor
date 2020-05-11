@@ -25,10 +25,24 @@ namespace Product.API.Repository
 
             return ProductByID.FirstOrDefault();
         }
-        public void CreateProduct() { }
-        //-----------
+        public void CreateProduct(Products product)
+        {
+            _context.Products.Add(product);
+            _context.SaveChanges();
+        }
+        public void DeleteProduct(int ID)
+        {
+            var DeleteProduct = from e in _context.Products
+                                where e.ID == ID
+                                select e;
+
+            Products _products = new Products();
+            _products = DeleteProduct.FirstOrDefault();
+
+            _context.Products.Remove(_products);
+            _context.SaveChanges();
+        }
         public void UpdateProduct() { }
-        public void DeleteProduct() { }
 
     }
 }

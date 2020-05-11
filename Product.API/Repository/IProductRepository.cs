@@ -10,8 +10,8 @@ namespace Product.API.Repository
     {
         List<Products> GetAllProducts();
         Products GetProductByID(int ID);
-        void CreateProduct();
+        void CreateProduct(Products product);
+        void DeleteProduct(int ID);
         void UpdateProduct();
-        void DeleteProduct();
     }
 }
