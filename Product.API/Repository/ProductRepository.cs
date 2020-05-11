@@ -42,7 +42,23 @@ namespace Product.API.Repository
             _context.Products.Remove(_products);
             _context.SaveChanges();
         }
-        public void UpdateProduct() { }
+        public void UpdateProduct(Products product) 
+        {
 
+            var FindProduct = from e in _context.Products
+                              where e.ID == product.ID
+                              select e;
+
+            foreach (var item in FindProduct)
+            {
+                item.Name = product.Name;
+                item.Description = product.Description;
+                item.Price = product.Price;
+                item.InStock = product.InStock;
+                item.ProductBrandID = product.ProductBrandID;
+            }
+
+            _context.SaveChanges();
+        }
     }
 }

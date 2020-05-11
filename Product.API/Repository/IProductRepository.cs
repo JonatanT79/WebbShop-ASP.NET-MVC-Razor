@@ -12,6 +12,6 @@ namespace Product.API.Repository
         Products GetProductByID(int ID);
         void CreateProduct(Products product);
         void DeleteProduct(int ID);
-        void UpdateProduct();
+        void UpdateProduct(Products product);
     }
 }

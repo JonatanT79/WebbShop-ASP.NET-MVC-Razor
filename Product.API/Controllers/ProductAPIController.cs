@@ -60,5 +60,17 @@ namespace Product.API.Controllers
                 return NotFound("No product have that ID");
             }
         }
+        //fixa
+        [HttpPut("Update")]
+        public IActionResult Update([FromBody] Products product)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                _productRepository.UpdateProduct(product);
+                scope.Complete();
+                return new OkResult();
+            }
+        }
     }
 }
+//skriv tester
