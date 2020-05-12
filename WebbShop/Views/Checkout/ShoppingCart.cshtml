@@ -67,6 +67,10 @@ else
     }
     else
     {
-        <a style="float:right" class="btn btn-success" asp-area="Identity" asp-page="/Account/Login" asp-route-LoggedIn="false">Confirm order</a>
+        <a id="Not-LoggedIn" style="float:right" class="btn btn-success"
+           asp-area="Identity" asp-page="/Account/Login" asp-route-LoggedIn="false">
+            Confirm order
+        </a>
     }
 </form>
+<script src="~/js/LogInAlert.js"></script>
