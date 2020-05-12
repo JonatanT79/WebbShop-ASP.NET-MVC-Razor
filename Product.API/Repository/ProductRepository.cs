@@ -12,10 +12,9 @@ namespace Product.API.Repository
         readonly ProductContext _context = new ProductContext();
         public List<Products> GetAllProducts()
         {
-            var FullProductsList = from e in _context.Products
-                                   select e;
+            var FullProductsList = _context.Products.ToList();
 
-            return FullProductsList.ToList();
+            return FullProductsList;
         }
         public Products GetProductByID(int ID)
         {
@@ -44,7 +43,6 @@ namespace Product.API.Repository
         }
         public void UpdateProduct(Products product) 
         {
-
             var FindProduct = from e in _context.Products
                               where e.ID == product.ID
                               select e;

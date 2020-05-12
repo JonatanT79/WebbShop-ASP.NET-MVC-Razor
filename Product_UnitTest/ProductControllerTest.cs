@@ -17,23 +17,27 @@ namespace Product_UnitTest
         public void ShouldGetAllProducts()
         {
             //Arrange
-            List<Products> Expected = new List<Products>();
-            Expected = _context.Products.ToList();
-            int ExpectedTotalItems = Expected.Count();
+            var expected = from e in _context.Products
+                           select e.ID + " " + e.Name;
+
+            int ExpectedTotalItems = expected.Count();
 
             //act
-            List<Products> Actual = new List<Products>();
-            Actual = _productRepository.GetAllProducts();
+            var actual = from e in _productRepository.GetAllProducts()
+                         select e.ID + " " + e.Name;
 
             //Assert
-            Assert.Equal(ExpectedTotalItems, Actual.Count());
-            // Assert.Equal(Expected, Actual);
+            Assert.Equal(ExpectedTotalItems, actual.Count());
+            Assert.IsType<List<Products>>(_productRepository.GetAllProducts());
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void ShouldGetProductByID()
         {
-            Assert.IsType<Products>(_productRepository.GetProductByID(2));
+            int TestID = 2;
+            Assert.NotNull(_productRepository.GetProductByID(TestID));
+            Assert.IsType<Products>(_productRepository.GetProductByID(TestID));
         }
     }
 }
