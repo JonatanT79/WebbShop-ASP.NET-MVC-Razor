@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Product_UnitTest
 {
-    public class ProductControllerTest
+    public class RepositoryTest
     {
         ProductRepository _productRepository = new ProductRepository();
         readonly ProductContext _context = new ProductContext();
@@ -27,8 +27,6 @@ namespace Product_UnitTest
                          select e.ID + " " + e.Name;
 
             //Assert
-            Assert.Equal(ExpectedTotalItems, actual.Count());
-            Assert.IsType<List<Products>>(_productRepository.GetAllProducts());
             Assert.Equal(expected, actual);
         }
 
@@ -36,8 +34,18 @@ namespace Product_UnitTest
         public void ShouldGetProductByID()
         {
             int TestID = 2;
-            Assert.NotNull(_productRepository.GetProductByID(TestID));
             Assert.IsType<Products>(_productRepository.GetProductByID(TestID));
+        }
+
+        [Fact]
+        public void ShouldInsertProduct()
+        {
+
+        }
+        [Fact]
+        public void ShouldDeleteProduct()
+        {
+
         }
     }
 }

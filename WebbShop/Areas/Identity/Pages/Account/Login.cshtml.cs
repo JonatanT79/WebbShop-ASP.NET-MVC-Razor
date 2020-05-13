@@ -95,7 +95,7 @@ namespace WebbShop.Areas.Identity.Pages.Account
                 }
                 else if(result.Succeeded && ShownMessage == true)
                 {
-                    return RedirectToAction("ShoppingCart","Checkout", new {CartSign = true });
+                    return RedirectToAction("ShoppingCart","Checkout");
                 }
 
                 if (result.RequiresTwoFactor)

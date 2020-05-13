@@ -19,8 +19,8 @@
         <br />
         <center>
             <h1 class="display-3">@Model.CartList[0].Price  kr</h1>
-            <a class="btn btn-outline-primary" asp-controller="Checkout" asp-action="ShoppingCart"
-               asp-route-ID="@Model.CartList[0].ID" asp-route-CartSign="false">
+            <a class="btn btn-outline-primary" asp-controller="Checkout" asp-action="AddItemToCart"
+               asp-route-ID="@Model.CartList[0].ID">
                 Add to cart
             </a>
             <br />

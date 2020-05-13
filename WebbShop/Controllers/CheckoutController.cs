@@ -11,42 +11,30 @@ namespace WebbShop.Controllers
     public class CheckoutController : Controller
     {
         [HttpGet]
-        public IActionResult ShoppingCart(int? ID, bool CartSign = true)
+        public IActionResult ShoppingCart()
         {
             OrderViewModel _ViewModel = new OrderViewModel();
+            var Cart = Request.Cookies.SingleOrDefault(k => k.Key == "Cart");
+            string ReadKeyValue = Cart.Value;
 
-            var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
-            string cookiestring = Cart.Value + "";
-
-            if (CartSign == false && (!string.IsNullOrEmpty(Cart.Value)))
+            if (!string.IsNullOrEmpty(ReadKeyValue))
             {
-                cookiestring = Cart.Value + "," + ID;
-            }
-            else if (CartSign == false)
-            {
-                cookiestring = ID.ToString();
-            }
+                var ProductIds = ReadKeyValue.Split(",").Select(s => int.Parse(s));
 
-            Response.Cookies.Append("Cart", cookiestring);
-            _ViewModel.Productlist = Data.GetList();
-
-            if (!string.IsNullOrEmpty(cookiestring))
-            {
-                var productIds = cookiestring.Split(",").Select(c => int.Parse(c));
-
-                var Getproducts = from e in _ViewModel.Productlist
-                                  where productIds.Contains(e.ID)
+                var GetProducts = from e in Data.GetList()
+                                  where ProductIds.Contains(e.ID)
                                   select e;
 
-                foreach (var item in Getproducts)
+                foreach (var item in GetProducts)
                 {
                     _ViewModel.CartList.Add(item);
-                    _ViewModel.Totalsum += (item.Price * _ViewModel.Amount);
+                    _ViewModel.Totalsum += item.Price * _ViewModel.Amount;
                 }
             }
 
             return View(_ViewModel);
         }
+
         [HttpPost]
         public IActionResult ShoppingCart(bool Isempty)
         {
@@ -63,6 +51,28 @@ namespace WebbShop.Controllers
             }
             return View(ViewModel);
         }
+
+        [HttpGet]
+        public IActionResult AddItemToCart(int ID)
+        {
+            OrderViewModel _ViewModel = new OrderViewModel();
+            var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
+            string cookiestring = Cart.Value + "";
+
+            if (!string.IsNullOrEmpty(Cart.Value))
+            {
+                cookiestring = Cart.Value + "," + ID;
+            }
+            else
+            {
+                cookiestring = ID.ToString();
+            }
+
+            Response.Cookies.Append("Cart", cookiestring);
+
+            return RedirectToAction("ShoppingCart", "Checkout");
+        }
+
         [HttpGet]
         public IActionResult ConfirmOrder()
         {
