@@ -20,8 +20,6 @@ namespace Product_UnitTest
             var expected = from e in _context.Products
                            select e.ID + " " + e.Name;
 
-            int ExpectedTotalItems = expected.Count();
-
             //act
             var actual = from e in _productRepository.GetAllProducts()
                          select e.ID + " " + e.Name;
