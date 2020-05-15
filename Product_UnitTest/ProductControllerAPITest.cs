@@ -12,20 +12,18 @@ namespace Product_UnitTest
 {
     public class ProductControllerAPITest
     {
+        ProductAPIController _controller = new ProductAPIController();
         ProductContext _context = new ProductContext();
         [Fact]
         public void GetProductsShouldBeOk()
         {
-            ProductAPIController _controller = new ProductAPIController();
             var actual = _controller.GetProducts();
             Assert.IsType<OkObjectResult>(actual);
         }
         [Fact]
         public void GetProductsShouldReturnProductList()
         {
-            ProductAPIController _controller = new ProductAPIController();
             var actual = _controller.GetProducts();
-            //fixa
             Assert.IsAssignableFrom<List<Products>>((actual as OkObjectResult).Value);
         }
     }

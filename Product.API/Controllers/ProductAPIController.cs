@@ -20,7 +20,7 @@ namespace Product.API.Controllers
         [HttpGet]
         public ActionResult GetProducts()
         {
-            return Ok(new { ProductsList = _productRepository.GetAllProducts() });
+            return Ok(_productRepository.GetAllProducts());
         }
 
         [HttpGet("{ID}")]
@@ -53,7 +53,7 @@ namespace Product.API.Controllers
             if (_context.Products.Any(a => a.ID == ID))
             {
                 _productRepository.DeleteProduct(ID);
-                return Ok(new { ProductList = _productRepository.GetAllProducts() });
+                return Ok(_productRepository.GetAllProducts());
             }
             else
             {
