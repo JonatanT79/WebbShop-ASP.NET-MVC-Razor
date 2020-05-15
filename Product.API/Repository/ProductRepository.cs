@@ -22,7 +22,7 @@ namespace Product.API.Repository
                               where e.ID == ID
                               select e;
 
-            return ProductByID.FirstOrDefault();
+            return ProductByID.SingleOrDefault();
         }
         public void CreateProduct(Products product)
         {
@@ -36,7 +36,7 @@ namespace Product.API.Repository
                                 select e;
 
             Products _products = new Products();
-            _products = DeleteProduct.FirstOrDefault();
+            _products = DeleteProduct.SingleOrDefault();
 
             _context.Products.Remove(_products);
             _context.SaveChanges();

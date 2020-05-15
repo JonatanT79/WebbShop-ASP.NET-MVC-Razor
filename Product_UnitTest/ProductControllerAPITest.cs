@@ -15,16 +15,30 @@ namespace Product_UnitTest
         ProductAPIController _controller = new ProductAPIController();
         ProductContext _context = new ProductContext();
         [Fact]
-        public void GetProductsShouldReturnOk()
+        public void GetProducts_ShouldReturnOk()
         {
             var actual = _controller.GetProducts();
             Assert.IsType<OkObjectResult>(actual);
         }
         [Fact]
-        public void GetProductsShouldReturnProductList()
+        public void GetProducts_ShouldReturnProductList()
         {
             var actual = _controller.GetProducts();
             Assert.IsAssignableFrom<List<Products>>((actual as OkObjectResult).Value);
+        }
+
+        [Fact]
+        public void GetProductByID_1_ShouldReturnOk()
+        {
+            var actual = _controller.GetProductByID(1);
+            Assert.IsType<OkObjectResult>(actual);
+        }
+
+        [Fact]
+        public void GetProductByID_0_ShouldReturnNotFound()
+        {
+            var actual = _controller.GetProductByID(0);
+            Assert.IsType<NotFoundObjectResult>(actual);
         }
     }
 }
