@@ -18,7 +18,7 @@ namespace Product.API.Controllers
         readonly ProductContext _context = new ProductContext();
 
         [HttpGet]
-        public ActionResult GetProducts()
+        public IActionResult GetProducts()
         {
             return Ok(_productRepository.GetAllProducts());
         }

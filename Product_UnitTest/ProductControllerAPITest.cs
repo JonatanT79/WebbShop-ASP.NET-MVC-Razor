@@ -15,7 +15,7 @@ namespace Product_UnitTest
         ProductAPIController _controller = new ProductAPIController();
         ProductContext _context = new ProductContext();
         [Fact]
-        public void GetProductsShouldBeOk()
+        public void GetProductsShouldReturnOk()
         {
             var actual = _controller.GetProducts();
             Assert.IsType<OkObjectResult>(actual);
