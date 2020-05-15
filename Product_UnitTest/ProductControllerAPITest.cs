@@ -40,5 +40,20 @@ namespace Product_UnitTest
             var actual = _controller.GetProductByID(0);
             Assert.IsType<NotFoundObjectResult>(actual);
         }
+
+        [Fact]
+        public void InsertNewProduct_ShouldReturnCreate()
+        {
+            Products FakeProduct = new Products() { Name = "Fake", Description = "Fake", Price = 15, InStock = 1, ProductBrandID = 2 };
+            var actualActionType = _controller.InsertNewProduct(FakeProduct);
+
+            var FindFakeProduct = _context.Products.Where(e => e.Name == "Fake");
+            Products RemoveFakeProduct = FindFakeProduct.First();
+            _context.Products.Remove(RemoveFakeProduct);
+            _context.SaveChanges();
+
+            Assert.IsType<CreatedAtActionResult>(actualActionType);
+        }
     }
 }
+// testa metod efter - ta bort detta
