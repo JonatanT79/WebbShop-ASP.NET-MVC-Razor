@@ -56,4 +56,3 @@ namespace Product_UnitTest
         }
     }
 }
-// testa metod efter - ta bort detta
