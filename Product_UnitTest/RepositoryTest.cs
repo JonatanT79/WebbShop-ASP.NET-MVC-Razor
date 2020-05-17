@@ -16,15 +16,12 @@ namespace Product_UnitTest
         [Fact]
         public void ShouldGetAllProducts()
         {
-            //Arrange
             var expected = from e in _context.Products
                            select e.ID + " " + e.Name;
 
-            //act
             var actual = from e in _productRepository.GetAllProducts()
                          select e.ID + " " + e.Name;
 
-            //Assert
             Assert.Equal(expected, actual);
         }
 
@@ -32,7 +29,8 @@ namespace Product_UnitTest
         public void ShouldGetProductByID()
         {
             int TestID = 2;
-            Assert.IsType<Products>(_productRepository.GetProductByID(TestID));
+            var actual = _productRepository.GetProductByID(TestID);
+            Assert.IsType<Products>(actual);
         }
 
         [Fact]
