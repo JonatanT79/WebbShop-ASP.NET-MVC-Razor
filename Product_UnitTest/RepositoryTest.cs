@@ -70,24 +70,21 @@ namespace Product_UnitTest
         {
             Products InsertFakeProduct = new Products()
             { Name = "FakeProduct", Description = "FakeProduct", Price = 15, InStock = 1, ProductBrandID = 2 };
-            _context.Products.Add(InsertFakeProduct);
-            _context.SaveChanges();
+            _productRepository.CreateProduct(InsertFakeProduct);
 
             Products UpdateFakeProduct = new Products()
             { 
                 ID = InsertFakeProduct.ID, Name = "UpdateFakeProduct", Description = "UpdateFakeProduct",
                 Price = 55, InStock = 5, ProductBrandID = 4 
             };
+            
             _productRepository.UpdateProduct(UpdateFakeProduct);
-            //Fel det under ger det gamla värdet 'FakeProduct'
             var GetProductInDB = _context.Products.Where(e => e.ID == InsertFakeProduct.ID);
-            var actual = GetProductInDB.First();
+            var ProductShouldBeUpdated = GetProductInDB.First();
+            Assert.NotEqual(InsertFakeProduct, ProductShouldBeUpdated);
 
-            //actual istället för updatefakeproduct
-            Assert.NotEqual(InsertFakeProduct,UpdateFakeProduct );
             //Delete FakeProduct
-            _context.Products.Remove(actual);
-            _context.SaveChanges();
+            _productRepository.DeleteProduct(InsertFakeProduct.ID);
         }
     }
 }
