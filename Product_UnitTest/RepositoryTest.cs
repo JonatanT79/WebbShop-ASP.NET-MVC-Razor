@@ -73,7 +73,7 @@ namespace Product_UnitTest
             Products UpdateFakeProduct = new Products()
             { 
                 ID = InsertFakeProduct.ID, Name = "UpdateFakeProduct", Description = "UpdateFakeProduct",
-                Price = 55, InStock = 5, Maker = "FakeMaker"
+                Price = 55, InStock = 5, Maker = "UpdateFakeMaker"
             };
             
             _productRepository.UpdateProduct(UpdateFakeProduct);

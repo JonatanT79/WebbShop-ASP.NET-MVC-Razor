@@ -41,19 +41,17 @@ namespace Product.API.Repository
             _context.Products.Remove(_products);
             _context.SaveChanges();
         }
-        public void UpdateProduct(Products product) 
+        public void UpdateProduct(Products product)
         {
-            var FindProduct = from e in _context.Products
-                              where e.ID == product.ID
-                              select e;
+            var FindProduct = (from e in _context.Products
+                               where e.ID == product.ID
+                               select e).SingleOrDefault();
 
-            foreach (var item in FindProduct)
-            {
-                item.Name = product.Name;
-                item.Description = product.Description;
-                item.Price = product.Price;
-                item.InStock = product.InStock;
-            }
+            FindProduct.Name = product.Name;
+            FindProduct.Description = product.Description;
+            FindProduct.Price = product.Price;
+            FindProduct.InStock = product.InStock;
+            FindProduct.Maker = product.Maker;
 
             _context.SaveChanges();
         }

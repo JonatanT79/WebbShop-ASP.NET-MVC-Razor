@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Product.API.Data;
 
 namespace Product.API
 {
@@ -13,7 +15,24 @@ namespace Product.API
     {
         public static void Main(string[] args)
         {
+           // var host = CreateHostBuilder(args).Build();
             CreateHostBuilder(args).Build().Run();
+
+            //using (var scope = host.Services.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
+            //    try
+            //    {
+            //        var context = services.GetRequiredService<ProductContext>();
+            //        DbInitializer.Initialize(context);
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        var logger = services.GetRequiredService<ILogger<Program>>();
+            //        logger.LogError("Error");
+            //    }
+            //}
+            //host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
