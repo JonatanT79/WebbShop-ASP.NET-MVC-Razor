@@ -14,6 +14,7 @@ namespace Product_UnitTest
     {
         ProductAPIController _controller = new ProductAPIController();
         ProductContext _context = new ProductContext();
+
         [Fact]
         public void GetProducts_ShouldReturnOk()
         {
@@ -44,14 +45,15 @@ namespace Product_UnitTest
         [Fact]
         public void InsertNewProduct_ShouldReturnCreate()
         {
-            Products FakeProduct = new Products() { Name = "Fake", Description = "Fake", Price = 15, InStock = 1, ProductBrandID = 2 };
+            Products FakeProduct = new Products() { Name = "Fake", Description = "Fake", Price = 15, InStock = 1, Maker = "FakeMaker"};
             var actualActionType = _controller.InsertNewProduct(FakeProduct);
 
             var FindFakeProduct = _context.Products.Where(e => e.Name == "Fake");
             Products RemoveFakeProduct = FindFakeProduct.First();
             _context.Products.Remove(RemoveFakeProduct);
             _context.SaveChanges();
-
+            // sätt i en separat metod
+            Assert.IsAssignableFrom<Products>((actualActionType as CreatedAtActionResult).Value);
             Assert.IsType<CreatedAtActionResult>(actualActionType);
         }
     }

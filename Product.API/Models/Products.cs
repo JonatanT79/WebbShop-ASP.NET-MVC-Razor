@@ -16,7 +16,7 @@ namespace Product.API.Models
         [Required]
         public float Price { get; set; }
         public int InStock { get; set; }
-        public int ProductBrandID { get; set; }
-        public ProductBrand ProductBrand { get; set; }
+        [Required]
+        public string Maker { get; set; }
     }
 }

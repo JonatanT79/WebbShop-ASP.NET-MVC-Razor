@@ -53,7 +53,6 @@ namespace Product.API.Repository
                 item.Description = product.Description;
                 item.Price = product.Price;
                 item.InStock = product.InStock;
-                item.ProductBrandID = product.ProductBrandID;
             }
 
             _context.SaveChanges();

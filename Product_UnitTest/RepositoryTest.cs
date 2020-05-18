@@ -37,7 +37,7 @@ namespace Product_UnitTest
         public void ShouldInsertProduct()
         {
             int CountBeforeInsert = _context.Products.Count();
-            Products FakeProduct = new Products() { Name = "Fake", Description = "Fake", Price = 15, InStock = 1, ProductBrandID = 2 };
+            Products FakeProduct = new Products() { Name = "Fake", Description = "Fake", Price = 15, InStock = 1, Maker = "FakeMaker"};
             _productRepository.CreateProduct(FakeProduct);
             int CountAfterInsert = _context.Products.Count();
 
@@ -53,7 +53,7 @@ namespace Product_UnitTest
         public void ShouldDeleteProduct()
         {
             Products InsertFakeProduct = new Products()
-            { Name = "FakeInsert", Description = "FakeInsert", Price = 15, InStock = 1, ProductBrandID = 2 };
+            { Name = "FakeInsert", Description = "FakeInsert", Price = 15, InStock = 1, Maker = "FakeMaker"};
             _context.Products.Add(InsertFakeProduct);
             _context.SaveChanges();
             int CountBeforeDelete = _context.Products.Count();
@@ -67,18 +67,19 @@ namespace Product_UnitTest
         public void ShouldUpdateProduct()
         {
             Products InsertFakeProduct = new Products()
-            { Name = "FakeProduct", Description = "FakeProduct", Price = 15, InStock = 1, ProductBrandID = 2 };
+            { Name = "FakeProduct", Description = "FakeProduct", Price = 15, InStock = 1, Maker = "FakeMaker"};
             _productRepository.CreateProduct(InsertFakeProduct);
 
             Products UpdateFakeProduct = new Products()
             { 
                 ID = InsertFakeProduct.ID, Name = "UpdateFakeProduct", Description = "UpdateFakeProduct",
-                Price = 55, InStock = 5, ProductBrandID = 4 
+                Price = 55, InStock = 5, Maker = "FakeMaker"
             };
             
             _productRepository.UpdateProduct(UpdateFakeProduct);
             var GetProductInDB = _context.Products.Where(e => e.ID == InsertFakeProduct.ID);
             var ProductShouldBeUpdated = GetProductInDB.First();
+            //samma frutom null
             Assert.NotEqual(InsertFakeProduct, ProductShouldBeUpdated);
 
             //Delete FakeProduct

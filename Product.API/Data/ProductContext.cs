@@ -10,8 +10,6 @@ namespace Product.API.Data
     public class ProductContext : DbContext
     {
         public DbSet<Products> Products { get; set; }
-        public DbSet<ProductBrand> ProductBrand { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
