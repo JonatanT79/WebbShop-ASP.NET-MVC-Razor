@@ -56,8 +56,8 @@ namespace Product_UnitTest
             { Name = "FakeInsert", Description = "FakeInsert", Price = 15, InStock = 1, Maker = "FakeMaker"};
             _context.Products.Add(InsertFakeProduct);
             _context.SaveChanges();
-            int CountBeforeDelete = _context.Products.Count();
 
+            int CountBeforeDelete = _context.Products.Count();
             _productRepository.DeleteProduct(InsertFakeProduct.ID);
             int CountAfterDelete = _context.Products.Count();
 

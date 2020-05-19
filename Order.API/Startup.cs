@@ -6,15 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Product.API.Data;
-using Product.API.Repository;
 
-namespace Product.API
+namespace Order.API
 {
     public class Startup
     {
@@ -29,11 +26,6 @@ namespace Product.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            //services.AddDbContext<ProductContext>(options =>
-            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddTransient<IProductRepository, ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
