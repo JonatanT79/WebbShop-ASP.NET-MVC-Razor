@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Product_UnitTest
 {
-    public class RepositoryTest
+    public class ProductRepositoryTest
     {
         ProductRepository _productRepository = new ProductRepository();
         readonly ProductContext _context = new ProductContext();
@@ -54,8 +54,7 @@ namespace Product_UnitTest
         {
             Products InsertFakeProduct = new Products()
             { Name = "FakeInsert", Description = "FakeInsert", Price = 15, InStock = 1, Maker = "FakeMaker"};
-            _context.Products.Add(InsertFakeProduct);
-            _context.SaveChanges();
+            _productRepository.CreateProduct(InsertFakeProduct);
 
             int CountBeforeDelete = _context.Products.Count();
             _productRepository.DeleteProduct(InsertFakeProduct.ID);
