@@ -19,6 +19,5 @@ namespace Order.API.Controllers
             var OrdersList = _orderRepository.GetAllOrders();
             return Ok(OrdersList);
         }
-
     }
 }
