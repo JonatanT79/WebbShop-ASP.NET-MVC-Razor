@@ -14,19 +14,19 @@ namespace Product_UnitTest
         readonly ProductContext _context = new ProductContext();
 
         [Fact]
-        public void ShouldGetAllProducts()
+        public void GetAllProducts_ShouldGetAllProductsWithID()
         {
             var expected = from e in _context.Products
-                           select e.ID + " " + e.Name;
+                           select e.ID;
 
             var actual = from e in _productRepository.GetAllProducts()
-                         select e.ID + " " + e.Name;
+                         select e.ID;
 
             Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void ShouldGetProductByID()
+        public void GetProductByID_ShouldGetProductID()
         {
             int TestID = 2;
             var actual = _productRepository.GetProductByID(TestID);
@@ -34,7 +34,7 @@ namespace Product_UnitTest
         }
 
         [Fact]
-        public void ShouldInsertProduct()
+        public void CreateProduct_ShouldInsertProduct()
         {
             int CountBeforeInsert = _context.Products.Count();
             Products FakeProduct = new Products() { Name = "Fake", Description = "Fake", Price = 15, InStock = 1, Maker = "FakeMaker"};
@@ -50,7 +50,7 @@ namespace Product_UnitTest
             Assert.Equal((CountBeforeInsert + 1), CountAfterInsert);
         }
         [Fact]
-        public void ShouldDeleteProduct()
+        public void DeleteProduct_ShouldDeleteProduct()
         {
             Products InsertFakeProduct = new Products()
             { Name = "FakeInsert", Description = "FakeInsert", Price = 15, InStock = 1, Maker = "FakeMaker"};
@@ -63,7 +63,7 @@ namespace Product_UnitTest
             Assert.Equal((CountBeforeDelete - 1), CountAfterDelete);
         }
         [Fact]
-        public void ShouldUpdateProduct()
+        public void UpdateProduct_ShouldUpdateProduct()
         {
             Products InsertFakeProduct = new Products()
             { Name = "FakeProduct", Description = "FakeProduct", Price = 15, InStock = 1, Maker = "FakeMaker"};
