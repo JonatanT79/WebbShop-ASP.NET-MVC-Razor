@@ -12,7 +12,7 @@ namespace Product.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductAPIController : ControllerBase
+    public class ProductController : ControllerBase
     {
         ProductRepository _productRepository = new ProductRepository();
         readonly ProductContext _context = new ProductContext();

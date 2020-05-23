@@ -10,7 +10,7 @@ namespace Order.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderAPIController : ControllerBase
+    public class OrderController : ControllerBase
     {
         OrderRepository _orderRepository = new OrderRepository();
         [HttpGet]

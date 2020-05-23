@@ -9,7 +9,7 @@ namespace Order_UnitTest
 {
     public class OrderControllerAPITest
     {
-        OrderAPIController _controller = new OrderAPIController();
+        OrderController _controller = new OrderController();
         [Fact]
         public void GetOrders_ShouldReturnOk()
         {

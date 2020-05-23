@@ -12,7 +12,7 @@ namespace Product_UnitTest
 {
     public class ProductControllerAPITest
     {
-        ProductAPIController _controller = new ProductAPIController();
+        ProductController _controller = new ProductController();
         ProductContext _context = new ProductContext();
 
         [Fact]
