@@ -13,11 +13,19 @@ namespace Order.API.Controllers
     public class OrderController : ControllerBase
     {
         OrderRepository _orderRepository = new OrderRepository();
+
         [HttpGet]
         public IActionResult GetOrders()
         {
             var OrdersList = _orderRepository.GetAllOrders();
             return Ok(OrdersList);
+        }
+
+        [HttpGet("{ID}")]
+        public IActionResult GetOrderByID(Guid ID)
+        {
+            var Order = _orderRepository.GetOrderByID(ID);
+            return Ok(Order);
         }
     }
 }
