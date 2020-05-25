@@ -4,17 +4,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebbShop.Models;
+using WebbShop.Services;
 
 namespace WebbShop.Controllers
 {
     public class ProductsController : Controller
     {
+        ProductService _productService = new ProductService();
+
         OrderViewModel _ViewModel = new OrderViewModel();
         [HttpGet]
-        public IActionResult IndexProducts()
+        public async Task<IActionResult> IndexProducts()
         {
             // Get the list of values
-            _ViewModel.Productlist = Data.GetList();
+            //  _ViewModel.Productlist = Data.GetList();
+            _ViewModel.Productlist = await _productService.GetAllProducts();
 
             return View(_ViewModel);
         }
@@ -50,3 +54,5 @@ namespace WebbShop.Controllers
         }
     }
 }
+//skapa en klass (services) som hämtar data från apigatewayen med http client. Klassen ska anropas här
+// serviceklassen ska anropas för respektive controller
