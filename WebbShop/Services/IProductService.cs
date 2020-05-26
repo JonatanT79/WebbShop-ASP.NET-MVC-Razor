@@ -6,7 +6,7 @@ using WebbShop.Models;
 
 namespace WebbShop.Services
 {
-    interface IProductService
+    public interface IProductService
     {
         Task<List<Products>> GetAllProducts();
         Task<Products> GetProductByID();

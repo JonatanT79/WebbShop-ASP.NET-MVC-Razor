@@ -12,6 +12,7 @@ using WebbShop.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebbShop.Services;
 
 namespace WebbShop
 {
@@ -42,6 +43,11 @@ namespace WebbShop
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            services.AddHttpClient<IProductService, ProductService>(client =>
+                client.BaseAddress = new Uri(Configuration["APIGatewayUrl"])
+            );
+
             services.AddRazorPages();
             services.AddSession();
         }

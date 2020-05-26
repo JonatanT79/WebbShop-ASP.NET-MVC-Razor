@@ -11,8 +11,8 @@ namespace WebbShop.Controllers
     public class ProductsController : Controller
     {
         ProductService _productService = new ProductService();
-
         OrderViewModel _ViewModel = new OrderViewModel();
+
         [HttpGet]
         public async Task<IActionResult> IndexProducts()
         {
@@ -22,6 +22,7 @@ namespace WebbShop.Controllers
 
             return View(_ViewModel);
         }
+
         [HttpGet]
         public IActionResult ViewProduct(int ID)
         {
