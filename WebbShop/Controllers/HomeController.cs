@@ -6,22 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebbShop.Models;
+using WebbShop.Services;
 
 namespace WebbShop.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        ProductService _productService = new ProductService();
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             OrderViewModel _ViewModel = new OrderViewModel();
-            _ViewModel.Productlist = Data.GetList();
+            _ViewModel.Productlist = await _productService.GetAllProductsAsync();
             return View(_ViewModel);
         }
 

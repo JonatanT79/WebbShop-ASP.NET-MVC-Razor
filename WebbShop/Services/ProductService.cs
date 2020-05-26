@@ -15,7 +15,7 @@ namespace WebbShop.Services
 
         public async Task<List<Products>> GetAllProductsAsync()
         {
-            var ResponseString = await client.GetStringAsync(BaseAdressProduct + "product");
+            string ResponseString = await client.GetStringAsync(BaseAdressProduct + "product");
             var ProductList = JsonConvert.DeserializeObject<List<Products>>(ResponseString);
 
             return ProductList;
@@ -23,7 +23,7 @@ namespace WebbShop.Services
 
         public async Task<Products> GetProductByIDAsync(int ID)
         {
-            var ResponseString = await client.GetStringAsync(BaseAdressProduct + "product/" + ID);
+            string ResponseString = await client.GetStringAsync(BaseAdressProduct + "product/" + ID);
             var Product = JsonConvert.DeserializeObject<Products>(ResponseString);
 
             return Product;

@@ -31,19 +31,5 @@ namespace WebbShop.Controllers
             return View(_ViewModel);
         }
     }
-    public class Data
-    {
-        public static List<Products> GetList()
-        {
-            List<Products> ListOfProducts = new List<Products>()
-            {
-                new Products() { ID = 1, Name = "PC", Description = "Deskop", Price = 14999M, Maker = "Acer" },
-                new Products() { ID = 2, Name = "TV", Description = "55 Tum", Price = 8999M, Maker = "Philips" },
-                new Products() { ID = 3, Name = "Headphones", Description = "Iphone", Price = 799M, Maker = "Apple"},
-                new Products() { ID = 4, Name = "Keyboard", Description = "Gaming", Price = 1050M, Maker = "Razor"}
-            };
-
-            return ListOfProducts;
-        }
-    }
 }
+//prova lägga in en ny produkt och kolla om den listas

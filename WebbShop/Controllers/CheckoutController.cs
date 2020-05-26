@@ -5,13 +5,16 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebbShop.Models;
+using WebbShop.Services;
 
 namespace WebbShop.Controllers
 {
     public class CheckoutController : Controller
     {
+        ProductService _productService = new ProductService();
+
         [HttpGet]
-        public IActionResult ShoppingCart()
+        public async Task<IActionResult> ShoppingCart()
         {
             OrderViewModel _ViewModel = new OrderViewModel();
             var Cart = Request.Cookies.SingleOrDefault(k => k.Key == "Cart");
@@ -20,8 +23,9 @@ namespace WebbShop.Controllers
             if (!string.IsNullOrEmpty(ReadKeyValue))
             {
                 var ProductIds = ReadKeyValue.Split(",").Select(s => int.Parse(s));
+                var ProductList = await _productService.GetAllProductsAsync();
 
-                var GetProducts = from e in Data.GetList()
+                var GetProducts = from e in ProductList
                                   where ProductIds.Contains(e.ID)
                                   select e;
 
@@ -74,16 +78,16 @@ namespace WebbShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult ConfirmOrder()
+        public async Task<IActionResult> ConfirmOrder()
         {
             OrderViewModel ViewModel = new OrderViewModel();
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
             string CookieValue = Cart.Value;
 
             var ProductIDs = CookieValue.Split(",").Select(s => int.Parse(s));
-            ViewModel.Productlist = Data.GetList();
+            var Productlist = await _productService.GetAllProductsAsync();
 
-            var Getproducts = from g in ViewModel.Productlist
+            var Getproducts = from g in Productlist
                               where ProductIDs.Contains(g.ID)
                               select g;
 
@@ -98,11 +102,13 @@ namespace WebbShop.Controllers
 
             return View(ViewModel);
         }
+
         [HttpGet]
         public IActionResult CompleteOrder()
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult RemoveCartItem(int ItemID)
         {
