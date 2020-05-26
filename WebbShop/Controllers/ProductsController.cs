@@ -16,23 +16,17 @@ namespace WebbShop.Controllers
         [HttpGet]
         public async Task<IActionResult> IndexProducts()
         {
-            _ViewModel.Productlist = await _productService.GetAllProducts();
+            _ViewModel.Productlist = await _productService.GetAllProductsAsync();
 
             return View(_ViewModel);
         }
 
         [HttpGet]
-        public IActionResult ViewProduct(int ID)
+        public async Task<IActionResult> ViewProduct(int ID)
         {
             _ViewModel.Release = DateTime.Now;
-            _ViewModel.Productlist = Data.GetList();
-
-            var Filterproduct = from e in _ViewModel.Productlist
-                                where e.ID == ID
-                                select e;
-
-            var Product = Filterproduct.ToList()[0];
-            _ViewModel.CartList.Add(Product);
+            var product = await _productService.GetProductByIDAsync(ID);
+            _ViewModel.CartList.Add(product);
 
             return View(_ViewModel);
         }
@@ -53,5 +47,3 @@ namespace WebbShop.Controllers
         }
     }
 }
-//skapa en klass (services) som hämtar data från apigatewayen med http client. Klassen ska anropas här
-// serviceklassen ska anropas för respektive controller

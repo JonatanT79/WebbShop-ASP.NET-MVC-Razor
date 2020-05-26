@@ -12,7 +12,8 @@ namespace WebbShop.Services
     {
         private readonly HttpClient client = new HttpClient();
         public Uri BaseAdressProduct { get; set; } = new Uri("http://localhost:5000");
-        public async Task<List<Products>> GetAllProducts()
+
+        public async Task<List<Products>> GetAllProductsAsync()
         {
             var ResponseString = await client.GetStringAsync(BaseAdressProduct + "product");
             var ProductList = JsonConvert.DeserializeObject<List<Products>>(ResponseString);
@@ -20,14 +21,12 @@ namespace WebbShop.Services
             return ProductList;
         }
 
-        public async Task<Products> GetProductByID()
+        public async Task<Products> GetProductByIDAsync(int ID)
         {
-            var ResponseString = await client.GetStringAsync("k");
-
+            var ResponseString = await client.GetStringAsync(BaseAdressProduct + "product/" + ID);
             var Product = JsonConvert.DeserializeObject<Products>(ResponseString);
 
             return Product;
         }
     }
 }
-//prova ta bort konstruk (ej funka)o skapa ny instans av http(funkar)
