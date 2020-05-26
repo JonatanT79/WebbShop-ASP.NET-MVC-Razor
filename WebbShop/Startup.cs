@@ -44,10 +44,6 @@ namespace WebbShop
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
 
-            services.AddHttpClient<IProductService, ProductService>(client =>
-                client.BaseAddress = new Uri(Configuration["APIGatewayURL"])
-            );
-
             services.AddRazorPages();
             services.AddSession();
         }

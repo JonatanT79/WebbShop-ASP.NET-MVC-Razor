@@ -10,14 +10,12 @@ namespace WebbShop.Controllers
 {
     public class ProductsController : Controller
     {
-        ProductService _productService = new ProductService();
         OrderViewModel _ViewModel = new OrderViewModel();
+        private readonly ProductService _productService = new ProductService();
 
         [HttpGet]
         public async Task<IActionResult> IndexProducts()
         {
-            // Get the list of values
-            //  _ViewModel.Productlist = Data.GetList();
             _ViewModel.Productlist = await _productService.GetAllProducts();
 
             return View(_ViewModel);

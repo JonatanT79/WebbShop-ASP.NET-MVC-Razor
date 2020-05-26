@@ -10,11 +10,11 @@ namespace WebbShop.Services
 {
     public class ProductService : IProductService
     {
-        readonly HttpClient client;
+        private readonly HttpClient client = new HttpClient();
+        public Uri BaseAdressProduct { get; set; } = new Uri("http://localhost:5000");
         public async Task<List<Products>> GetAllProducts()
         {
-            var ResponseString = await client.GetStringAsync("product/");
-            
+            var ResponseString = await client.GetStringAsync(BaseAdressProduct + "product");
             var ProductList = JsonConvert.DeserializeObject<List<Products>>(ResponseString);
 
             return ProductList;
@@ -30,3 +30,4 @@ namespace WebbShop.Services
         }
     }
 }
+//prova ta bort konstruk (ej funka)o skapa ny instans av http(funkar)
