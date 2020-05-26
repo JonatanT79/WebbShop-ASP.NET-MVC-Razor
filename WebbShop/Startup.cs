@@ -45,7 +45,7 @@ namespace WebbShop
             services.AddControllersWithViews();
 
             services.AddHttpClient<IProductService, ProductService>(client =>
-                client.BaseAddress = new Uri(Configuration["APIGatewayUrl"])
+                client.BaseAddress = new Uri(Configuration["APIGatewayURL"])
             );
 
             services.AddRazorPages();

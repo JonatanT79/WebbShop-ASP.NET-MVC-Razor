@@ -13,7 +13,8 @@ namespace WebbShop.Services
         readonly HttpClient client;
         public async Task<List<Products>> GetAllProducts()
         {
-            var ResponseString = await client.GetStringAsync("http://localhost:5000/product");
+            var ResponseString = await client.GetStringAsync("product/");
+            
             var ProductList = JsonConvert.DeserializeObject<List<Products>>(ResponseString);
 
             return ProductList;
