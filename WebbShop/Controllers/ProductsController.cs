@@ -32,5 +32,5 @@ namespace WebbShop.Controllers
         }
     }
 }
-//Fixa orderservice
-//orderservice =>getall, getbyID, create, delete
+//Fixa orderitems insert.
+//orderservice =>getall, getbyID, create, delete(fixa)

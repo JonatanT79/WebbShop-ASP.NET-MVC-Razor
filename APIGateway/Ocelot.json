@@ -116,7 +116,7 @@
         }
       ],
       "UpstreamPathTemplate": "/order/Insert",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "POST" ]
     }
   ]
 }

@@ -23,9 +23,10 @@ namespace WebbShop.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreateConfirmedOrder()
+        public async Task<IActionResult> InsertConfirmedOrder(decimal TotalSum)
         {
-            await _orderService.InsertOrder();
+            var Order = CreateTheOrderFromCart(TotalSum);
+            await _orderService.InsertOrder(Order);
 
             return RedirectToAction("CompleteOrder", "Order");
         }
@@ -34,6 +35,12 @@ namespace WebbShop.Controllers
         public IActionResult CompleteOrder()
         {
             return View();
+        }
+        public Order CreateTheOrderFromCart(decimal TotalSum)
+        {
+            string UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Order _order = new Order() { OrderID = Guid.NewGuid(), OrderMadeAt = DateTime.Now, TotalSum = (float)TotalSum, UserID = UserID };
+            return _order;
         }
     }
 }
