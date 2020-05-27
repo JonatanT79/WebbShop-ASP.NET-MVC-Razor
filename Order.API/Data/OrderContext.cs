@@ -10,6 +10,7 @@ namespace Order.API.Data
     public class OrderContext : DbContext
     {
         public DbSet<Orders> Orders { get; set; }
+        public DbSet<OrderItems> OrderItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -19,7 +20,7 @@ namespace Order.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Orders>().Property(e => e.ID).HasDefaultValue(new Guid());
+            modelBuilder.Entity<Orders>().Property(e => e.OrderID).HasDefaultValue(new Guid());
         }
     }
 }

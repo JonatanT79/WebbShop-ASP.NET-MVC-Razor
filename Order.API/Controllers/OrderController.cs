@@ -29,4 +29,3 @@ namespace Order.API.Controllers
         }
     }
 }
-// skapa ett orderitem klass och en foreign i 'orderitem' klassen

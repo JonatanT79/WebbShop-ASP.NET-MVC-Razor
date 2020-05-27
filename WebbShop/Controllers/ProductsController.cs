@@ -32,6 +32,5 @@ namespace WebbShop.Controllers
         }
     }
 }
-//Fixa orderconnection till apig
-//lägg till "mina ordrar" bredvid registrera
+//Fixa orderservice
 //orderservice =>getall, getbyID, create

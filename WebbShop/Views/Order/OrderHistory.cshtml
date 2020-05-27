@@ -1,6 +1,17 @@
-﻿
+﻿@model List<Order>
 @{
 }
 <center>
     <h1>Orderhistory</h1>
 </center>
+
+@foreach (var item in Model)
+{
+    <li class="list-group">
+        <p>OrderID: @item.OrderID</p>
+        <p>OrderMadeAt: @item.OrderMadeAt</p>
+        <p>TotalSum: @item.TotalSum</p>
+        <p>UserID: @item.UserID</p>
+    </li>
+    <p style="border:1px; border-style:solid; border-color:#000000"></p>
+}

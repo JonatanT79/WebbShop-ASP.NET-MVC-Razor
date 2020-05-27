@@ -15,8 +15,8 @@ namespace Order_UnitTest
         [Fact]
         public void GetAllOrders_ShouldGetAllOrdersWithID()
         {
-            var expected = _context.Orders.Select(e => e.ID);
-            var actual = _repository.GetAllOrders().Select(e => e.ID);
+            var expected = _context.Orders.Select(e => e.OrderID);
+            var actual = _repository.GetAllOrders().Select(e => e.OrderID);
 
             Assert.Equal(expected, actual);
         }

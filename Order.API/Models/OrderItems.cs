@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Order.API.Models
 {
-    public class Orders
+    public class OrderItems
     {
         [Key]
-        public Guid OrderID { get; set; }
-        public float TotalSum { get; set; }
-        public DateTime OrderMadeAt { get; set; }
-        public string UserID { get; set; }
+        public int ID { get; set; }
+        public int ProductID { get; set; }
+        public int Amount { get; set; }
+        public Orders Orders { get; set; }
     }
 }

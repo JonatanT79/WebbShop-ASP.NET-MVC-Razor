@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Order.API.Models
+namespace WebbShop.Models
 {
-    public class Orders
+    public class Order
     {
-        [Key]
         public Guid OrderID { get; set; }
         public float TotalSum { get; set; }
         public DateTime OrderMadeAt { get; set; }

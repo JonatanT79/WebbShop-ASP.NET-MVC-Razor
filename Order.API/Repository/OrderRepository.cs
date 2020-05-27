@@ -17,7 +17,7 @@ namespace Order.API.Repository
         }
         public Orders GetOrderByID(Guid ID)
         {
-            var FindOrder = _context.Orders.Where(e => e.ID == ID);
+            var FindOrder = _context.Orders.Where(e => e.OrderID == ID);
             var GetOrder = FindOrder.Single();
 
             return GetOrder;
