@@ -9,6 +9,7 @@ namespace Order.API.Repository
     interface IOrderRepository
     {
         List<Orders> GetAllOrders();
+        List<Orders> GetAllOrdersByUserID(string UserID);
         Orders GetOrderByID(Guid ID);
     }
 }

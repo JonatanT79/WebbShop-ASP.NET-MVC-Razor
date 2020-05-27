@@ -81,7 +81,7 @@
     },
 
     {
-      "DownstreamPathTemplate": "/api/order/{id}",
+      "DownstreamPathTemplate": "/api/order/{UserID}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -89,7 +89,20 @@
           "Port": "7000"
         }
       ],
-      "UpstreamPathTemplate": "/order/{id}",
+      "UpstreamPathTemplate": "/order/{UserID}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/order/single/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7000"
+        }
+      ],
+      "UpstreamPathTemplate": "/order/single/{id}",
       "UpstreamHttpMethod": [ "GET" ]
     }
   ]

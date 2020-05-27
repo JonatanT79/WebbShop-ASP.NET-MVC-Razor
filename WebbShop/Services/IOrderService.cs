@@ -9,5 +9,6 @@ namespace WebbShop.Services
     public interface IOrderService
     {
         Task<List<Order>> GetAllOrders();
+        Task<List<Order>> GetAllOrdersByUserID(string UserID);
     }
 }

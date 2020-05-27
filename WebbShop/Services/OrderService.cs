@@ -10,15 +10,22 @@ namespace WebbShop.Services
 {
     public class OrderService :IOrderService
     {
-        HttpClient _httpClient = new HttpClient();
+        private readonly HttpClient _httpClient = new HttpClient();
         public Uri BaseAdress { get; set; } = new Uri("http://localhost:5000/");
 
-        //Obs endast för test, kommer någ inte behövas hämta alla ordrar
         public async Task<List<Order>> GetAllOrders()
         {
             string ResponseString = await _httpClient.GetStringAsync(BaseAdress + "order");
             var Orders = JsonConvert.DeserializeObject<List<Order>>(ResponseString);
             return Orders;
+        }
+
+        public async Task<List<Order>> GetAllOrdersByUserID(string UserID)
+        {
+            string ResponseString = await _httpClient.GetStringAsync(BaseAdress + "order/" + UserID);
+            var AllUserOrders = JsonConvert.DeserializeObject<List<Order>>(ResponseString);
+
+            return AllUserOrders;
         }
     }
 }
