@@ -104,6 +104,19 @@
       ],
       "UpstreamPathTemplate": "/order/single/{id}",
       "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/order/Insert",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7000"
+        }
+      ],
+      "UpstreamPathTemplate": "/order/Insert",
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ]
 }

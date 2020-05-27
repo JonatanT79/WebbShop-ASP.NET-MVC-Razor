@@ -12,6 +12,7 @@ namespace WebbShop.Controllers
     public class OrderController : Controller
     {
         OrderService _orderService = new OrderService();
+
         [HttpGet]
         public async Task<IActionResult> OrderHistory()
         {
@@ -19,6 +20,20 @@ namespace WebbShop.Controllers
             var OrdersList = await _orderService.GetAllOrdersByUserID(UserID);
 
             return View(OrdersList);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateConfirmedOrder()
+        {
+            await _orderService.InsertOrder();
+
+            return RedirectToAction("CompleteOrder", "Order");
+        }
+
+        [HttpGet]
+        public IActionResult CompleteOrder()
+        {
+            return View();
         }
     }
 }

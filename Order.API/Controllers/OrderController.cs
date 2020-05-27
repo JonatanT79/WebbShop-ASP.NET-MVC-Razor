@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Order.API.Controllers
 {
@@ -28,11 +29,22 @@ namespace Order.API.Controllers
             return Ok(UserOrders);
         }
 
-        [HttpGet("single/{ID}")]
+        [HttpGet("Single/{ID}")]
         public IActionResult GetOrderByID(Guid ID)
         {
             var Order = _orderRepository.GetOrderByID(ID);
             return Ok(Order);
+        }
+
+        [HttpPost("Insert")]
+        public IActionResult CreateOrder([FromBody] Orders order)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                _orderRepository.CreateOrder(order);
+                scope.Complete();
+                return CreatedAtAction(nameof(CreateOrder), new { OrderID = order.OrderID }, order);
+            }
         }
     }
 }

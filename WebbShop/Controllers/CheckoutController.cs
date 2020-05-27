@@ -103,12 +103,6 @@ namespace WebbShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult CompleteOrder()
-        {
-            return View();
-        }
-
-        [HttpGet]
         public IActionResult RemoveCartItem(int ItemID)
         {
             var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");

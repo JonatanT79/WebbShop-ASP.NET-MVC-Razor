@@ -27,5 +27,10 @@ namespace Order.API.Repository
 
             return GetOrder;
         }
+        public void CreateOrder(Orders Order)
+        {
+            _context.Orders.Add(Order);
+            _context.SaveChanges();
+        }
     }
 }
