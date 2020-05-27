@@ -73,4 +73,3 @@ namespace Product.API.Controllers
         }
     }
 }
-// httpclient i controllern

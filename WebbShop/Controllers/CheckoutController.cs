@@ -51,7 +51,6 @@ namespace WebbShop.Controllers
             else
             {
                 Response.Cookies.Delete("Cart");
-
             }
             return View(ViewModel);
         }
