@@ -10,5 +10,7 @@ namespace WebbShop.Services
     {
         Task<List<Order>> GetAllOrders();
         Task<List<Order>> GetAllOrdersByUserID(string UserID);
+        Task InsertOrder(Order order);
+        Task InsertOrderItems(List<int> OrderItems, Guid OrderID);
     }
 }

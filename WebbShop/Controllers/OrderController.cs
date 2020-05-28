@@ -12,6 +12,7 @@ namespace WebbShop.Controllers
     public class OrderController : Controller
     {
         OrderService _orderService = new OrderService();
+        ProductService _productService = new ProductService();
 
         [HttpGet]
         public async Task<IActionResult> OrderHistory()
@@ -25,8 +26,13 @@ namespace WebbShop.Controllers
         [HttpGet]
         public async Task<IActionResult> InsertConfirmedOrder(decimal TotalSum)
         {
-            var Order = CreateTheOrderFromCart(TotalSum);
+            var Order = CreateConfirmedOrder(TotalSum);
             await _orderService.InsertOrder(Order);
+
+            // kör debugger igen så du förstår tydligare vad som händer
+            var OrderID = Order.OrderID;
+            var OrderItems = ProductsInConfirmedOrder();
+            await _orderService.InsertOrderItems(OrderItems, OrderID);
 
             return RedirectToAction("CompleteOrder", "Order");
         }
@@ -36,11 +42,22 @@ namespace WebbShop.Controllers
         {
             return View();
         }
-        public Order CreateTheOrderFromCart(decimal TotalSum)
+
+        public Order CreateConfirmedOrder(decimal TotalSum)
         {
             string UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Order _order = new Order() { OrderID = Guid.NewGuid(), OrderMadeAt = DateTime.Now, TotalSum = (float)TotalSum, UserID = UserID };
             return _order;
+        }
+
+        public List<int> ProductsInConfirmedOrder()
+        {
+            List<Products> ListOfProductIDs = new List<Products>();
+            var Cart = Request.Cookies.SingleOrDefault(c => c.Key == "Cart");
+            string Cookiestring = Cart.Value;
+            var ProductIDs = Cookiestring.Split(",").Select(s => int.Parse(s)).ToList();
+
+            return ProductIDs;
         }
     }
 }

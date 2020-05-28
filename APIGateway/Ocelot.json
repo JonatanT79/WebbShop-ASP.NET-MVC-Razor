@@ -107,7 +107,7 @@
     },
 
     {
-      "DownstreamPathTemplate": "/api/order/Insert",
+      "DownstreamPathTemplate": "/api/order/InsertOrder",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -115,7 +115,20 @@
           "Port": "7000"
         }
       ],
-      "UpstreamPathTemplate": "/order/Insert",
+      "UpstreamPathTemplate": "/order/InsertOrder",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/order/InsertItems/{OrderID}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7000"
+        }
+      ],
+      "UpstreamPathTemplate": "/order/InsertItems/{OrderID}",
       "UpstreamHttpMethod": [ "POST" ]
     }
   ]

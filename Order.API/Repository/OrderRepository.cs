@@ -32,5 +32,14 @@ namespace Order.API.Repository
             _context.Orders.Add(Order);
             _context.SaveChanges();
         }
+        public void InsertOrderItems(List<int> Items, Guid OrdersID)
+        {
+            foreach (var item in Items)
+            {
+                OrderItems _orderItems = new OrderItems() { ProductID = item, Amount = 1, OrdersID = OrdersID };
+                _context.OrderItems.Add(_orderItems);
+            }
+            _context.SaveChanges();
+        }
     }
 }

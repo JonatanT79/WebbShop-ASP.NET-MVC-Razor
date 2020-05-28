@@ -36,7 +36,7 @@ namespace Order.API.Controllers
             return Ok(Order);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("InsertOrder")]
         public IActionResult CreateOrder([FromBody] Orders order)
         {
             using (TransactionScope scope = new TransactionScope())
@@ -44,6 +44,17 @@ namespace Order.API.Controllers
                 _orderRepository.CreateOrder(order);
                 scope.Complete();
                 return CreatedAtAction(nameof(CreateOrder), new { OrderID = order.OrderID }, order);
+            }
+        }
+
+        [HttpPost("InsertItems/{OrderID}")]
+        public IActionResult AddOrderItems([FromBody] List<int> Items, Guid OrderID)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                _orderRepository.InsertOrderItems(Items, OrderID);
+                scope.Complete();
+                return CreatedAtAction(nameof(AddOrderItems), new { OrderID = OrderID }, Items );
             }
         }
     }

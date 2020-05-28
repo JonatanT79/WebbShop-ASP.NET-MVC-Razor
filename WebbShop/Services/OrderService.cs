@@ -28,16 +28,21 @@ namespace WebbShop.Services
 
             return AllUserOrders;
         }
-        public async Task<Order> InsertOrder(Order order)
+
+        public async Task InsertOrder(Order order)
         {
-            var JSONOrder = JsonConvert.SerializeObject(order);
-            var Content = new StringContent(JSONOrder, Encoding.UTF8, "application/json");
+            var JsonString = JsonConvert.SerializeObject(order);
+            var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
 
-            var Response = await _httpClient.PostAsync(BaseAdress + "order/insert", Content);
-            var ResponseString = await Response.Content.ReadAsStringAsync();
-            var NewOrder = JsonConvert.DeserializeObject<Order>(ResponseString);
+            var Response = await _httpClient.PostAsync(BaseAdress + "order/insertorder", Content);
+        }
 
-            return NewOrder;
+        public async Task InsertOrderItems(List<int> OrderItems, Guid OrderID)
+        {
+            var JsonString = JsonConvert.SerializeObject(OrderItems);
+            var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
+            //skickar med listan (content) som en parameter till api endpointen
+            var Response = await _httpClient.PostAsync(BaseAdress + "order/insertitems/" + OrderID, Content);
         }
     }
 }
