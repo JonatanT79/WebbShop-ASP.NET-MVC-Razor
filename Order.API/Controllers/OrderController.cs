@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Order.API.Data;
 using Order.API.Models;
 using Order.API.Repository;
 using System;
@@ -14,6 +15,7 @@ namespace Order.API.Controllers
     public class OrderController : ControllerBase
     {
         OrderRepository _orderRepository = new OrderRepository();
+        readonly OrderContext _context = new OrderContext();
 
         [HttpGet]
         public IActionResult GetOrders()
@@ -25,14 +27,21 @@ namespace Order.API.Controllers
         [HttpGet("{UserID}")]
         public IActionResult GetAllOrdersByUserID(string UserID)
         {
-            var UserOrders = _orderRepository.GetAllOrdersByUserID(UserID);
-            return Ok(UserOrders);
+            if (_context.Orders.Any(a => a.UserID == UserID))
+            {
+                var UserOrders = _orderRepository.GetAllOrdersByUserID(UserID);
+                return Ok(UserOrders);
+            }
+            else
+            {
+                return NotFound("No order have that ID");
+            }
         }
 
         [HttpGet("Single/{ID}")]
-        public IActionResult GetOrderByID(Guid ID)
+        public IActionResult GetOrderByOrderID(Guid OrderID)
         {
-            var Order = _orderRepository.GetOrderByID(ID);
+            var Order = _orderRepository.GetOrderByOrderID(OrderID);
             return Ok(Order);
         }
 
@@ -54,7 +63,21 @@ namespace Order.API.Controllers
             {
                 _orderRepository.InsertOrderItems(Items, OrderID);
                 scope.Complete();
-                return CreatedAtAction(nameof(AddOrderItems), new { OrderID = OrderID }, Items );
+                return CreatedAtAction(nameof(AddOrderItems), new { OrderID = OrderID }, Items);
+            }
+        }
+
+        [HttpDelete("Delete/{OrderID}")]
+        public IActionResult DeleteOrder(Guid OrderID)
+        {
+            if (_context.Orders.Any(a => a.OrderID == OrderID))
+            {
+                _orderRepository.DeleteSingleOrderFromHistory(OrderID);
+                return Ok(_orderRepository.GetAllOrders());
+            }
+            else
+            {
+                return NotFound("No order have that ID");
             }
         }
     }

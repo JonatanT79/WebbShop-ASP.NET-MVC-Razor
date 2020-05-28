@@ -20,7 +20,7 @@ namespace Order.API.Repository
             var ListOfOrders = _context.Orders.Where(e => e.UserID == UserID);
             return ListOfOrders.ToList();
         }
-        public Orders GetOrderByID(Guid OrderID)
+        public Orders GetOrderByOrderID(Guid OrderID)
         {
             var FindOrder = _context.Orders.Where(e => e.OrderID == OrderID);
             var GetOrder = FindOrder.Single();
@@ -39,6 +39,13 @@ namespace Order.API.Repository
                 OrderItems _orderItems = new OrderItems() { ProductID = item, Amount = 1, OrdersID = OrdersID };
                 _context.OrderItems.Add(_orderItems);
             }
+            _context.SaveChanges();
+        }
+        public void DeleteSingleOrderFromHistory(Guid OrderID)
+        {
+            var GetOrderToDelete =  _context.Orders.Where(e => e.OrderID == OrderID);
+            var Order = GetOrderToDelete.SingleOrDefault();
+            _context.Orders.Remove(Order);
             _context.SaveChanges();
         }
     }

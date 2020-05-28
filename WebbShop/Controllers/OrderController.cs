@@ -23,12 +23,6 @@ namespace WebbShop.Controllers
             return View(OrdersList);
         }
 
-       [HttpPost]
-        public IActionResult DeleteSingleOrderHistory(Guid OrderID)
-        {
-            return RedirectToAction("Privacy", "Home");
-        }
-
         [HttpGet]
         public async Task<IActionResult> InsertConfirmedOrder(decimal TotalSum)
         {
@@ -39,7 +33,17 @@ namespace WebbShop.Controllers
             var OrderItems = ProductsInConfirmedOrder();
             await _orderService.InsertOrderItems(OrderItems, OrderID);
 
+            Request.Cookies.SingleOrDefault(s => s.Key == "Cart");
+            Response.Cookies.Delete("Cart");
+
             return RedirectToAction("CompleteOrder", "Order");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteSingleOrderHistory(Guid OrderID)
+        {
+            await _orderService.DeleteOrder(OrderID);
+            return RedirectToAction("OrderHistory", "Order");
         }
 
         [HttpGet]

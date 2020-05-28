@@ -43,5 +43,10 @@ namespace WebbShop.Services
             var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
             await _httpClient.PostAsync(BaseAdress + "order/insertitems/" + OrderID, Content);
         }
+
+        public async Task DeleteOrder(Guid OrderID)
+        {
+            await _httpClient.DeleteAsync(BaseAdress + "order/delete/" + OrderID);
+        }
     }
 }

@@ -10,6 +10,9 @@ namespace Order.API.Repository
     {
         List<Orders> GetAllOrders();
         List<Orders> GetAllOrdersByUserID(string UserID);
-        Orders GetOrderByID(Guid ID);
+        Orders GetOrderByOrderID(Guid OrderID);
+        void CreateOrder(Orders Order);
+        void InsertOrderItems(List<int> Items, Guid OrdersID);
+        void DeleteSingleOrderFromHistory(Guid OrderID);
     }
 }

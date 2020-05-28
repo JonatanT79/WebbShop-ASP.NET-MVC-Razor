@@ -33,3 +33,5 @@ namespace WebbShop.Controllers
     }
 }
 //orderservice => delete(fixa - ta bort orderhistory)
+//Byt namn på anync metoder till async i slutet
+//vid delete - Javascript - varning det här kommer även deleta tillhörande produkter (order)

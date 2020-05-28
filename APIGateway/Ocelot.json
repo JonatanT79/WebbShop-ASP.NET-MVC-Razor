@@ -130,6 +130,19 @@
       ],
       "UpstreamPathTemplate": "/order/InsertItems/{OrderID}",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/order/Delete/{OrderID}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7000"
+        }
+      ],
+      "UpstreamPathTemplate": "/order/Delete/{OrderID}",
+      "UpstreamHttpMethod": [ "DELETE" ]
     }
   ]
 }
