@@ -23,13 +23,19 @@ namespace WebbShop.Controllers
             return View(OrdersList);
         }
 
+       [HttpPost]
+        public IActionResult DeleteSingleOrderHistory(string i)
+        {
+            var rnd = i;
+            return RedirectToAction("Privacy", "Home");
+        }
+
         [HttpGet]
         public async Task<IActionResult> InsertConfirmedOrder(decimal TotalSum)
         {
             var Order = CreateConfirmedOrder(TotalSum);
             await _orderService.InsertOrder(Order);
 
-            // kör debugger igen så du förstår tydligare vad som händer
             var OrderID = Order.OrderID;
             var OrderItems = ProductsInConfirmedOrder();
             await _orderService.InsertOrderItems(OrderItems, OrderID);

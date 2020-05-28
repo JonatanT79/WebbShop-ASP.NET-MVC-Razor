@@ -32,4 +32,4 @@ namespace WebbShop.Controllers
         }
     }
 }
-//orderservice =>getall, getbyID, create, delete(fixa - ta bort orderhistory)
+//orderservice => delete(fixa - ta bort orderhistory)
