@@ -24,9 +24,8 @@ namespace WebbShop.Controllers
         }
 
        [HttpPost]
-        public IActionResult DeleteSingleOrderHistory(string i)
+        public IActionResult DeleteSingleOrderHistory(Guid OrderID)
         {
-            var rnd = i;
             return RedirectToAction("Privacy", "Home");
         }
 

@@ -14,8 +14,7 @@
         <p>UserID: @item.UserID</p>
 
         <form class="form-control" method="post" asp-controller="Order" asp-action="DeleteSingleOrderHistory">
-            <input name="i"/>
-            <button type="submit" class="btn btn-danger ">Remove</button>
+            <button type="submit" class="btn btn-danger" style="float:right" asp-route-OrderID="@item.OrderID">Remove</button>
         </form>
     </li>
     <p style="border:1px; border-style:solid; border-color:#000000"></p>

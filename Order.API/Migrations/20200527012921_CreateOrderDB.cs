@@ -35,11 +35,11 @@ namespace Order.API.Migrations
                 {
                     table.PrimaryKey("PK_OrderItems", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_OrderItems_Orders_OrdersID",
+                        name: "FK_OrderItems_OrdersID",
                         column: x => x.OrdersID,
                         principalTable: "Orders",
                         principalColumn: "OrderID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
