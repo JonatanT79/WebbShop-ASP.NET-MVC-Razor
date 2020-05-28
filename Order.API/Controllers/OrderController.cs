@@ -27,15 +27,8 @@ namespace Order.API.Controllers
         [HttpGet("{UserID}")]
         public IActionResult GetAllOrdersByUserID(string UserID)
         {
-            if (_context.Orders.Any(a => a.UserID == UserID))
-            {
-                var UserOrders = _orderRepository.GetAllOrdersByUserID(UserID);
-                return Ok(UserOrders);
-            }
-            else
-            {
-                return NotFound("No order have that ID");
-            }
+            var UserOrders = _orderRepository.GetAllOrdersByUserID(UserID);
+            return Ok(UserOrders);
         }
 
         [HttpGet("Single/{ID}")]
