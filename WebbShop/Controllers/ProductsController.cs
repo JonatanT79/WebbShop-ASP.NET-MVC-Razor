@@ -32,6 +32,4 @@ namespace WebbShop.Controllers
         }
     }
 }
-//OrderhistoryDesign
-//lägg till Update i orderrepository??
-//Snygga till kod i productservice till method syntax?
+//lägg till Update i orderrepository

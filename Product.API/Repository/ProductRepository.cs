@@ -17,10 +17,7 @@ namespace Product.API.Repository
         }
         public Products GetProductByID(int ID)
         {
-            var ProductByID = from e in _context.Products
-                              where e.ID == ID
-                              select e;
-
+            var ProductByID = _context.Products.Where(e => e.ID == ID);
             return ProductByID.Single();
         }
         public void CreateProduct(Products product)
@@ -30,9 +27,7 @@ namespace Product.API.Repository
         }
         public void DeleteProduct(int ID)
         {
-            var DeleteProduct = from e in _context.Products
-                                where e.ID == ID
-                                select e;
+            var DeleteProduct = _context.Products.Where(e => e.ID == ID);
 
             Products _products = new Products();
             _products = DeleteProduct.Single();

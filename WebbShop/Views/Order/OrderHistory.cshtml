@@ -5,30 +5,20 @@
     <h1>Orderhistory</h1>
 </center>
 
-<div class="row">
-    <div class="col-md-6">
-        @foreach (var item in Model.OrderList)
-        {
-            <li class="list-group">
-                <p><b>OrderID:</b> @item.OrderID</p>
-                <p><b>UserID:</b> @item.UserID</p>
-                <p><b>TotalSum:</b> @item.TotalSum</p>
-                <p><b>OrderMadeAt:</b> @item.OrderMadeAt.ToString("yyyy-MM-dd")</p>
+@foreach (var item in Model.OrderList)
+{
+    <li class="list-group">
+        <p><b>OrderID:</b> @item.OrderID</p>
+        <p><b>UserID:</b> @item.UserID</p>
+        <form method="post"
+              asp-controller="Order" asp-action="DeleteSingleOrderHistory" asp-route-OrderID="@item.OrderID">
+            <button type="submit" id="Cascade-Deleting" style="float:right" class="btn btn-danger">Remove</button>
+        </form>
+        <p><b>TotalSum:</b> @item.TotalSum</p>
+        <p><b>OrderMadeAt:</b> @item.OrderMadeAt.ToString("yyyy-MM-dd")</p>
 
-                <form method="post"
-                      asp-controller="Order" asp-action="DeleteSingleOrderHistory" asp-route-OrderID="@item.OrderID">
-                    <button type="submit" id="Cascade-Deleting" class="btn btn-danger" style="float:right">Remove</button>
-                </form>
-            </li>
-            <p style="border:1px; border-style:solid; border-color:#000000"></p>
-        }
-    </div>
+    </li>
+    <p style="border:1px; border-style:solid; border-color:#000000"></p>
+}
 
-    <div class="col-md-6">
-        @foreach (var item in Model.OrderItemsList)
-        {
-            <p>@item.ProductID</p>
-        }
-    </div>
-</div>
 <script src="~/js/OrderCascadeDeleteAlert.js"></script>

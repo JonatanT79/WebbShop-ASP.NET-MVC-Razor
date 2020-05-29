@@ -30,9 +30,6 @@ namespace Product.API
         {
             services.AddControllers();
 
-            //services.AddDbContext<ProductContext>(options =>
-            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddTransient<IProductRepository, ProductRepository>();
         }
 

@@ -16,23 +16,6 @@ namespace Product.API
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
-           // var host = CreateHostBuilder(args).Build();
-
-            //using (var scope = host.Services.CreateScope())
-            //{
-            //    var services = scope.ServiceProvider;
-            //    try
-            //    {
-            //        var context = services.GetRequiredService<ProductContext>();
-            //        DbInitializer.Initialize(context);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        var logger = services.GetRequiredService<ILogger<Program>>();
-            //        logger.LogError("Error");
-            //    }
-            //}
-            //host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
