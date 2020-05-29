@@ -80,5 +80,16 @@ namespace Order.API.Controllers
                 return NotFound("No order have that ID");
             }
         }
+
+        [HttpPut("Update")]
+        public IActionResult UpdateOrder([FromBody] Orders order)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                _orderRepository.UpdateOrder(order);
+                scope.Complete();
+                return new OkResult();
+            }
+        }
     }
 }

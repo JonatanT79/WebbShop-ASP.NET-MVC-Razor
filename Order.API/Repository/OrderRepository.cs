@@ -53,5 +53,16 @@ namespace Order.API.Repository
             _context.Orders.Remove(Order);
             _context.SaveChanges();
         }
+
+        public void UpdateOrder(Orders order)
+        {
+            var Getorder = (from e in _context.Orders
+                             where e.OrderID == order.OrderID
+                             select e).SingleOrDefault();
+
+           Getorder.OrderMadeAt = order.OrderMadeAt;
+           Getorder.TotalSum = order.TotalSum;
+           Getorder.UserID = order.UserID;
+        }
     }
 }

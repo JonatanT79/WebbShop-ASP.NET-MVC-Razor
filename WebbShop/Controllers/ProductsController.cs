@@ -17,7 +17,6 @@ namespace WebbShop.Controllers
         public async Task<IActionResult> IndexProducts()
         {
             _ViewModel.Productlist = await _productService.GetAllProductsAsync();
-
             return View(_ViewModel);
         }
 
