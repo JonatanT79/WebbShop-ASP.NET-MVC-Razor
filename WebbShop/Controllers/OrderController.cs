@@ -17,21 +17,27 @@ namespace WebbShop.Controllers
         [HttpGet]
         public async Task<IActionResult> OrderHistory()
         {
-            string UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var OrdersList = await _orderService.GetAllOrdersByUserID(UserID);
+            OrderHistoryViewModel _orderHistoryVM = new OrderHistoryViewModel();
 
-            return View(OrdersList);
+            string UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _orderHistoryVM.OrderList = await _orderService.GetAllOrdersByUserIDAsync(UserID);
+
+            //test
+            //Guid g = new Guid("2D5CD89B-4E00-40D8-B6B8-E53CBFEB3AA8");
+            //_orderHistoryVM.OrderItemsList = await _orderService.GetAllOrderItemsByOrderIDAsync(g);
+
+            return View(_orderHistoryVM);
         }
 
         [HttpGet]
         public async Task<IActionResult> InsertConfirmedOrder(decimal TotalSum)
         {
             var Order = CreateConfirmedOrder(TotalSum);
-            await _orderService.InsertOrder(Order);
+            await _orderService.InsertOrderAsync(Order);
 
             var OrderID = Order.OrderID;
             var OrderItems = ProductsInConfirmedOrder();
-            await _orderService.InsertOrderItems(OrderItems, OrderID);
+            await _orderService.InsertOrderItemsAsync(OrderItems, OrderID);
 
             Request.Cookies.SingleOrDefault(s => s.Key == "Cart");
             Response.Cookies.Delete("Cart");
@@ -42,7 +48,7 @@ namespace WebbShop.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteSingleOrderHistory(Guid OrderID)
         {
-            await _orderService.DeleteOrder(OrderID);
+            await _orderService.DeleteOrderAsync(OrderID);
             return RedirectToAction("OrderHistory", "Order");
         }
 

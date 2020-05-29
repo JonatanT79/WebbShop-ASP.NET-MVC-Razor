@@ -1,22 +1,33 @@
-﻿@model List<Order>
+﻿@model OrderHistoryViewModel 
 @{
 }
 <center>
     <h1>Orderhistory</h1>
 </center>
 
-@foreach (var item in Model)
-{
-    <li class="list-group">
-        <p>OrderID: @item.OrderID</p>
-        <p>OrderMadeAt: @item.OrderMadeAt</p>
-        <p>TotalSum: @item.TotalSum</p>
-        <p>UserID: @item.UserID</p>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (var item in Model.OrderList)
+        {
+            <li class="list-group">
+                <p><b>OrderID:</b> @item.OrderID</p>
+                <p><b>UserID:</b> @item.UserID</p>
+                <p><b>TotalSum:</b> @item.TotalSum</p>
+                <p><b>OrderMadeAt:</b> @item.OrderMadeAt.ToString("yyyy-MM-dd")</p>
 
-        <form class="form-control" method="post"
-              asp-controller="Order" asp-action="DeleteSingleOrderHistory" asp-route-OrderID="@item.OrderID">
-            <button type="submit" class="btn btn-danger" style="float:right">Remove</button>
-        </form>
-    </li>
-    <p style="border:1px; border-style:solid; border-color:#000000"></p>
-}
+                <form method="post"
+                      asp-controller="Order" asp-action="DeleteSingleOrderHistory" asp-route-OrderID="@item.OrderID">
+                    <button type="submit" class="btn btn-danger" style="float:right">Remove</button>
+                </form>
+            </li>
+            <p style="border:1px; border-style:solid; border-color:#000000"></p>
+        }
+    </div>
+
+    <div class="col-md-6">
+         @foreach (var item in Model.OrderItemsList)
+         {
+             <p>@item.ProductID</p>
+         }
+    </div>
+</div>

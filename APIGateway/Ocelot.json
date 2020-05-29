@@ -81,6 +81,19 @@
     },
 
     {
+      "DownstreamPathTemplate": "/api/order/items/{OrderID}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7000"
+        }
+      ],
+      "UpstreamPathTemplate": "/order/items/{OrderID}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
       "DownstreamPathTemplate": "/api/order/{UserID}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

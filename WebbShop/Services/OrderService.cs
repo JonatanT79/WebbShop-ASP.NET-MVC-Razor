@@ -22,6 +22,14 @@ namespace WebbShop.Services
             return Orders;
         }
 
+        public async Task<List<OrderItems>> GetAllOrderItemsByOrderIDAsync(Guid OrderID)
+        {
+            string ResponseString = await _httpClient.GetStringAsync(BaseAdress + "order/items/" + OrderID);
+            var OrderItems = JsonConvert.DeserializeObject<List<OrderItems>>(ResponseString);
+
+            return OrderItems;
+        }
+
         public async Task<List<Order>> GetAllOrdersByUserIDAsync(string UserID)
         {
             string ResponseString = await _httpClient.GetStringAsync(BaseAdress + "order/" + UserID);

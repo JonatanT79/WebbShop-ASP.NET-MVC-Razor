@@ -20,6 +20,11 @@ namespace Order.API.Repository
             var ListOfOrders = _context.Orders.Where(e => e.UserID == UserID);
             return ListOfOrders.ToList();
         }
+        public List<OrderItems> GetAllOrderItemsByOrderID(Guid OrderID)
+        {
+            var ListOfOrderItems = _context.OrderItems.Where(e => e.OrdersID == OrderID);
+            return ListOfOrderItems.ToList();
+        }
         public Orders GetOrderByOrderID(Guid OrderID)
         {
             var FindOrder = _context.Orders.Where(e => e.OrderID == OrderID);

@@ -24,6 +24,13 @@ namespace Order.API.Controllers
             return Ok(OrdersList);
         }
 
+        [HttpGet("Items/{OrderID}")]
+        public IActionResult GetOrderItems(Guid OrderID)
+        {
+            var OrderItemsList = _orderRepository.GetAllOrderItemsByOrderID(OrderID);
+            return Ok(OrderItemsList);
+        }
+
         [HttpGet("{UserID}")]
         public IActionResult GetAllOrdersByUserID(string UserID)
         {
