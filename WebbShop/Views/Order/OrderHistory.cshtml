@@ -1,4 +1,4 @@
-﻿@model OrderHistoryViewModel 
+﻿@model OrderHistoryViewModel
 @{
 }
 <center>
@@ -17,7 +17,7 @@
 
                 <form method="post"
                       asp-controller="Order" asp-action="DeleteSingleOrderHistory" asp-route-OrderID="@item.OrderID">
-                    <button type="submit" class="btn btn-danger" style="float:right">Remove</button>
+                    <button type="submit" id="Cascade-Deleting" class="btn btn-danger" style="float:right">Remove</button>
                 </form>
             </li>
             <p style="border:1px; border-style:solid; border-color:#000000"></p>
@@ -25,9 +25,10 @@
     </div>
 
     <div class="col-md-6">
-         @foreach (var item in Model.OrderItemsList)
-         {
-             <p>@item.ProductID</p>
-         }
+        @foreach (var item in Model.OrderItemsList)
+        {
+            <p>@item.ProductID</p>
+        }
     </div>
 </div>
+<script src="~/js/OrderCascadeDeleteAlert.js"></script>

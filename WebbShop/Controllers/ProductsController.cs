@@ -32,7 +32,6 @@ namespace WebbShop.Controllers
         }
     }
 }
-//vid delete - Javascript - varning det här kommer även deleta tillhörande produkter (order)
 //radera ondinga saker t.ex shoppingcart service, weatherapi - ta bort orderbyID från repos?
 //OrderhistoryDesign
 //lägg till Update i orderrepository??
