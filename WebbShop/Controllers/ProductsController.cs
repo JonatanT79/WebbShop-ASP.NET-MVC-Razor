@@ -32,7 +32,6 @@ namespace WebbShop.Controllers
         }
     }
 }
-//radera ondinga saker t.ex shoppingcart service, weatherapi - ta bort orderbyID från repos?
 //OrderhistoryDesign
 //lägg till Update i orderrepository??
 //Snygga till kod i productservice till method syntax?
