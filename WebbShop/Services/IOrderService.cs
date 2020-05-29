@@ -8,9 +8,10 @@ namespace WebbShop.Services
 {
     public interface IOrderService
     {
-        Task<List<Order>> GetAllOrders();
-        Task<List<Order>> GetAllOrdersByUserID(string UserID);
-        Task InsertOrder(Order order);
-        Task InsertOrderItems(List<int> OrderItems, Guid OrderID);
+        Task<List<Order>> GetAllOrdersAsync();
+        Task<List<Order>> GetAllOrdersByUserIDAsync(string UserID);
+        Task InsertOrderAsync(Order order);
+        Task InsertOrderItemsAsync(List<int> OrderItems, Guid OrderID);
+        Task DeleteOrderAsync(Guid OrderID);
     }
 }

@@ -32,6 +32,8 @@ namespace WebbShop.Controllers
         }
     }
 }
-//orderservice => delete(fixa - ta bort orderhistory)
-//Byt namn på anync metoder till async i slutet
+//OrderhistoryDesign
 //vid delete - Javascript - varning det här kommer även deleta tillhörande produkter (order)
+//radera ondinga saker t.ex shoppingcart service, weatherapi - ta bort orderbyID från repos?
+//lägg till Update i orderrepository??
+//Snygga till kod i productservice till method syntax?

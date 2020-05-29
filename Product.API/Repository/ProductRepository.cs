@@ -13,7 +13,6 @@ namespace Product.API.Repository
         public List<Products> GetAllProducts()
         {
             var FullProductsList = _context.Products.ToList();
-
             return FullProductsList;
         }
         public Products GetProductByID(int ID)
