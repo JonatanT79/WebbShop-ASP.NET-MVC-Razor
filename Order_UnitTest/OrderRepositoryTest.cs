@@ -24,28 +24,32 @@ namespace Order_UnitTest
         [Fact]
         public void GetAllOrdersByUserID_ShouldReturnList()
         {
-            var FakeID = "TestID";
-            var actual = _repository.GetAllOrdersByUserID(FakeID);
+            var FakeOrder = CreateFakeOrderForTests();
+            var FakeUserID = FakeOrder.UserID;
+            var actual = _repository.GetAllOrdersByUserID(FakeUserID);
 
             Assert.IsType<List<Orders>>(actual);
+            DeleteFakeOrderForTest(FakeOrder.OrderID);
         }
         [Fact]
         public void GetAllOrderItemsByOrderID_ShouldReturnList()
         {
-            var FakeID = Guid.NewGuid();
+            var FakeOrder = CreateFakeOrderForTests();
+            var FakeID = FakeOrder.OrderID;
             var actual = _repository.GetAllOrderItemsByOrderID(FakeID);
 
             Assert.IsType<List<OrderItems>>(actual);
-
+            DeleteFakeOrderForTest(FakeOrder.OrderID);
         }
         [Fact]
         public void GetOrderByOrderID_ShouldReturnOrder()
         {
-            var FakeID = Guid.NewGuid();
-            var expected = _context.Orders.Where(e => e.OrderID == FakeID).SingleOrDefault();
+            var FakeOrder = CreateFakeOrderForTests();
+            var FakeID = FakeOrder.OrderID;
             var actual = _repository.GetOrderByOrderID(FakeID);
 
-            Assert.Equal(expected, actual);
+            Assert.IsType<Orders>(actual);
+            DeleteFakeOrderForTest(FakeOrder.OrderID);
         }
         // fixa *****************************
         [Fact]
@@ -79,6 +83,25 @@ namespace Order_UnitTest
             var actual = _repository.GetAllOrders().Select(e => e.UserID).ToList();
 
             Assert.Equal(expected, actual);
+        }
+        private Orders CreateFakeOrderForTests()
+        {
+            Orders InsertFakeOrder = new Orders()
+            { OrderID = Guid.NewGuid(), OrderMadeAt = DateTime.Now, TotalSum = 15, UserID = "FakeUserID" };
+            _context.Orders.Add(InsertFakeOrder);
+            _context.SaveChanges();
+
+            return InsertFakeOrder;
+        }
+        private void DeleteFakeOrderForTest(Guid ID)
+        {
+            var DeleteProduct = _context.Orders.Where(e => e.OrderID == ID);
+
+            Orders _Orders = new Orders();
+            _Orders = DeleteProduct.Single();
+
+            _context.Orders.Remove(_Orders);
+            _context.SaveChanges();
         }
     }
 }

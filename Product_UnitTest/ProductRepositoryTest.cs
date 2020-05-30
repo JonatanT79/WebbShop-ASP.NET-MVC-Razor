@@ -37,25 +37,17 @@ namespace Product_UnitTest
         public void CreateProduct_ShouldInsertProduct()
         {
             int CountBeforeInsert = _context.Products.Count();
-            Products FakeProduct = new Products() { Name = "Fake", Description = "Fake", Price = 15, InStock = 1, Maker = "FakeMaker"};
+            Products FakeProduct = new Products() { Name = "Fake", Description = "Fake", Price = 15, InStock = 1, Maker = "FakeMaker" };
             _productRepository.CreateProduct(FakeProduct);
             int CountAfterInsert = _context.Products.Count();
-
-            //Delete the Fakeproduct that was inserted
-            var FindFakeProduct = _context.Products.Where(e => e.Name == "Fake");
-            var DeleteProduct = FindFakeProduct.Single();
-            _context.Products.Remove(DeleteProduct);
-            _context.SaveChanges();
+            DeleteFakeProductForTest(FakeProduct.ID);
 
             Assert.Equal((CountBeforeInsert + 1), CountAfterInsert);
         }
         [Fact]
         public void DeleteProduct_ShouldDeleteProduct()
         {
-            Products InsertFakeProduct = new Products()
-            { Name = "FakeInsert", Description = "FakeInsert", Price = 15, InStock = 1, Maker = "FakeMaker"};
-            _productRepository.CreateProduct(InsertFakeProduct);
-
+            var InsertFakeProduct = CreateFakeProductForTests();
             int CountBeforeDelete = _context.Products.Count();
             _productRepository.DeleteProduct(InsertFakeProduct.ID);
             int CountAfterDelete = _context.Products.Count();
@@ -79,9 +71,26 @@ namespace Product_UnitTest
             var GetProductInDB = _context.Products.Where(e => e.ID == InsertFakeProduct.ID);
             var ProductShouldBeUpdated = GetProductInDB.First();
             Assert.NotEqual(InsertFakeProduct, ProductShouldBeUpdated);
+            DeleteFakeProductForTest(InsertFakeProduct.ID);
+        }
+        private Products CreateFakeProductForTests()
+        {
+            Products InsertFakeProduct = new Products()
+            { Name = "FakeInsert", Description = "FakeInsert", Price = 15, InStock = 1, Maker = "FakeMaker" };
+            _context.Products.Add(InsertFakeProduct);
+            _context.SaveChanges();
 
-            //Delete FakeProduct
-            _productRepository.DeleteProduct(InsertFakeProduct.ID);
+            return InsertFakeProduct;
+        }
+        private void DeleteFakeProductForTest(int ID)
+        {
+            var DeleteProduct = _context.Products.Where(e => e.ID == ID);
+
+            Products _products = new Products();
+            _products = DeleteProduct.Single();
+
+            _context.Products.Remove(_products);
+            _context.SaveChanges();
         }
     }
 }
