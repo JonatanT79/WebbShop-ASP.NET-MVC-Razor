@@ -146,6 +146,19 @@
     },
 
     {
+      "DownstreamPathTemplate": "/api/order/update",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7000"
+        }
+      ],
+      "UpstreamPathTemplate": "/order/update",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
       "DownstreamPathTemplate": "/api/order/Delete/{OrderID}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

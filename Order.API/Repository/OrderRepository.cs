@@ -10,6 +10,7 @@ namespace Order.API.Repository
     public class OrderRepository : IOrderRepository
     {
         readonly OrderContext _context = new OrderContext();
+
         public List<Orders> GetAllOrders()
         {
             var ListOfOrders = _context.Orders.ToList();

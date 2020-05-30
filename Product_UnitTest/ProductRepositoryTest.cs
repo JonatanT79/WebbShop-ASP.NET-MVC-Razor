@@ -26,7 +26,7 @@ namespace Product_UnitTest
         }
 
         [Fact]
-        public void GetProductByID_ShouldGetProductID()
+        public void GetProductByID_ShouldGetProductByID()
         {
             int TestID = 2;
             var actual = _productRepository.GetProductByID(TestID);
@@ -78,7 +78,6 @@ namespace Product_UnitTest
             _productRepository.UpdateProduct(UpdateFakeProduct);
             var GetProductInDB = _context.Products.Where(e => e.ID == InsertFakeProduct.ID);
             var ProductShouldBeUpdated = GetProductInDB.First();
-            //samma frutom null
             Assert.NotEqual(InsertFakeProduct, ProductShouldBeUpdated);
 
             //Delete FakeProduct
