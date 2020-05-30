@@ -29,7 +29,7 @@ namespace Order.API.Repository
         public Orders GetOrderByOrderID(Guid OrderID)
         {
             var FindOrder = _context.Orders.Where(e => e.OrderID == OrderID);
-            var GetOrder = FindOrder.Single();
+            var GetOrder = FindOrder.SingleOrDefault();
 
             return GetOrder;
         }
