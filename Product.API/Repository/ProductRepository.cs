@@ -28,10 +28,7 @@ namespace Product.API.Repository
         public void DeleteProduct(int ID)
         {
             var DeleteProduct = _context.Products.Where(e => e.ID == ID);
-
-            Products _products = new Products();
-            _products = DeleteProduct.Single();
-
+            var _products = DeleteProduct.Single();
             _context.Products.Remove(_products);
             _context.SaveChanges();
         }

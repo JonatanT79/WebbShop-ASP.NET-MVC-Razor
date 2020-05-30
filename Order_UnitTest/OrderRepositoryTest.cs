@@ -31,6 +31,7 @@ namespace Order_UnitTest
             Assert.IsType<List<Orders>>(actual);
             DeleteFakeOrderForTest(FakeOrder.OrderID);
         }
+
         [Fact]
         public void GetAllOrderItemsByOrderID_ShouldReturnList()
         {
@@ -41,8 +42,9 @@ namespace Order_UnitTest
             Assert.IsType<List<OrderItems>>(actual);
             DeleteFakeOrderForTest(FakeOrder.OrderID);
         }
+
         [Fact]
-        public void GetOrderByOrderID_ShouldReturnOrder()
+        public void GetOrderByOrderID_ShouldReturnSingleOrder()
         {
             var FakeOrder = CreateFakeOrderForTests();
             var FakeID = FakeOrder.OrderID;
@@ -51,39 +53,45 @@ namespace Order_UnitTest
             Assert.IsType<Orders>(actual);
             DeleteFakeOrderForTest(FakeOrder.OrderID);
         }
-        // fixa *****************************
-        [Fact]
-        public void CreateOrder_ShouldReturnList()
-        {
-            var expected = _context.Orders.Select(e => e.UserID).ToList();
-            var actual = _repository.GetAllOrders().Select(e => e.UserID).ToList();
 
-            Assert.Equal(expected, actual);
-        }
         [Fact]
-        public void InsertOrderItems_ShouldReturnList()
+        public void CreateOrder_ShouldInsertOrderInDB()
         {
-            var expected = _context.Orders.Select(e => e.UserID).ToList();
-            var actual = _repository.GetAllOrders().Select(e => e.UserID).ToList();
+            int CountBeforeInsert = _context.Orders.Count();
+            Orders InsertFakeOrder = new Orders()
+            { OrderID = Guid.NewGuid(), OrderMadeAt = DateTime.Now, TotalSum = 15, UserID = "FakeUserID" };
+            _repository.CreateOrder(InsertFakeOrder);
 
-            Assert.Equal(expected, actual);
+            int CountAfterInsert = _context.Orders.Count();
+            DeleteFakeOrderForTest(InsertFakeOrder.OrderID);
+
+            Assert.Equal(CountBeforeInsert + 1, CountAfterInsert);
         }
+
         [Fact]
-        public void DeleteSingleOrderFromHistory_ShouldReturnList()
+        public void InsertOrderItems_ShouldInsertOrderItemInDB()
         {
-            var expected = _context.Orders.Select(e => e.UserID).ToList();
-            var actual = _repository.GetAllOrders().Select(e => e.UserID).ToList();
+            var FakeOrder = CreateFakeOrderForTests();
+            int CountBeforeInsert = _context.OrderItems.Count();
+            List<int> FakeList = new List<int>() { 15 };
+            _repository.InsertOrderItems(FakeList, FakeOrder.OrderID);
+            int CountAfterInsert = _context.OrderItems.Count();
+            DeleteFakeOrderForTest(FakeOrder.OrderID);
 
-            Assert.Equal(expected, actual);
+            Assert.Equal(CountBeforeInsert + 1, CountAfterInsert);
         }
+
         [Fact]
-        public void UpdateOrder_ShouldReturnList()
+        public void DeleteSingleOrderFromHistory_ShouldDeleteOrderInDB()
         {
-            var expected = _context.Orders.Select(e => e.UserID).ToList();
-            var actual = _repository.GetAllOrders().Select(e => e.UserID).ToList();
+            var InsertFakeOrder = CreateFakeOrderForTests();
+            int CountBeforeDelete = _context.Orders.Count();
+            _repository.DeleteSingleOrderFromHistory(InsertFakeOrder.OrderID);
+            int CountAfterDelete = _context.Orders.Count();
 
-            Assert.Equal(expected, actual);
+            Assert.Equal((CountBeforeDelete - 1), CountAfterDelete);
         }
+
         private Orders CreateFakeOrderForTests()
         {
             Orders InsertFakeOrder = new Orders()
@@ -99,11 +107,8 @@ namespace Order_UnitTest
 
             Orders _Orders = new Orders();
             _Orders = DeleteProduct.Single();
-
             _context.Orders.Remove(_Orders);
             _context.SaveChanges();
         }
     }
 }
-//i product och order repotest => fixa metod som lägger in fake produkt
-//fixa också en metod som raderar fakeprodukt/ordern
