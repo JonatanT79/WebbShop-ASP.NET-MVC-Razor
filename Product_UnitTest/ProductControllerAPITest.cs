@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Product.API;
 using Product.API.Controllers;
 using Product.API.Data;
@@ -6,13 +7,14 @@ using Product.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using Xunit;
 
 namespace Product_UnitTest
 {
-    public class ProductControllerAPITest
+    public class ProductControllerAPITest : IClassFixture<TestFixture<Startup>>
     {
         ProductController _controller = new ProductController();
         ProductContext _context = new ProductContext();
@@ -23,46 +25,107 @@ namespace Product_UnitTest
             Client = fixture.Client;
         }
         [Fact]
-        public void GetProducts_ShouldReturnOk()
+        public async void GetProducts_ShouldReturnOk()
         {
-            var actual = _controller.GetProducts();
-            Assert.IsType<OkObjectResult>(actual);
-        }
-        [Fact]
-        public void GetProducts_ShouldReturnProductList()
-        {
-            var actual = _controller.GetProducts();
-            Assert.IsAssignableFrom<List<Products>>((actual as OkObjectResult).Value);
-        }
+            var request = "api/product";
+            var response = await Client.GetAsync(request);
+            var actual = response.StatusCode;
 
-        [Fact]
-        public void GetProductByID_1_ShouldReturnOk()
-        {
-            var actual = _controller.GetProductByID(1);
-            Assert.IsType<OkObjectResult>(actual);
+            Assert.Equal(HttpStatusCode.OK, actual);
         }
-
         [Fact]
-        public void GetProductByID_0_ShouldReturnNotFound()
+        public async void GetProducts_ShouldReturnProductList()
         {
-            var actual = _controller.GetProductByID(0);
-            Assert.IsType<NotFoundObjectResult>(actual);
+            var request = "api/product";
+            var response = await Client.GetAsync(request);
+            var StringContent = await response.Content.ReadAsStringAsync();
+            var actual = JsonConvert.DeserializeObject<List<Products>>(StringContent);
+            Assert.IsType<List<Products>>(actual);
         }
 
         [Fact]
-        public void InsertNewProduct_ShouldReturnCreate()
+        public async void GetProductByID_1_ShouldReturnOk()
         {
-            Products FakeProduct = new Products() { Name = "Fake", Description = "Fake", Price = 15, InStock = 1, Maker = "FakeMaker"};
-            var actualActionType = _controller.InsertNewProduct(FakeProduct);
+            var request = "/api/product/" + 1;
+            var response = await Client.GetAsync(request);
+            var actual = response.StatusCode;
 
-            var FindFakeProduct = _context.Products.Where(e => e.Name == "Fake");
-            Products RemoveFakeProduct = FindFakeProduct.First();
-            _context.Products.Remove(RemoveFakeProduct);
+            Assert.Equal(HttpStatusCode.OK, actual);
+        }
+
+        [Fact]
+        public async void GetProductByID_0_ShouldReturnNotFound()
+        {
+            var request = "/api/product/" + 0;
+            var response = await Client.GetAsync(request);
+            var actual = response.StatusCode;
+
+            Assert.Equal(HttpStatusCode.NotFound, actual);
+        }
+
+        [Fact]
+        public async void InsertNewProduct_ShouldReturnCreate()
+        {
+            var FakeProduct = new Products()
+            { Name = "FakeInsert", Description = "FakeInsert", Price = 15, InStock = 1, Maker = "FakeMaker" };
+            string JsonString = JsonConvert.SerializeObject(FakeProduct);
+            var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
+
+            var request = "api/product/insert";
+            var response = await Client.PostAsync(request, Content);
+            var ResponseString = await response.Content.ReadAsStringAsync();
+            var DeleteProduct = JsonConvert.DeserializeObject<Products>(ResponseString);
+            var actual = response.StatusCode;
+            DeleteFakeProductForTest(DeleteProduct.ID);
+
+            Assert.Equal(HttpStatusCode.Created, actual);
+        }
+        [Fact]
+        public async void DeleteProduct_IdDoesExists_ShouldReturnOK()
+        {
+            var FakeProduct = CreateFakeProductForTests();
+            var request = "/api/product/delete/" + FakeProduct.ID;
+            var response = await Client.DeleteAsync(request);
+            var actual = response.StatusCode;
+
+            Assert.Equal(HttpStatusCode.OK, actual);
+        }
+        [Fact]
+        public async void UpdateProduct_ShouldReturnOK()
+        {
+            var FakeProduct = CreateFakeProductForTests();
+            var FakeUpdatedProduct = new Products()
+            { ID = FakeProduct.ID, Name = "FakeUpdateInsert", Description = "FakeUpdateInsert", Price = 15, InStock = 1, Maker = "FakeUpdateMaker" };
+
+            var JsonString = JsonConvert.SerializeObject(FakeUpdatedProduct);
+            var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
+
+            var request = "/api/product/update";
+            var response = await Client.PutAsync(request, Content);
+            var actual = response.StatusCode;
+            DeleteFakeProductForTest(FakeProduct.ID);
+
+            Assert.Equal(HttpStatusCode.OK, actual);
+        }
+
+        private Products CreateFakeProductForTests()
+        {
+            Products InsertFakeProduct = new Products()
+            { Name = "FakeInsert", Description = "FakeInsert", Price = 15, InStock = 1, Maker = "FakeMaker" };
+            _context.Products.Add(InsertFakeProduct);
             _context.SaveChanges();
-            // sätt i en separat metod
-            Assert.IsAssignableFrom<Products>((actualActionType as CreatedAtActionResult).Value);
-            Assert.IsType<CreatedAtActionResult>(actualActionType);
+
+            return InsertFakeProduct;
+        }
+        private void DeleteFakeProductForTest(int ID)
+        {
+            var DeleteProduct = _context.Products.Where(e => e.ID == ID);
+
+            Products _products = new Products();
+            _products = DeleteProduct.Single();
+
+            _context.Products.Remove(_products);
+            _context.SaveChanges();
         }
     }
 }
-//använd hemsida testkoden

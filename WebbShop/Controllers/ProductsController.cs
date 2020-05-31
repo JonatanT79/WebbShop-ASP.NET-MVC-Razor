@@ -31,5 +31,3 @@ namespace WebbShop.Controllers
         }
     }
 }
-//fixa t.ex isalingfrom och notfound
-//fixa orderbyorder i orderapi

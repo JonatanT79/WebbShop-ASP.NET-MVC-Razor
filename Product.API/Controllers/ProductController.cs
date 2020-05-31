@@ -62,7 +62,7 @@ namespace Product.API.Controllers
         }
 
         [HttpPut("Update")]
-        public IActionResult Update([FromBody] Products product)
+        public IActionResult UpdateProduct([FromBody] Products product)
         {
             using (TransactionScope scope = new TransactionScope())
             {

@@ -12,7 +12,6 @@ namespace WebbShop.Controllers
     public class OrderController : Controller
     {
         OrderService _orderService = new OrderService();
-        ProductService _productService = new ProductService();
 
         [HttpGet]
         public async Task<IActionResult> OrderHistory()
@@ -21,10 +20,6 @@ namespace WebbShop.Controllers
 
             string UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             _orderHistoryVM.OrderList = await _orderService.GetAllOrdersByUserIDAsync(UserID);
-
-            //test
-            //Guid g = new Guid("2D5CD89B-4E00-40D8-B6B8-E53CBFEB3AA8");
-            //_orderHistoryVM.OrderItemsList = await _orderService.GetAllOrderItemsByOrderIDAsync(g);
 
             return View(_orderHistoryVM);
         }

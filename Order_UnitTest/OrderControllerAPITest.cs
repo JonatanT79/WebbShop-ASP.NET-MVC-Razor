@@ -102,7 +102,7 @@ namespace Order_UnitTest
             Assert.Equal(HttpStatusCode.Created, actual);
         }
         [Fact]
-        public async void DeleteOrder_IdDoesExcists_ShouldReturnOK()
+        public async void DeleteOrder_IdDoesExists_ShouldReturnOK()
         {
             var FakeOrder = CreateFakeOrderForTests();
             var request = "/api/order/delete/" + FakeOrder.OrderID;
