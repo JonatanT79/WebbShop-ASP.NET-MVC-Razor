@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Product.API;
 using Product.API.Controllers;
 using Product.API.Data;
 using Product.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using Xunit;
 
@@ -14,7 +16,12 @@ namespace Product_UnitTest
     {
         ProductController _controller = new ProductController();
         ProductContext _context = new ProductContext();
+        private HttpClient Client;
 
+        public ProductControllerAPITest(TestFixture<Startup> fixture)
+        {
+            Client = fixture.Client;
+        }
         [Fact]
         public void GetProducts_ShouldReturnOk()
         {
