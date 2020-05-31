@@ -68,7 +68,7 @@ namespace Product.API.Controllers
             {
                 _productRepository.UpdateProduct(product);
                 scope.Complete();
-                return new OkResult();
+                return Ok();
             }
         }
     }

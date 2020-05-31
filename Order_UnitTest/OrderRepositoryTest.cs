@@ -27,9 +27,9 @@ namespace Order_UnitTest
             var FakeOrder = CreateFakeOrderForTests();
             var FakeUserID = FakeOrder.UserID;
             var actual = _repository.GetAllOrdersByUserID(FakeUserID);
+            DeleteFakeOrderForTest(FakeOrder.OrderID);
 
             Assert.IsType<List<Orders>>(actual);
-            DeleteFakeOrderForTest(FakeOrder.OrderID);
         }
 
         [Fact]
@@ -38,9 +38,9 @@ namespace Order_UnitTest
             var FakeOrder = CreateFakeOrderForTests();
             var FakeID = FakeOrder.OrderID;
             var actual = _repository.GetAllOrderItemsByOrderID(FakeID);
+            DeleteFakeOrderForTest(FakeOrder.OrderID);
 
             Assert.IsType<List<OrderItems>>(actual);
-            DeleteFakeOrderForTest(FakeOrder.OrderID);
         }
 
         [Fact]
@@ -49,9 +49,9 @@ namespace Order_UnitTest
             var FakeOrder = CreateFakeOrderForTests();
             var FakeID = FakeOrder.OrderID;
             var actual = _repository.GetOrderByOrderID(FakeID);
+            DeleteFakeOrderForTest(FakeOrder.OrderID);
 
             Assert.IsType<Orders>(actual);
-            DeleteFakeOrderForTest(FakeOrder.OrderID);
         }
 
         [Fact]

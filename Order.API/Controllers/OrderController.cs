@@ -88,7 +88,7 @@ namespace Order.API.Controllers
             {
                 _orderRepository.UpdateOrder(order);
                 scope.Complete();
-                return new OkResult();
+                return Ok();
             }
         }
     }
