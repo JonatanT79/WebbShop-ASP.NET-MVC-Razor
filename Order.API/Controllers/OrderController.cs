@@ -38,11 +38,18 @@ namespace Order.API.Controllers
             return Ok(UserOrders);
         }
 
-        [HttpGet("Single/{ID}")]
+        [HttpGet("Single/{OrderID}")]
         public IActionResult GetOrderByOrderID(Guid OrderID)
         {
-            var Order = _orderRepository.GetOrderByOrderID(OrderID);
-            return Ok(Order);
+            if (_context.Orders.Any(a => a.OrderID == OrderID))
+            {
+                var Order = _orderRepository.GetOrderByOrderID(OrderID);
+                return Ok(Order);
+            }
+            else
+            {
+                return NotFound("No order have that ID");
+            }
         }
 
         [HttpPost("InsertOrder")]

@@ -29,17 +29,53 @@ namespace Order_UnitTest
         [Fact]
         public async void GetOrders_ShouldReturnOK()
         {
-            var request = "/api/order";
+            string request = "/api/order";
             var response = await Client.GetAsync(request);
             var actual = response.StatusCode;
             Assert.Equal(HttpStatusCode.OK, actual);
+        }
+        [Fact]
+        public async void GetOrders_ShouldReturnList()
+        {
+            string request = "/api/order";
+            var response = await Client.GetAsync(request);
+
+            string ResponseString = await response.Content.ReadAsStringAsync();
+            var Content = JsonConvert.DeserializeObject<List<Orders>>(ResponseString);
+
+            Assert.IsType<List<Orders>>(Content);
         }
 
         [Fact]
         public async void GetAllOrderItems_ShouldReturnOK()
         {
             var FakeOrder = CreateFakeOrderForTests();
-            var request = "/api/order/items/" + FakeOrder.OrderID;
+            string request = "/api/order/items/" + FakeOrder.OrderID;
+            var response = await Client.GetAsync(request);
+            var actual = response.StatusCode;
+            DeleteFakeOrderForTest(FakeOrder.OrderID);
+
+            Assert.Equal(HttpStatusCode.OK, actual);
+        }
+        [Fact]
+        public async void GetAllOrderItems_ShouldReturnList()
+        {
+            var FakeOrder = CreateFakeOrderForTests();
+            string request = "/api/order/items/" + FakeOrder.OrderID;
+            var response = await Client.GetAsync(request);
+
+            string ResponseString = await response.Content.ReadAsStringAsync();
+            var Content = JsonConvert.DeserializeObject<List<Orders>>(ResponseString);
+            DeleteFakeOrderForTest(FakeOrder.OrderID);
+
+            Assert.IsType<List<Orders>>(Content);
+        }
+
+        [Fact]
+        public async void GetAllOrdersByUserID_ShouldReturnOK()
+        {
+            var FakeOrder = CreateFakeOrderForTests();
+            string request = "/api/order/" + FakeOrder.UserID;
             var response = await Client.GetAsync(request);
             var actual = response.StatusCode;
             DeleteFakeOrderForTest(FakeOrder.OrderID);
@@ -48,10 +84,24 @@ namespace Order_UnitTest
         }
 
         [Fact]
-        public async void GetAllOrdersByUserID_ShouldReturnOK()
+        public async void GetAllOrdersByUserID_ShouldReturnList()
         {
             var FakeOrder = CreateFakeOrderForTests();
-            var request = "/api/order/" + FakeOrder.UserID;
+            string request = "/api/order/" + FakeOrder.UserID;
+            var response = await Client.GetAsync(request);
+
+            string ResponseString = await response.Content.ReadAsStringAsync();
+            var Content = JsonConvert.DeserializeObject<List<Orders>>(ResponseString);
+            DeleteFakeOrderForTest(FakeOrder.OrderID);
+
+            Assert.IsType<List<Orders>>(Content);
+        }
+
+        [Fact]
+        public async void GetOrderByOrderID_IdDoesExists_ShouldReturnOK()
+        {
+            var FakeOrder = CreateFakeOrderForTests();
+            string request = "/api/order/single/" + FakeOrder.OrderID;
             var response = await Client.GetAsync(request);
             var actual = response.StatusCode;
             DeleteFakeOrderForTest(FakeOrder.OrderID);
@@ -59,17 +109,16 @@ namespace Order_UnitTest
             Assert.Equal(HttpStatusCode.OK, actual);
         }
 
-        //[Fact]
-        //public async void GetOrderByOrderID_ShouldReturnOK()
-        //{
-        //    var FakeOrder = CreateFakeOrderForTests();
-        //    var request = "/api/order/single/" + FakeOrder.OrderID;
-        //    var response = await Client.GetAsync(request);
-        //    var actual = response.StatusCode;
-        //    DeleteFakeOrderForTest(FakeOrder.OrderID);
+        [Fact]
+        public async void GetOrderByOrderID_IdDoesNotExists_ShouldReturnNotFound()
+        {
+            Guid FakeGuid = Guid.NewGuid();
+            string request = "/api/order/single/" + FakeGuid;
+            var response = await Client.GetAsync(request);
+            var actual = response.StatusCode;
 
-        //    Assert.Equal(HttpStatusCode.OK, actual);
-        //}
+            Assert.Equal(HttpStatusCode.NotFound, actual);
+        }
 
         [Fact]
         public async void CreateOrder_ShouldReturnCreatedAtAction()
@@ -79,13 +128,14 @@ namespace Order_UnitTest
             var JsonString = JsonConvert.SerializeObject(FakeOrder);
             var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
 
-            var request = "/api/order/insertorder";
+            string request = "/api/order/insertorder";
             var response = await Client.PostAsync(request, Content);
             var actual = response.StatusCode;
             DeleteFakeOrderForTest(FakeOrder.OrderID);
 
             Assert.Equal(HttpStatusCode.Created, actual);
         }
+
         [Fact]
         public async void AddOrderItems_ShouldReturnCreatedAtAction()
         {
@@ -94,7 +144,7 @@ namespace Order_UnitTest
             var JsonString = JsonConvert.SerializeObject(FakeList);
             var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
 
-            var request = "/api/order/insertitems/" + FakeOrder.OrderID;
+            string request = "/api/order/insertitems/" + FakeOrder.OrderID;
             var response = await Client.PostAsync(request, Content);
             var actual = response.StatusCode;
             DeleteFakeOrderForTest(FakeOrder.OrderID);
@@ -105,12 +155,24 @@ namespace Order_UnitTest
         public async void DeleteOrder_IdDoesExists_ShouldReturnOK()
         {
             var FakeOrder = CreateFakeOrderForTests();
-            var request = "/api/order/delete/" + FakeOrder.OrderID;
+            string request = "/api/order/delete/" + FakeOrder.OrderID;
             var response = await Client.DeleteAsync(request);
             var actual = response.StatusCode;
 
             Assert.Equal(HttpStatusCode.OK, actual);
         }
+
+        [Fact]
+        public async void DeleteOrder_IdDoesNotExists_ShouldReturnNotFound()
+        {
+            Guid FakeGuid = Guid.NewGuid();
+            string request = "/api/order/delete/" + FakeGuid;
+            var response = await Client.DeleteAsync(request);
+            var actual = response.StatusCode;
+
+            Assert.Equal(HttpStatusCode.NotFound, actual);
+        }
+
         [Fact]
         public async void UpdateOrder_ShouldReturnOK()
         {
@@ -121,7 +183,7 @@ namespace Order_UnitTest
             var JsonString = JsonConvert.SerializeObject(FakeUpdatedOrder);
             var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
 
-            var request = "/api/order/update";
+            string request = "/api/order/update";
             var response = await Client.PutAsync(request, Content);
             var actual = response.StatusCode;
             DeleteFakeOrderForTest(FakeOrder.OrderID);
@@ -137,22 +199,6 @@ namespace Order_UnitTest
             _context.SaveChanges();
 
             return InsertFakeOrder;
-        }
-        private void CreateFakeOrderItemForTests(Guid FakeOrderID)
-        {
-            OrderItems InsertFakeOrderItem = new OrderItems()
-            { ProductID = 15, Amount = 1, OrdersID = FakeOrderID };
-            _context.OrderItems.Add(InsertFakeOrderItem);
-            _context.SaveChanges();
-        }
-        private void DeleteFakeOrderItemForTest(Guid ID)
-        {
-            var DeleteProduct = _context.OrderItems.Where(e => e.OrdersID == ID);
-
-            OrderItems _OrderItem = new OrderItems();
-            _OrderItem = DeleteProduct.Single();
-            _context.OrderItems.Remove(_OrderItem);
-            _context.SaveChanges();
         }
         private void DeleteFakeOrderForTest(Guid ID)
         {

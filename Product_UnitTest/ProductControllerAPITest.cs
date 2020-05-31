@@ -24,29 +24,32 @@ namespace Product_UnitTest
         {
             Client = fixture.Client;
         }
+
         [Fact]
         public async void GetProducts_ShouldReturnOk()
         {
-            var request = "api/product";
+            string request = "api/product";
             var response = await Client.GetAsync(request);
             var actual = response.StatusCode;
 
             Assert.Equal(HttpStatusCode.OK, actual);
         }
+
         [Fact]
         public async void GetProducts_ShouldReturnProductList()
         {
-            var request = "api/product";
+            string request = "api/product";
             var response = await Client.GetAsync(request);
             var StringContent = await response.Content.ReadAsStringAsync();
             var actual = JsonConvert.DeserializeObject<List<Products>>(StringContent);
+
             Assert.IsType<List<Products>>(actual);
         }
 
         [Fact]
         public async void GetProductByID_1_ShouldReturnOk()
         {
-            var request = "/api/product/" + 1;
+            string request = "/api/product/" + 1;
             var response = await Client.GetAsync(request);
             var actual = response.StatusCode;
 
@@ -54,9 +57,20 @@ namespace Product_UnitTest
         }
 
         [Fact]
+        public async void GetProductByID_1_ShouldReturnProduct()
+        {
+            string request = "/api/product/" + 1;
+            var response = await Client.GetAsync(request);
+            string ResponseString = await response.Content.ReadAsStringAsync();
+            var Product = JsonConvert.DeserializeObject<Products>(ResponseString);
+
+            Assert.IsType<Products>(Product);
+        }
+
+        [Fact]
         public async void GetProductByID_0_ShouldReturnNotFound()
         {
-            var request = "/api/product/" + 0;
+            string request = "/api/product/" + 0;
             var response = await Client.GetAsync(request);
             var actual = response.StatusCode;
 
@@ -71,25 +85,57 @@ namespace Product_UnitTest
             string JsonString = JsonConvert.SerializeObject(FakeProduct);
             var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
 
-            var request = "api/product/insert";
+            string request = "api/product/insert";
             var response = await Client.PostAsync(request, Content);
-            var ResponseString = await response.Content.ReadAsStringAsync();
+
+            string ResponseString = await response.Content.ReadAsStringAsync();
             var DeleteProduct = JsonConvert.DeserializeObject<Products>(ResponseString);
             var actual = response.StatusCode;
+
             DeleteFakeProductForTest(DeleteProduct.ID);
 
             Assert.Equal(HttpStatusCode.Created, actual);
         }
         [Fact]
+        public async void InsertNewProduct_ShouldReturnAProduct()
+        {
+            var FakeProduct = new Products()
+            { Name = "FakeInsert", Description = "FakeInsert", Price = 15, InStock = 1, Maker = "FakeMaker" };
+            string JsonString = JsonConvert.SerializeObject(FakeProduct);
+            var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
+
+            string request = "api/product/insert";
+            var response = await Client.PostAsync(request, Content);
+
+            string ResponseString = await response.Content.ReadAsStringAsync();
+            var actual = JsonConvert.DeserializeObject<Products>(ResponseString);
+
+            DeleteFakeProductForTest(actual.ID);
+
+            Assert.IsType<Products>(actual);
+        }
+
+        [Fact]
         public async void DeleteProduct_IdDoesExists_ShouldReturnOK()
         {
             var FakeProduct = CreateFakeProductForTests();
-            var request = "/api/product/delete/" + FakeProduct.ID;
+            string request = "/api/product/delete/" + FakeProduct.ID;
             var response = await Client.DeleteAsync(request);
             var actual = response.StatusCode;
 
             Assert.Equal(HttpStatusCode.OK, actual);
         }
+
+        [Fact]
+        public async void DeleteProduct_IdDoesNotExists_ShouldReturnNotFound()
+        {
+            string request = "/api/product/delete/" + 0;
+            var response = await Client.DeleteAsync(request);
+            var actual = response.StatusCode;
+
+            Assert.Equal(HttpStatusCode.NotFound, actual);
+        }
+
         [Fact]
         public async void UpdateProduct_ShouldReturnOK()
         {
@@ -100,7 +146,7 @@ namespace Product_UnitTest
             var JsonString = JsonConvert.SerializeObject(FakeUpdatedProduct);
             var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
 
-            var request = "/api/product/update";
+            string request = "/api/product/update";
             var response = await Client.PutAsync(request, Content);
             var actual = response.StatusCode;
             DeleteFakeProductForTest(FakeProduct.ID);
