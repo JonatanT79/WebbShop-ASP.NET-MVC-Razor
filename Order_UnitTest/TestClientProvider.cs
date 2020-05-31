@@ -28,12 +28,9 @@ namespace Order_UnitTest
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))));
             webHostBuilder.UseConfiguration(configuration);
 
-            //Make sure startup is referring to correct dependency
             webHostBuilder.UseStartup<Startup>();
 
-
             Server = new TestServer(webHostBuilder);
-
             Client = Server.CreateClient();
         }
 

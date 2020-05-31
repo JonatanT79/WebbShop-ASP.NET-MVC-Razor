@@ -11,7 +11,9 @@ namespace Order.API.Data
     {
         public DbSet<Orders> Orders { get; set; }
         public DbSet<OrderItems> OrderItems { get; set; }
-
+        //public OrderContext(DbContextOptions<OrderContext> options) : base(options)
+        //{
+        //}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = OrderService; Trusted_Connection = True;");
