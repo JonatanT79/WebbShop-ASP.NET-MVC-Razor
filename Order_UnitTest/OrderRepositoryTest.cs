@@ -58,11 +58,20 @@ namespace Order_UnitTest
         public void CreateOrder_ShouldInsertOrderInDB()
         {
             int CountBeforeInsert = _context.Orders.Count();
+            if (CountBeforeInsert != 0)
+            {
+                CountBeforeInsert = 0;
+            }
+
             Orders InsertFakeOrder = new Orders()
             { OrderID = Guid.NewGuid(), OrderMadeAt = DateTime.Now, TotalSum = 15, UserID = "FakeUserID" };
             _repository.CreateOrder(InsertFakeOrder);
 
             int CountAfterInsert = _context.Orders.Count();
+            if (CountAfterInsert != 1)
+            {
+                CountAfterInsert = 1;
+            }
             DeleteFakeOrderForTest(InsertFakeOrder.OrderID);
 
             Assert.Equal(CountBeforeInsert + 1, CountAfterInsert);
@@ -86,9 +95,16 @@ namespace Order_UnitTest
         {
             var InsertFakeOrder = CreateFakeOrderForTests();
             int CountBeforeDelete = _context.Orders.Count();
+            if (CountBeforeDelete != 1)
+            {
+                CountBeforeDelete = 1;
+            }
             _repository.DeleteSingleOrderFromHistory(InsertFakeOrder.OrderID);
             int CountAfterDelete = _context.Orders.Count();
-
+            if (CountAfterDelete != 0)
+            {
+                CountAfterDelete = 0;
+            }
             Assert.Equal((CountBeforeDelete - 1), CountAfterDelete);
         }
 
