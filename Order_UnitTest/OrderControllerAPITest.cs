@@ -17,7 +17,6 @@ namespace Order_UnitTest
 {
     public class OrderControllerAPITest : IClassFixture<TestFixture<Startup>>
     {
-        OrderRepository _repository = new OrderRepository();
         OrderContext _context = new OrderContext();
         private HttpClient Client;
 

@@ -31,3 +31,5 @@ namespace WebbShop.Controllers
         }
     }
 }
+//redircet to homepage after deleted account
+//lägga till useradress?

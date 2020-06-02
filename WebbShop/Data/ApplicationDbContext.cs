@@ -16,8 +16,6 @@ namespace WebbShop.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-
-            //ändra databasnamnet
             optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = WebShop; Trusted_Connection = True;");
         }
 

@@ -27,7 +27,7 @@ namespace WebbShop.Controllers
             return View(_ViewModel);
         }
 
-        public IActionResult Privacy()
+        public IActionResult AboutUs()
         {
             return View();
         }
