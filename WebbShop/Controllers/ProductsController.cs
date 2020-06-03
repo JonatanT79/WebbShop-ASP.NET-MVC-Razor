@@ -31,8 +31,7 @@ namespace WebbShop.Controllers
         }
     }
 }
-//lägga till useradress med namn - separat tabell i webshop
 //fix delete account:
-//how to get acess to identidy frameworks table (föratt kunna lägga foreign key på adress)
+//delete from orders when account is deleted (create new endpoint(deleteallordersbyuserid))
+//log out function when account is deleted
 //javascript alermessage ok/cancel
-//redircet to homepage after deleted account

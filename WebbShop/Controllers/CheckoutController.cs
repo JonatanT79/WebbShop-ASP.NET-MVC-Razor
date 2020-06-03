@@ -70,9 +70,8 @@ namespace WebbShop.Controllers
             {
                 cookiestring = ID.ToString();
             }
-
-            Response.Cookies.Append("Cart", cookiestring);
-
+            Response.Cookies.Append("Cart", cookiestring, new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddMinutes(60.0) });
+            
             return RedirectToAction("ShoppingCart", "Checkout");
         }
 
@@ -134,8 +133,8 @@ namespace WebbShop.Controllers
             {
                 cookiestring = cookiestring.Remove(Itemindex, ItemIDLenght + 1);
             }
-
-            Response.Cookies.Append("Cart", cookiestring);
+            Response.Cookies.Append("Cart", cookiestring, new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddMinutes(60.0) });
+           
             return RedirectToAction("ShoppingCart", "Checkout");
         }
     }
