@@ -34,4 +34,3 @@ namespace WebbShop.Controllers
 //fix delete account:
 //delete from orders when account is deleted (create new endpoint(deleteallordersbyuserid))
 //log out function when account is deleted
-//javascript alermessage ok/cancel

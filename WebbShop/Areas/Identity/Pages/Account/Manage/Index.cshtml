@@ -21,10 +21,12 @@
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
             <button id="update-profile-button" type="submit" style="float:left" class="btn btn-primary">Save</button>
-            <a class="btn btn-danger" style="float:right" asp-controller="Account" asp-action="DeleteAccount">Delete Account</a>
+            <a id="Confirm-Delete" class="btn btn-danger" style="float:right">Delete Account</a>
         </form>
     </div>
 </div>
+
+<script src="~/js/DeleteAlert.js"></script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
