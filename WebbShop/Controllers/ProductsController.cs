@@ -31,8 +31,8 @@ namespace WebbShop.Controllers
         }
     }
 }
+//lägga till useradress med namn - separat tabell i webshop
 //fix delete account:
 //how to get acess to identidy frameworks table (föratt kunna lägga foreign key på adress)
 //javascript alermessage ok/cancel
 //redircet to homepage after deleted account
-//lägga till useradress med namn - separat tabell i webshop

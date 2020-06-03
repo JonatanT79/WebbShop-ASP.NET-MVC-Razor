@@ -5,6 +5,11 @@
     <UserSecretsId>aspnet-WebbShop-8BFAB6E7-51DE-4F0D-A16F-8868936FD7D6</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200603162252_h.cs" />
+    <Compile Remove="Data\Migrations\20200603162252_h.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.4" />
