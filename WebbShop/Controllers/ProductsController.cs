@@ -31,6 +31,4 @@ namespace WebbShop.Controllers
         }
     }
 }
-//fix delete account:
-//log out function when account is deleted
 //implement insert to useradress ONLY if user chooses "Send to me option"
