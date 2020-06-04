@@ -14,5 +14,6 @@ namespace WebbShop.Services
         Task InsertOrderAsync(Order order);
         Task InsertOrderItemsAsync(List<int> OrderItems, Guid OrderID);
         Task DeleteOrderAsync(Guid OrderID);
+        Task DeleteAllUserOrderAsync(string UserID);
     }
 }

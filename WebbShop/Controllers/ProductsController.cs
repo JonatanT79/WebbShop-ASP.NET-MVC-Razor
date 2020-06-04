@@ -32,5 +32,5 @@ namespace WebbShop.Controllers
     }
 }
 //fix delete account:
-//delete from orders when account is deleted (create new endpoint(deleteallordersbyuserid))
 //log out function when account is deleted
+//implement insert to useradress ONLY if user chooses "Send to me option"

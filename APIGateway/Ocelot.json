@@ -169,6 +169,19 @@
       ],
       "UpstreamPathTemplate": "/order/Delete/{OrderID}",
       "UpstreamHttpMethod": [ "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/order/Delete/ByUserID/{UserID}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7000"
+        }
+      ],
+      "UpstreamPathTemplate": "/order/Delete/ByUserID/{UserID}",
+      "UpstreamHttpMethod": [ "DELETE" ]
     }
   ]
 }

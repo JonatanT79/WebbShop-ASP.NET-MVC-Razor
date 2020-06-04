@@ -56,5 +56,10 @@ namespace WebbShop.Services
         {
             await _httpClient.DeleteAsync(BaseAdress + "order/delete/" + OrderID);
         }
+
+        public async Task DeleteAllUserOrderAsync(string UserID)
+        {
+            await _httpClient.DeleteAsync(BaseAdress + "order/delete/ByUserID/" + UserID);
+        }
     }
 }

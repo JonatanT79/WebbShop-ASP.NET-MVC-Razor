@@ -88,6 +88,13 @@ namespace Order.API.Controllers
             }
         }
 
+        [HttpDelete("Delete/ByUserID/{UserID}")]
+        public IActionResult DeleteAllUserOrders(string UserID)
+        {
+            _orderRepository.DeleteAllUserOrders(UserID);
+            return Ok(_orderRepository.GetAllOrders());
+        }
+
         [HttpPut("Update")]
         public IActionResult UpdateOrder([FromBody] Orders order)
         {

@@ -18,13 +18,14 @@ namespace WebbShop.Controllers
             _context = context;
         }
 
-        public IActionResult DeleteAccount()
+        public async Task<IActionResult> DeleteAccount()
         {
             var UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var account = _context.Users.Where(e => e.Id == UserID).SingleOrDefault();
             _context.Users.Remove(account);
             _context.SaveChanges();
 
+            await _orderService.DeleteAllUserOrderAsync(UserID);
 
             return RedirectToAction("Index", "Home");
         }

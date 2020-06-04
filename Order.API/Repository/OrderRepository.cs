@@ -49,21 +49,33 @@ namespace Order.API.Repository
         }
         public void DeleteSingleOrderFromHistory(Guid OrderID)
         {
-            var GetOrderToDelete =  _context.Orders.Where(e => e.OrderID == OrderID);
+            var GetOrderToDelete = _context.Orders.Where(e => e.OrderID == OrderID);
             var Order = GetOrderToDelete.SingleOrDefault();
             _context.Orders.Remove(Order);
+            _context.SaveChanges();
+        }
+
+        public void DeleteAllUserOrders(string UserID)
+        {
+            var UserOrdersList = _context.Orders.Where(e => e.UserID == UserID).ToList();
+
+            foreach (var item in UserOrdersList)
+            {
+                _context.Orders.Remove(item);
+            }
             _context.SaveChanges();
         }
 
         public void UpdateOrder(Orders order)
         {
             var Getorder = (from e in _context.Orders
-                             where e.OrderID == order.OrderID
-                             select e).SingleOrDefault();
+                            where e.OrderID == order.OrderID
+                            select e).SingleOrDefault();
 
-           Getorder.OrderMadeAt = order.OrderMadeAt;
-           Getorder.TotalSum = order.TotalSum;
-           Getorder.UserID = order.UserID;
+            Getorder.OrderMadeAt = order.OrderMadeAt;
+            Getorder.TotalSum = order.TotalSum;
+            Getorder.UserID = order.UserID;
+            _context.SaveChanges();
         }
     }
 }

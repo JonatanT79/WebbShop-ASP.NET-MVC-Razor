@@ -15,6 +15,7 @@ namespace Order.API.Repository
         void CreateOrder(Orders Order);
         void InsertOrderItems(List<int> Items, Guid OrdersID);
         void DeleteSingleOrderFromHistory(Guid OrderID);
+        void DeleteAllUserOrders(string UserID);
         void UpdateOrder(Orders order);
     }
 }
