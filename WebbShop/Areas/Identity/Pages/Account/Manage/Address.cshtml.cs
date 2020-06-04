@@ -22,11 +22,23 @@ namespace WebbShop.Areas.Identity.Pages.Account.Manage
         public IActionResult OnGet()
         {
             string UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             var Address = _context.UserAddress.Where(e => e.UserID == UserID).SingleOrDefault();
             userAddress = Address;
-            return Page();
 
+            return Page();
+        }
+
+        public IActionResult OnPost(string Address, string City, string PostalCode)
+        {
+            string UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var GetAddress = _context.UserAddress.Where(e => e.UserID == UserID).SingleOrDefault();
+
+            GetAddress.Address = Address;
+            GetAddress.City = City;
+            GetAddress.PostalCode = PostalCode;
+            _context.SaveChanges();
+
+            return RedirectToPage();
         }
     }
 }

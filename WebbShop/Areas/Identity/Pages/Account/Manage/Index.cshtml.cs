@@ -20,7 +20,7 @@ namespace WebbShop.Areas.Identity.Pages.Account.Manage
         public UserAddress userAddress = new UserAddress();
         readonly ApplicationDbContext _context;
 
-        public IndexModel( UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext context)
+        public IndexModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -71,9 +71,16 @@ namespace WebbShop.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string Firstname, string Lastname)
         {
             var user = await _userManager.GetUserAsync(User);
+            string UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var GetAddress = _context.UserAddress.Where(e => e.UserID == UserID).SingleOrDefault();
+
+            GetAddress.FirstName = Firstname;
+            GetAddress.LastName = Lastname;
+            _context.SaveChanges();
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");

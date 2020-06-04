@@ -7,6 +7,14 @@
 
 <h4>@ViewData["Title"]</h4>
 <partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<b>NOTE, Your Name is ONLY used to make sure we send the ordered products to the right person.</b>
+<br />
+<b>Phonenumber is used to contact you if there is any errors or delays on your order.</b>
+<br />
+<b>To delete/change your information, modify the text in the textbox and press 'Save' (leave the textbox empty to delete it completely).</b>
+<br />
+
 <div class="row">
     <div class="col-md-6">
         <form id="profile-form" method="post">
@@ -18,10 +26,11 @@
             </div>
 
             <label>Firstname</label>
-            <input class="form-control" placeholder="@Html.DisplayFor(Info => Model.userAddress.FirstName)" />
+            <input class="form-control" name="Firstname" value="@Html.DisplayFor(Info => Model.userAddress.FirstName)" />
             <br />
             <label>Lastname</label>
-            <input class="form-control" placeholder="@Html.DisplayFor(Info => Model.userAddress.LastName)" />
+            <input class="form-control" name="Lastname" value="@Html.DisplayFor(Info => Model.userAddress.LastName)" />
+            <br />
 
             <div class="form-group">
                 <label asp-for="Input.PhoneNumber"></label>

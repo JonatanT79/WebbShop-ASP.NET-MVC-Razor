@@ -4,22 +4,30 @@
 }
 
 <div class="col-md-6">
+
     <h4>Manage Address</h4>
+    <b>NOTE, Your address information is ONLY used to send your ordered products home to you if you have chosen that shipment type.</b>
+    <br />
+    <b>You can always delete/change your address information when you have recieved your products.</b>
+    <br />
+    <b>To delete/change your address information, modify the text in the textbox and press 'Save' (leave the textbox empty to delete it completely).</b>
+    <br />
+    <br />
 
     <form class="form-group" method="post">
         <label>Address</label>
-        <input class="form-control" placeholder="@Html.DisplayFor(Info => Model.userAddress.Address)" />
+        <input class="form-control" name="Address" value="@Html.DisplayFor(Info => Model.userAddress.Address)" />
         <br />
 
         <label>City</label>
-        <input class="form-control" placeholder="@Html.DisplayFor(Info => Model.userAddress.City)" />
+        <input class="form-control" name="City" value="@Html.DisplayFor(Info => Model.userAddress.City)" />
         <br />
 
         <label>PostalCode</label>
-        <input class="form-control" placeholder="@Html.DisplayFor(Info => Model.userAddress.PostalCode)" />
+        <input class="form-control" name="PostalCode" value="@Html.DisplayFor(Info => Model.userAddress.PostalCode)" />
         <br />
 
-        <button class="btn btn-primary">Save</button>
+        <button class="btn btn-primary" type="submit">Save</button>
     </form>
 
 </div>
