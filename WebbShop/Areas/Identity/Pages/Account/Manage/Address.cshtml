@@ -1,0 +1,25 @@
+﻿@page
+@model WebbShop.Areas.Identity.Pages.Account.Manage.AddressModel
+@{
+}
+
+<div class="col-md-6">
+    <h4>Manage Address</h4>
+
+    <form class="form-group" method="post">
+        <label>Address</label>
+        <input class="form-control" placeholder="@Html.DisplayFor(Info => Model.userAddress.Address)" />
+        <br />
+
+        <label>City</label>
+        <input class="form-control" placeholder="@Html.DisplayFor(Info => Model.userAddress.City)" />
+        <br />
+
+        <label>PostalCode</label>
+        <input class="form-control" placeholder="@Html.DisplayFor(Info => Model.userAddress.PostalCode)" />
+        <br />
+
+        <button class="btn btn-primary">Save</button>
+    </form>
+
+</div>

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebbShop.Data;
+using WebbShop.Models;
 
 namespace WebbShop.Areas.Identity.Pages.Account.Manage
 {
@@ -14,12 +17,14 @@ namespace WebbShop.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+        public UserAddress userAddress = new UserAddress();
+        readonly ApplicationDbContext _context;
+
+        public IndexModel( UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         public string Username { get; set; }
@@ -52,6 +57,10 @@ namespace WebbShop.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
+            string UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var Address = _context.UserAddress.Where(e => e.UserID == UserID).SingleOrDefault();
+            userAddress = Address;
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {

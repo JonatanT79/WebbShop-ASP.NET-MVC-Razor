@@ -11,15 +11,24 @@
     <div class="col-md-6">
         <form id="profile-form" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="Username"></label>
                 <input asp-for="Username" class="form-control" disabled />
             </div>
+
+            <label>Firstname</label>
+            <input class="form-control" placeholder="@Html.DisplayFor(Info => Model.userAddress.FirstName)" />
+            <br />
+            <label>Lastname</label>
+            <input class="form-control" placeholder="@Html.DisplayFor(Info => Model.userAddress.LastName)" />
+
             <div class="form-group">
                 <label asp-for="Input.PhoneNumber"></label>
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
+
             <button id="update-profile-button" type="submit" style="float:left" class="btn btn-primary">Save</button>
             <a id="Confirm-Delete" class="btn btn-danger" style="float:right">Delete Account</a>
         </form>
