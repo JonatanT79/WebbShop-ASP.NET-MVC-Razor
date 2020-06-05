@@ -51,34 +51,37 @@
             <p style="border:1px; border-style:solid; border-color:#000000"></p>
         </center>
 
-        <b>SHIPMENT</b>
-        <p style="border:1px; border-style:solid; border-color:#000000"></p>
-        <div class="form-group">
-            <p><input type="radio" checked name="Shipment" /> BRING IN STORE</p>
-            <p><input type="radio" name="Shipment" /> SEND TO ME</p>
-            <p style="border:1px; border-style:solid; border-color:#000000"></p>
-        </div>
+        <form class="form-group" asp-controller="Order" asp-action="InsertConfirmedOrder" asp-route-TotalSum="@Model.Totalsum" method="post">
 
-        <b>WAY TO PAY</b>
-        <p style="border:1px; border-style:solid; border-color:#000000"></p>
-        <div class="form-group">
-            <p><input type="radio" checked name="Way" value="Pay" /> PAY IN STORE</p>
-            <p><input type="radio" name="Way" value="swish" /> SWISH</p>
+            <b>SHIPMENT</b>
             <p style="border:1px; border-style:solid; border-color:#000000"></p>
-        </div>
+            <div class="form-group">
+                <p><input type="radio" checked name="Shipment" value="InStore" /> BRING IN STORE</p>
+                <p><input type="radio" name="Shipment" value="Send" /> SEND TO ME</p>
+                <p style="border:1px; border-style:solid; border-color:#000000"></p>
+            </div>
 
-        <b>INFORMATION</b>
-        <p style="border:1px; border-style:solid; border-color:#000000"></p>
-        <div class="form-group">
-            <p><b>UserID:</b> @Model.UserID</p>
-            <p><b>Email:</b> @Model.Email</p>
-        </div>
-        <p style="border:1px; border-style:solid; border-color:#000000"></p>
-        <center>
-            <a class="btn btn-success" asp-controller="Order" asp-action="InsertConfirmedOrder" asp-route-TotalSum="@Model.Totalsum">
-                Checkout
-            </a>
-            <a class="btn btn btn-danger" asp-controller="Order" asp-action="ShipmentAddress">Testning</a>
-        </center>
+            <b>WAY TO PAY</b>
+            <p style="border:1px; border-style:solid; border-color:#000000"></p>
+            <div class="form-group">
+                <p><input type="radio" checked name="Way" value="Pay" /> PAY IN STORE</p>
+                <p><input type="radio" name="Way" value="swish" /> SWISH</p>
+                <p style="border:1px; border-style:solid; border-color:#000000"></p>
+            </div>
+
+            <b>INFORMATION</b>
+            <p style="border:1px; border-style:solid; border-color:#000000"></p>
+            <div class="form-group">
+                <p><b>UserID:</b> @Model.UserID</p>
+                <p><b>Email:</b> @Model.Email</p>
+            </div>
+            <p style="border:1px; border-style:solid; border-color:#000000"></p>
+            <center>
+                <button class="btn btn-success" type="submit">
+                    Checkout
+                </button>
+            </center>
+
+        </form>
     </div>
 </div>

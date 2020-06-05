@@ -31,5 +31,8 @@ namespace WebbShop.Controllers
         }
     }
 }
-//skapa tom useraddress när man skapat sitt konto --> annars blir det krasch om just för att det inte finns någon "addressrad" kopplat till kontot
-//man frsöker uppdatera
+//ta bort examples --> visa all personal info som används
+//skydda api(postman)  --> apikey
+// på profilsida --> en sida" som visar all info om användaren
+//cookie policy
+//authorization (efter all G)

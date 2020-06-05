@@ -31,8 +31,8 @@ namespace WebbShop.Controllers
             return View(_orderHistoryVM);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> InsertConfirmedOrder(decimal TotalSum)
+        [HttpPost]
+        public async Task<IActionResult> InsertConfirmedOrder(decimal TotalSum, string Shipment)
         {
             var Order = CreateConfirmedOrder(TotalSum);
             await _orderService.InsertOrderAsync(Order);
@@ -41,6 +41,11 @@ namespace WebbShop.Controllers
             var OrderItems = ProductsInConfirmedOrder();
             await _orderService.InsertOrderItemsAsync(OrderItems, OrderID);
             Response.Cookies.Delete("Cart");
+
+            if (Shipment == "Send")
+            {
+                return RedirectToAction("ShipmentAddress", "Order");
+            }
 
             return RedirectToAction("CompleteOrder", "Order");
         }
