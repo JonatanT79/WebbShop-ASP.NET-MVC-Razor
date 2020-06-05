@@ -84,8 +84,7 @@ namespace WebbShop.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    //null
-                    string UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    string UserID = user.Id;
                     UserAddress userAddress = new UserAddress() { UserID = UserID };
                     _context.UserAddress.Add(userAddress);
                     _context.SaveChanges();
