@@ -31,4 +31,5 @@ namespace WebbShop.Controllers
         }
     }
 }
-//implement insert to useradress ONLY if user chooses "Send to me option"
+//skapa tom useraddress när man skapat sitt konto --> annars blir det krasch om just för att det inte finns någon "addressrad" kopplat till kontot
+//man frsöker uppdatera

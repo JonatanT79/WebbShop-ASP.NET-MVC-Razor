@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebbShop.Data;
 using WebbShop.Models;
 using WebbShop.Services;
 
@@ -12,6 +13,12 @@ namespace WebbShop.Controllers
     public class OrderController : Controller
     {
         OrderService _orderService = new OrderService();
+        readonly ApplicationDbContext _context;
+
+        public OrderController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         [HttpGet]
         public async Task<IActionResult> OrderHistory()
@@ -33,8 +40,6 @@ namespace WebbShop.Controllers
             var OrderID = Order.OrderID;
             var OrderItems = ProductsInConfirmedOrder();
             await _orderService.InsertOrderItemsAsync(OrderItems, OrderID);
-
-            Request.Cookies.SingleOrDefault(s => s.Key == "Cart");
             Response.Cookies.Delete("Cart");
 
             return RedirectToAction("CompleteOrder", "Order");
@@ -48,10 +53,37 @@ namespace WebbShop.Controllers
         }
 
         [HttpGet]
+        public IActionResult ShipmentAddress()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ShipmentAddress(string Firstname, string Lastname, string Address, string City, string PostalCode)
+        {
+            string UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            UserAddress userAddress = new UserAddress()
+            {
+                FirstName = Firstname,
+                LastName = Lastname,
+                Address = Address,
+                City = City,
+                PostalCode = PostalCode,
+                UserID = UserID
+            };
+            _context.UserAddress.Add(userAddress);
+            _context.SaveChanges();
+
+            return RedirectToAction("CompleteOrder", "Order");
+        }
+
+        [HttpGet]
         public IActionResult CompleteOrder()
         {
             return View();
         }
+
 
         public Order CreateConfirmedOrder(decimal TotalSum)
         {
