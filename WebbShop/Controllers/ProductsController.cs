@@ -31,8 +31,7 @@ namespace WebbShop.Controllers
         }
     }
 }
-//ta bort examples --> visa all personal info som används
-//skydda api(postman)  --> apikey
-// på profilsida --> en sida" som visar all info om användaren
-//cookie policy
-//authorization (efter all G)
+// på profilsida --> en sida" som visar all info om användaren (pp)
+//cookie policy (pp)
+//authorization (efter all G) (föreläsning (api key))
+//skydda api(postman)  --> apikey (föreläsning)
