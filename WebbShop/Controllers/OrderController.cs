@@ -74,7 +74,6 @@ namespace WebbShop.Controllers
             GetUserAddress.Address = Address;
             GetUserAddress.City = City;
             GetUserAddress.PostalCode = PostalCode;
-            GetUserAddress.UserID = UserID;
 
             _context.SaveChanges();
 

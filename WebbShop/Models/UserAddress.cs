@@ -23,6 +23,7 @@ namespace WebbShop.Models
         public string City { get; set; }
         [PersonalData]
         public string PostalCode { get; set; }
+        [PersonalData]
         public string UserID { get; set; }
     }
 }

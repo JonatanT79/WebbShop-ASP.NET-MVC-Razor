@@ -31,7 +31,6 @@ namespace WebbShop.Controllers
         }
     }
 }
-// på profilsida --> en sida" som visar all info om användaren (pp)
+//skriv mer text på cookie privacy (utgå från pp)
 //authorization (efter all G) (föreläsning (api key))
 //skydda api(postman)  --> apikey (föreläsning)
-//skriv mer text på cookie privacy (utgå från pp)
