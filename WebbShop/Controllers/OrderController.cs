@@ -67,17 +67,15 @@ namespace WebbShop.Controllers
         public IActionResult ShipmentAddress(string Firstname, string Lastname, string Address, string City, string PostalCode)
         {
             string UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var GetUserAddress = _context.UserAddress.Where(e => e.UserID == UserID).SingleOrDefault();
 
-            UserAddress userAddress = new UserAddress()
-            {
-                FirstName = Firstname,
-                LastName = Lastname,
-                Address = Address,
-                City = City,
-                PostalCode = PostalCode,
-                UserID = UserID
-            };
-            _context.UserAddress.Add(userAddress);
+            GetUserAddress.FirstName = Firstname;
+            GetUserAddress.LastName = Lastname;
+            GetUserAddress.Address = Address;
+            GetUserAddress.City = City;
+            GetUserAddress.PostalCode = PostalCode;
+            GetUserAddress.UserID = UserID;
+
             _context.SaveChanges();
 
             return RedirectToAction("CompleteOrder", "Order");
