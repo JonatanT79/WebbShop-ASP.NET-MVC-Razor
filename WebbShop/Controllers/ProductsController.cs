@@ -31,6 +31,6 @@ namespace WebbShop.Controllers
         }
     }
 }
-//Fixa 'Download' så att den även hämtar orders och address (till user)
 //authorization (efter all G) (föreläsning (api key))
 //skydda api(postman)  --> apikey (föreläsning)
+//skriv en längre text i privacy delen

@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using WebbShop.Data;
+using WebbShop.Models;
 
 namespace WebbShop.Areas.Identity.Pages.Account.Manage
 {
@@ -15,18 +17,20 @@ namespace WebbShop.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<DownloadPersonalDataModel> _logger;
+        readonly ApplicationDbContext _context;
 
-        public DownloadPersonalDataModel(
-            UserManager<IdentityUser> userManager,
-            ILogger<DownloadPersonalDataModel> logger)
+        public DownloadPersonalDataModel(UserManager<IdentityUser> userManager,ILogger<DownloadPersonalDataModel> logger,ApplicationDbContext context)
         {
             _userManager = userManager;
             _logger = logger;
+            _context = context;
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+            var UserAddress = _context.UserAddress.FirstOrDefault(e => e.UserID == user.Id);
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -35,14 +39,22 @@ namespace WebbShop.Areas.Identity.Pages.Account.Manage
             _logger.LogInformation("User with ID '{UserId}' asked for their personal data.", _userManager.GetUserId(User));
 
             // Only include personal data for download
-            //personalData lagrar alla columers värden
             var personalData = new Dictionary<string, string>();
+
             var personalDataProps = typeof(IdentityUser).GetProperties().Where(
                             prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
-            //lägg till i dictionary
+
+            var personalAddress = typeof(UserAddress).GetProperties().Where(
+                            prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
+
             foreach (var p in personalDataProps)
             {
                 personalData.Add(p.Name, p.GetValue(user)?.ToString() ?? "null");
+            }
+
+            foreach (var p in personalAddress)
+            {
+                personalData.Add(p.Name, p.GetValue(UserAddress)?.ToString() ?? "null");
             }
 
             var logins = await _userManager.GetLoginsAsync(user);
@@ -52,7 +64,6 @@ namespace WebbShop.Areas.Identity.Pages.Account.Manage
             }
 
             Response.Headers.Add("Content-Disposition", "attachment; filename=PersonalData.json");
-            //converterar dictionary till jsonstring och returnerar json
             return new FileContentResult(JsonSerializer.SerializeToUtf8Bytes(personalData), "application/json");
         }
     }
