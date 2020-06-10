@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Microsoft.AspNetCore.Mvc;
 using Product.API.Data;
+using Product.API.Filters;
 using Product.API.Models;
 using Product.API.Repository;
 
 namespace Product.API.Controllers
 {
+    [ApiKeyAuth]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase

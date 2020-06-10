@@ -74,7 +74,6 @@ namespace WebbShop.Controllers
             GetUserAddress.Address = Address;
             GetUserAddress.City = City;
             GetUserAddress.PostalCode = PostalCode;
-
             _context.SaveChanges();
 
             return RedirectToAction("CompleteOrder", "Order");
@@ -85,7 +84,6 @@ namespace WebbShop.Controllers
         {
             return View();
         }
-
 
         public Order CreateConfirmedOrder(decimal TotalSum)
         {
