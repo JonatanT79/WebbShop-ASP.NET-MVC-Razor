@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Order.API.Data;
+using Order.API.Filters;
 using Order.API.Models;
 using Order.API.Repository;
 using System;
@@ -10,6 +11,7 @@ using System.Transactions;
 
 namespace Order.API.Controllers
 {
+    [ApiKeyAuth]
     [Route("api/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
