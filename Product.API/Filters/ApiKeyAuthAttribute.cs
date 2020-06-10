@@ -24,7 +24,7 @@ namespace Product.API.Filters
             var config = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
             var ActualApiKey = config.GetValue<string>("ActualApiKey");
 
-            if(!ActualApiKey.Equals(potentialApiKey))
+            if(ActualApiKey != potentialApiKey)
             {
                 context.Result = new UnauthorizedResult();
                 return;
