@@ -28,6 +28,7 @@ namespace Product_UnitTest
         [Fact]
         public async void GetProducts_ShouldReturnOk()
         {
+            Client.DefaultRequestHeaders.Add("ReadApiKey", "SecretProductApiKey");
             string request = "api/product";
             var response = await Client.GetAsync(request);
             var actual = response.StatusCode;

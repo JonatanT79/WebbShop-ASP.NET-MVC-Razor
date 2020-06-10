@@ -31,7 +31,7 @@ namespace WebbShop.Controllers
         }
     }
 }
-// lägg till auth. i webbshop, orderapiController och i unitest(föreläsning)
+// lägg till auth. i webbshop och unitest(föreläsning)
 // skicka med apikey i respektive services (webbprojekt, föreläsning)
 //skriv en längre text i privacy delen
 
