@@ -31,7 +31,4 @@ namespace WebbShop.Controllers
         }
     }
 }
-//testa lägga till apikey i varje testmetod
 //skriv en längre text i privacy delen
-
-//OBS kommentera ut [ApiKeyAuth] i productcontroller för att få sidan att funka
