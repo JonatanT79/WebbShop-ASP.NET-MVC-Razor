@@ -28,6 +28,7 @@ namespace Order_UnitTest
         [Fact]
         public async void GetOrders_ShouldReturnOK()
         {
+            Client.DefaultRequestHeaders.Add("ReadApiKey", "SecretOrderApiKey");
             string request = "/api/order";
             var response = await Client.GetAsync(request);
             var actual = response.StatusCode;

@@ -16,6 +16,7 @@ namespace WebbShop.Services
 
         public async Task<List<Order>> GetAllOrdersAsync()
         {
+            _httpClient.DefaultRequestHeaders.Add("ReadApiKey", "SecretOrderApiKey");
             string ResponseString = await _httpClient.GetStringAsync(BaseAdress + "order");
             var Orders = JsonConvert.DeserializeObject<List<Order>>(ResponseString);
 
@@ -24,6 +25,7 @@ namespace WebbShop.Services
 
         public async Task<List<OrderItems>> GetAllOrderItemsByOrderIDAsync(Guid OrderID)
         {
+            _httpClient.DefaultRequestHeaders.Add("ReadApiKey", "SecretOrderApiKey");
             string ResponseString = await _httpClient.GetStringAsync(BaseAdress + "order/items/" + OrderID);
             var OrderItems = JsonConvert.DeserializeObject<List<OrderItems>>(ResponseString);
 
@@ -32,6 +34,7 @@ namespace WebbShop.Services
 
         public async Task<List<Order>> GetAllOrdersByUserIDAsync(string UserID)
         {
+            _httpClient.DefaultRequestHeaders.Add("ReadApiKey", "SecretOrderApiKey");
             string ResponseString = await _httpClient.GetStringAsync(BaseAdress + "order/" + UserID);
             var AllUserOrders = JsonConvert.DeserializeObject<List<Order>>(ResponseString);
 
@@ -40,6 +43,7 @@ namespace WebbShop.Services
 
         public async Task InsertOrderAsync(Order order)
         {
+            _httpClient.DefaultRequestHeaders.Add("ReadApiKey", "SecretOrderApiKey");
             var JsonString = JsonConvert.SerializeObject(order);
             var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
             await _httpClient.PostAsync(BaseAdress + "order/insertorder", Content);
@@ -47,6 +51,7 @@ namespace WebbShop.Services
 
         public async Task InsertOrderItemsAsync(List<int> OrderItems, Guid OrderID)
         {
+            _httpClient.DefaultRequestHeaders.Add("ReadApiKey", "SecretOrderApiKey");
             var JsonString = JsonConvert.SerializeObject(OrderItems);
             var Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
             await _httpClient.PostAsync(BaseAdress + "order/insertitems/" + OrderID, Content);
@@ -54,11 +59,13 @@ namespace WebbShop.Services
 
         public async Task DeleteOrderAsync(Guid OrderID)
         {
+            _httpClient.DefaultRequestHeaders.Add("ReadApiKey", "SecretOrderApiKey");
             await _httpClient.DeleteAsync(BaseAdress + "order/delete/" + OrderID);
         }
 
         public async Task DeleteAllUserOrderAsync(string UserID)
         {
+            _httpClient.DefaultRequestHeaders.Add("ReadApiKey", "SecretOrderApiKey");
             await _httpClient.DeleteAsync(BaseAdress + "order/delete/ByUserID/" + UserID);
         }
     }

@@ -15,6 +15,7 @@ namespace WebbShop.Services
 
         public async Task<List<Products>> GetAllProductsAsync()
         {
+            _httpClient.DefaultRequestHeaders.Add("ReadApiKey", "SecretProductApiKey");
             string ResponseString = await _httpClient.GetStringAsync(BaseAdress + "product");
             var ProductList = JsonConvert.DeserializeObject<List<Products>>(ResponseString);
 
@@ -23,6 +24,7 @@ namespace WebbShop.Services
 
         public async Task<Products> GetProductByIDAsync(int ID)
         {
+            _httpClient.DefaultRequestHeaders.Add("ReadApiKey", "SecretProductApiKey");
             string ResponseString = await _httpClient.GetStringAsync(BaseAdress + "product/" + ID);
             var Product = JsonConvert.DeserializeObject<Products>(ResponseString);
 
