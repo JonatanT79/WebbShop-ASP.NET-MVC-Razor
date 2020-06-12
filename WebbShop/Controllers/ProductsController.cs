@@ -31,4 +31,3 @@ namespace WebbShop.Controllers
         }
     }
 }
-//skriv en längre text i privacy delen
